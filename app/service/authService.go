@@ -5,25 +5,21 @@ import (
 	"ApiRest/app/repository"
 )
 
-type UserService interface {
-	GetById(id int) (model.User, error)
+type AuthService interface {
+	CreateToken(user model.User) (token string, err error)
 }
 
-type userService struct {
-	userRepo repository.UserRepository
+type authService struct {
+	authRepository repository.AuthRepository
 }
 
-func NewUserService(userRepo repository.UserRepository) UserService {
-	return &userService{
-		userRepo,
+func NewAuthService(authRepository repository.AuthRepository) AuthService {
+	return &authService{
+		authRepository,
 	}
 }
 
-func (s *userService) GetById(id int) (model.User, error) {
-	user, err := s.GetById(id)
-	if err != nil {
-		print(err)
-	}
-
-	return user, err
+func (s *authService) CreateToken(user model.User) (token string, err error) {
+	token, err = s.authRepository.CreateToken(user)
+	return
 }
