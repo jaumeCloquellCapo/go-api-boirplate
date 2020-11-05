@@ -27,33 +27,22 @@ func NewAuthController(authService service.AuthService, userService service.User
 func (h *authController) Login(c *gin.Context) {
 	var userLogin model.UserLogin
 	var err error
-	var user *model.User
+	var user model.User
 
 	if err := c.ShouldBindJSON(&userLogin); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
+		c.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	if user, err = h.userService.GetUserByEmail(userLogin.Email); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	if user == nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
+		c.Writer.WriteHeader(http.StatusNotFound)
 		return
 	}
 
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
-	tokenDetail, err := h.authService.LoginService(*user)
+	tokenDetail, err := h.authService.LoginService(user)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, err.Error())
+		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 

@@ -32,7 +32,6 @@ func main() {
 
 	db, errDb := provider.InitializeDB(cfg)
 	if errDb != nil {
-		log.Fatal("Error InitializeDB")
 		log.Fatal(errDb)
 	}
 	defer db.Close()
@@ -53,7 +52,7 @@ func main() {
 	//router.Use(RequestIDMiddleware())
 
 	router.POST("/login", authController.Login)
-	router.GET("/user/:id", middleware.TokenAuthMiddleware(), userController.GetById)
+	router.GET("/user/:id", middleware.TokenAuthMiddleware(), userController.GetUserById)
 
 	router.Run()
 }

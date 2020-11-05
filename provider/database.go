@@ -13,7 +13,6 @@ func InitializeDB(config config.Config) (db *sql.DB, err error) {
 	cnf := fmt.Sprintf("%s:%s@tcp(%s)/%s", config.Database.Username, config.Database.Password, config.Database.Host, config.Database.Database)
 	db, err = sql.Open("mysql", cnf)
 	if err := db.Ping(); err != nil {
-		log.Println("*****************************************************")
 		log.Fatal(err)
 	}
 	return

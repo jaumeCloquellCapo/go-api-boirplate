@@ -3,11 +3,12 @@ package service
 import (
 	"ApiRest/app/model"
 	"ApiRest/app/repository"
+	"log"
 )
 
 type UserService interface {
-	GetById(id int) (model.User, error)
-	GetUserByEmail(email string) (*model.User, error)
+	GetUserById(id int) (model.User, error)
+	GetUserByEmail(email string) (model.User, error)
 }
 
 type userService struct {
@@ -22,20 +23,20 @@ func NewUserService(userRepo repository.UserRepository) UserService {
 }
 
 //GetById
-func (s *userService) GetById(id int) (model.User, error) {
-	user, err := s.GetById(id)
+func (s *userService) GetUserById(id int) (model.User, error) {
+	user, err := s.userRepo.GetUserById(id)
 	if err != nil {
-		print(err)
+		log.Println(err.Error())
 	}
 
 	return user, err
 }
 
 //GetUserByEmail
-func (s *userService) GetUserByEmail(email string) (*model.User, error) {
+func (s *userService) GetUserByEmail(email string) (model.User, error) {
 	user, err := s.userRepo.GetUserByEmail(email)
 	if err != nil {
-		print(err)
+		log.Println(err.Error())
 	}
 
 	return user, err

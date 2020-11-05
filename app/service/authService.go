@@ -7,7 +7,7 @@ import (
 )
 
 type AuthService interface {
-	LoginService(user model.User) (tokenDetails *model.TokenDetails, err error)
+	LoginService(user model.User) (tokenDetails model.TokenDetails, err error)
 }
 
 type authService struct {
@@ -21,7 +21,7 @@ func NewAuthService(authRepository repository.AuthRepository) AuthService {
 }
 
 //CreateToken ...
-func (m *authService) LoginService(user model.User) (token *model.TokenDetails, err error) {
+func (m *authService) LoginService(user model.User) (token model.TokenDetails, err error) {
 
 	//Compare the password form and database if match
 	//bytePassword := []byte(form.Password)
@@ -33,12 +33,12 @@ func (m *authService) LoginService(user model.User) (token *model.TokenDetails, 
 
 	token, err = m.authRepository.CreateToken(user)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err.Error())
 		return
 	}
 	err = m.authRepository.CreateAuth(user, token)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err.Error())
 		return
 	}
 

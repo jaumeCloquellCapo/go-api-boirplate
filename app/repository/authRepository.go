@@ -16,8 +16,8 @@ type authRepository struct {
 }
 
 type AuthRepository interface {
-	CreateToken(user model.User) (td *model.TokenDetails, err error)
-	CreateAuth(user model.User, td *model.TokenDetails) error
+	CreateToken(user model.User) (td model.TokenDetails, err error)
+	CreateAuth(user model.User, td model.TokenDetails) error
 }
 
 func NewAuthRepository(db *redis.Client) AuthRepository {
@@ -26,7 +26,7 @@ func NewAuthRepository(db *redis.Client) AuthRepository {
 	}
 }
 
-func (a authRepository) CreateToken(user model.User) (td *model.TokenDetails, err error) {
+func (a authRepository) CreateToken(user model.User) (td model.TokenDetails, err error) {
 	td.AtExpires = time.Now().Add(time.Minute * 15).Unix()
 	td.UUID = uuid.NewV4().String()
 
@@ -42,7 +42,7 @@ func (a authRepository) CreateToken(user model.User) (td *model.TokenDetails, er
 }
 
 //CreateAuth ...
-func (a authRepository) CreateAuth(user model.User, token *model.TokenDetails) error {
+func (a authRepository) CreateAuth(user model.User, token model.TokenDetails) error {
 	at := time.Unix(token.AtExpires, 0) //converting Unix to UTC(to Time object)
 	now := time.Now()
 	errAccess := a.db.Set(provider.REDIS_CTX, token.UUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()

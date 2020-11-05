@@ -6,16 +6,14 @@ import (
 	"log"
 )
 
-const userTable = "users"
-
 type userRepository struct {
 	db *sql.DB
 }
 
 //UserRepository
 type UserRepository interface {
-	FindById(id int) (model.User, error)
-	GetUserByEmail(email string) (*model.User, error)
+	GetUserById(id int) (model.User, error)
+	GetUserByEmail(email string) (model.User, error)
 	CreateUser(model.User) error
 }
 
@@ -27,37 +25,58 @@ func NewUserRepository(db *sql.DB) UserRepository {
 }
 
 //FindById
-func (r *userRepository) FindById(id int) (user model.User, err error) {
+func (r *userRepository) GetUserById(id int) (user model.User, err error) {
+	user = model.User{}
+	var query = "SELECT id, email, name, password FROM users WHERE id = ?"
+	row := r.db.QueryRow(query, id)
+	if err != nil {
+		if err != sql.ErrNoRows {
+			log.Println(err)
+		}
+		log.Println("Error", err.Error())
+		return model.User{}, err
+	}
 
-	return
+	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
+		log.Println("Error", err.Error())
+		return model.User{}, err
+	}
+
+	return user, nil
 }
 
 //GetUserByEmail
-func (r *userRepository) GetUserByEmail(email string) (user *model.User, err error) {
-	var query = "SELECT * FROM users WHERE EMAIL = $1 LIMIT 1"
-	row, err := r.db.Query(query, email)
-	defer row.Close()
+func (r *userRepository) GetUserByEmail(email string) (user model.User, err error) {
 
+	user = model.User{}
+	var query = "SELECT id, email, name, password FROM users WHERE email = ?"
+	row := r.db.QueryRow(query, email)
 	if err != nil {
-		log.Fatal("GetUserByEmail", err)
+		if err != sql.ErrNoRows {
+			log.Println(err)
+		}
+
+		return model.User{}, err
 	}
-	if err := row.Scan(&user); err != nil {
-		log.Fatal(err)
+
+	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
+		log.Println("Error", err.Error())
+		return model.User{}, err
 	}
 
 	return user, nil
 }
 
 func (r *userRepository) CreateUser(user model.User) (err error) {
-	var query = "INSERT INTO users (name, password , email) values  ($1, $2, $3)"
+	query := "INSERT INTO users (name, password , email) values  ($1, $2, $3)"
 	result, err := r.db.Exec(query, user.Name, user.Password, user.Email)
 	if err != nil {
-		log.Fatal("GetUserByEmail", err)
+		log.Println(err)
 		return
 	}
 
 	if rowsAffected, err := result.RowsAffected(); err != nil {
-		log.Println("insertado ", rowsAffected)
+		log.Println(rowsAffected)
 	}
 
 	return

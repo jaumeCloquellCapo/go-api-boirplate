@@ -9,7 +9,7 @@ import (
 
 // UserController : interface
 type UserController interface {
-	GetById(c *gin.Context)
+	GetUserById(c *gin.Context)
 }
 
 type userController struct {
@@ -23,17 +23,19 @@ func NewUserController(service service.UserService) UserController {
 }
 
 //GetById
-func (h *userController) GetById(c *gin.Context) {
+func (h *userController) GetUserById(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "")
+		c.Status(http.StatusBadRequest)
+		return
 	}
 
-	_, err = h.service.GetById(id)
+	user, err := h.service.GetUserById(id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, "")
+		c.Status(http.StatusNotFound)
+		return
 	}
-	c.JSON(http.StatusBadRequest, "")
+	c.JSON(http.StatusOK, user)
 	return
 }
