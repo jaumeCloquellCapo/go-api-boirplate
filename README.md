@@ -1,28 +1,9 @@
 # Go API Boilerplate
 
-Easily extendible RESTful API boilerplate aiming to follow idiomatic go and best practice.
+When I want to start to build Go API project, i don't have a good solid base to start and usually I add the library and add another required thing one by one along the time, and then change again if I find another better library or another better way to do thing. So I tried to research architecture, library and software component/layer that I think better suits to be included for solid golang project.
 
-The goal of this boiler is to have a solid and structured foundation to build upon on.
-
-Any feedback and pull requests are welcome and highly appreciated. Feel free to open issues just for comments and discussions.
-
-## Features
-The following feature set is a minimal selection of typical Web API requirements:
-
-- Configuration using [viper](https://github.com/spf13/viper)
-- CLI features using [cobra](https://github.com/spf13/cobra)
-- PostgreSQL support including migrations using [go-pg](https://github.com/go-pg/pg)
-- Structured logging with [Logrus](https://github.com/sirupsen/logrus)
-- Routing with [chi router](https://github.com/go-chi/chi) and middleware
-- JWT Authentication using [jwt-go](https://github.com/dgrijalva/jwt-go) with example passwordless email authentication
-- Request data validation using [ozzo-validation](https://github.com/go-ozzo/ozzo-validation)
-- HTML emails with [gomail](https://github.com/go-gomail/gomail)
-
-## Start Application
-- Clone this repository
-- Create a postgres database and set environment variables for your database accordingly if not using same as default
-- First initialize the database running all migrations found in ./database/migrate at once with command *migrate*: ```go run main.go migrate```
-- Run the application with command *serve*: ```go run main.go serve```
+## Architecture
+This project follows SOLID & Clean architecture
 
 ## API Routes
 
