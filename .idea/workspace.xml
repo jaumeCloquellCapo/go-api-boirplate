@@ -11,22 +11,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-02T071719.404.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-02T071810.404.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T120026.404.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T120042.404.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T120052.404.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T120118.422.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dev.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/AuthController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/auth.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/authRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/authRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/userService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/http.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/production.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/cache.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/provider/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/database.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -282,8 +278,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="HTTP Request.rest-api_1#2" />
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="HTTP Request.rest-api_1#2" />
         <item itemvalue="HTTP Request.scratch#1" />
       </list>
     </recent_temporary>
@@ -330,30 +326,30 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2688" y="250" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604332421313" />
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom" timestamp="1604592081379">
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom" timestamp="1604594142211">
       <screen x="0" y="27" width="1920" height="1009" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604592081379" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142211" />
     <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state width="1874" height="261" key="GridCell.Tab.0.center" timestamp="1604592081379">
+    <state width="1874" height="261" key="GridCell.Tab.0.center" timestamp="1604594142211">
       <screen x="0" y="27" width="1920" height="1009" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604592081379" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142211" />
     <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state width="1874" height="261" key="GridCell.Tab.0.left" timestamp="1604592081379">
+    <state width="1874" height="261" key="GridCell.Tab.0.left" timestamp="1604594142210">
       <screen x="0" y="27" width="1920" height="1009" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604592081379" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142210" />
     <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state width="1874" height="261" key="GridCell.Tab.0.right" timestamp="1604592081379">
+    <state width="1874" height="261" key="GridCell.Tab.0.right" timestamp="1604594142211">
       <screen x="0" y="27" width="1920" height="1009" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604592081379" />
+    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142211" />
     <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state x="651" y="279" width="618" height="522" key="find.popup" timestamp="1604592152354">
+    <state x="651" y="279" width="618" height="522" key="find.popup" timestamp="1604593296236">
       <screen x="0" y="27" width="1920" height="1009" />
     </state>
-    <state x="651" y="279" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604592152354" />
+    <state x="651" y="279" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604593296236" />
     <state x="2571" y="270" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604576245364" />
     <state x="2712" y="290" width="325" height="489" key="refactoring.ChangeSignatureDialog" timestamp="1604337686397">
       <screen x="1920" y="0" width="1920" height="1080" />

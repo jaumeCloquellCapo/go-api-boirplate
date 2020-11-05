@@ -37,7 +37,7 @@ func (a authRepository) CreateToken(user model.User) (td model.TokenDetails, err
 	atClaims["exp"] = td.AtExpires
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
-	td.Token, err = at.SignedString([]byte(os.Getenv("ACCESS_SECRET")))
+	td.Token, err = at.SignedString([]byte(os.Getenv("APP_KEY")))
 	return
 }
 

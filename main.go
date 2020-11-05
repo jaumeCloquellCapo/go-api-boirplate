@@ -5,10 +5,10 @@ import (
 	"ApiRest/app/middleware"
 	"ApiRest/app/repository"
 	"ApiRest/app/service"
-	"ApiRest/config"
 	"ApiRest/provider"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"github.com/twinj/uuid"
 	"log"
 )
@@ -23,20 +23,15 @@ func RequestIDMiddleware() gin.HandlerFunc {
 }
 
 func main() {
-
-	cfg, errCfg := config.Load("dev")
-
-	if errCfg != nil {
-		log.Fatal(errCfg)
+	err := godotenv.Load("dev.env")
+	if err != nil {
+		log.Fatal("Error loading dev.env file")
 	}
 
-	db, errDb := provider.InitializeDB(cfg)
-	if errDb != nil {
-		log.Fatal(errDb)
-	}
+	db := provider.InitializeDB()
 	defer db.Close()
 
-	cache := provider.InitializeCache(cfg)
+	cache := provider.InitializeCache()
 	defer cache.Close()
 
 	userRepo := repository.NewUserRepository(db)
