@@ -4,7 +4,6 @@ services:
 
   db:
     image: mysql
-    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_DATABASE: db
@@ -13,3 +12,9 @@ services:
       MYSQL_PASSWORD: db
     ports:
       - 3306:3306
+
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "6379:6379"

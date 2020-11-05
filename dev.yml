@@ -1,6 +1,7 @@
 # Server configurations
 app:
   env: "development"
+  api_secret : "123456786"
 
 server:
   host: "localhost"
@@ -14,3 +15,9 @@ database:
   DB_DATABASE: db
   DB_USERNAME: db
   DB_PASSWORD: db
+
+redis:
+  REDIS_HOST: localhost
+  REDIS_PORT: 6379
+  REDIS_DATABASE: 0
+  REDIS_PASSWORD:

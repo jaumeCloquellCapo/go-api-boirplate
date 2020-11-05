@@ -7,6 +7,7 @@ import (
 	"strconv"
 )
 
+// UserController : interface
 type UserController interface {
 	GetById(c *gin.Context)
 }
@@ -21,6 +22,7 @@ func NewUserController(service service.UserService) UserController {
 	}
 }
 
+//GetById
 func (h *userController) GetById(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
@@ -35,5 +37,3 @@ func (h *userController) GetById(c *gin.Context) {
 	c.JSON(http.StatusBadRequest, "")
 	return
 }
-
-

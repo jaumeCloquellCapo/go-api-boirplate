@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// AuthController : interface AuthController
 type AuthController interface {
 	Login(c *gin.Context)
 }
@@ -23,27 +24,38 @@ func NewAuthController(authService service.AuthService, userService service.User
 	}
 }
 
-func (h *authController)Login(c *gin.Context) {
-	var u model.User
-	if err := c.ShouldBindJSON(&u); err != nil {
-		c.JSON(http.StatusUnprocessableEntity, err.Error())
-		return
-	}
-	//check if the user exist:
-	user, err := h.userService.GetUserByEmail(u.Email)
-	if err != nil {
-		c.JSON(http.StatusNotFound, err.Error())
+func (h *authController) Login(c *gin.Context) {
+	var userLogin model.UserLogin
+	var err error
+	var user *model.User
+
+	if err := c.ShouldBindJSON(&userLogin); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
 		return
 	}
 
+	if user, err = h.userService.GetUserByEmail(userLogin.Email); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	if user == nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
 
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
-	token, err := h.authService.CreateToken(user)
+	tokenDetail, err := h.authService.LoginService(*user)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	c.JSON(http.StatusOK, token)
+	c.JSON(http.StatusOK, tokenDetail.Token)
 }
-

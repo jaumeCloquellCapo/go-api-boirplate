@@ -8,6 +8,7 @@ require (
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
+	github.com/go-redis/redis/v8 v8.3.3
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/json-iterator/go v1.1.10 // indirect
@@ -20,6 +21,7 @@ require (
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/twinj/uuid v1.0.0
 	github.com/ugorji/go v1.1.13 // indirect
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
@@ -27,7 +29,7 @@ require (
 	golang.org/x/text v0.3.4 // indirect
 	golang.org/x/tools v0.0.0-20201102043006-b53d4cbd60a6 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/dgrijalva/jwt-go.v3 v3.2.0 // indirect
+	gopkg.in/dgrijalva/jwt-go.v3 v3.2.0
 	gopkg.in/ini.v1 v1.62.0 // indirect
 	gopkg.in/yaml.v2 v2.3.0
 	gorm.io/gorm v1.20.5
