@@ -8,19 +8,14 @@ import (
 )
 
 func init() {
-	var serverPort string
-	defaultServerPort := os.Getenv("APP_PORT")
-	serverCmd.PersistentFlags().StringVar(&serverPort, "port", defaultServerPort, "App port")
-
-	//cobra.AddCommand(serverCmd)
+	rootCmd.AddCommand(migrationsCmd)
 }
 
-var serverCmd = &cobra.Command{
+var migrationsCmd = &cobra.Command{
 	Use:   "server",
 	Short: "Run server",
 	Run: func(cmd *cobra.Command, args []string) {
 		dic.InitContainer()
-
 		router := route.Setup()
 		router.Run(":" + os.Getenv("APP_PORT"))
 	},

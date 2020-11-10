@@ -1,11 +1,9 @@
 package main
 
 import (
-	"ApiRest/dic"
-	"ApiRest/route"
+	"ApiRest/cmd"
 	"github.com/joho/godotenv"
 	"log"
-	"os"
 )
 
 func main() {
@@ -13,9 +11,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading dev.env file")
 	}
-	//cmd.Execute()
-	dic.InitContainer()
 
-	router := route.Setup()
-	router.Run(":" + os.Getenv("APP_PORT"))
+	cmd.Execute()
+
 }

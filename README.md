@@ -21,7 +21,9 @@ When I want to start to build Go API project, i don't have a good solid base to 
 * Clean git history with structured commits and useful messages. No merge master commits.
 * Passing go fmt, go lint, or better, go-metalinter in the CI.
 
-## API Routes
+## Commands
+
+go run main.go server
 
 ### Authentication
 For passwordless login following routes are available:
