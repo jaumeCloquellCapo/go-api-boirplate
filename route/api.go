@@ -20,8 +20,11 @@ func Setup() *gin.Engine {
 	ac := dic.Container.Get(dic.AuthController).(controller.AuthControllerInterface)
 	r.POST("/login", ac.Login)
 	r.POST("/logout", ac.Logout)
+	r.POST("/signUp", ac.SignUp)
 
-	authorized := r.Group("/auth", middleware.TokenAuthMiddleware())
+	authMiddleware := dic.Container.Get(dic.AuthMiddleware).(middleware.AuthMiddlewareInterface)
+
+	authorized := r.Group("/auth", authMiddleware.Handler())
 	uc := dic.Container.Get(dic.UserController).(controller.UserControllerInterface)
 	authorized.GET("/users", uc.GetUsers)
 	authorized.GET("/users/:id", uc.GetUserById)

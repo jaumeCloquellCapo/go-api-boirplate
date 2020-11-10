@@ -2,6 +2,7 @@ package dic
 
 import (
 	"ApiRest/app/controller"
+	"ApiRest/app/middleware"
 	"ApiRest/app/repository"
 	"ApiRest/app/service"
 	"ApiRest/provider"
@@ -15,6 +16,9 @@ var Container di.Container
 
 const DbService = "db"
 const CacheService = "cache"
+
+const AuthMiddleware = "middleware.auth"
+
 const UserRepository = "repository.user"
 const UserService = "service.user"
 const UserController = "controller.user"
@@ -58,6 +62,13 @@ func RegisterServices(builder *di.Builder) {
 	})
 
 	builder.Add(di.Def{
+		Name: AuthMiddleware,
+		Build: func(ctn di.Container) (interface{}, error) {
+			return middleware.NewAuthMiddleware(ctn.Get(CacheService).(*redis.Client)), nil
+		},
+	})
+
+	builder.Add(di.Def{
 		Name: UserRepository,
 		Build: func(ctn di.Container) (interface{}, error) {
 			return repository.NewUserRepository(ctn.Get(DbService).(*sql.DB)), nil
@@ -80,7 +91,7 @@ func RegisterServices(builder *di.Builder) {
 	builder.Add(di.Def{
 		Name: AuthService,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return service.NewAuthService(ctn.Get(AuthRepository).(repository.AuthRepositoryInterface)), nil
+			return service.NewAuthService(ctn.Get(AuthRepository).(repository.AuthRepositoryInterface), ctn.Get(UserRepository).(repository.UserRepositoryInterface)), nil
 		},
 	})
 

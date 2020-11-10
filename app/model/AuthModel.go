@@ -2,10 +2,12 @@ package model
 
 //TokenDetails ...
 type TokenDetails struct {
-	Token     string
-	UUID      string
-	AtExpires int64
-	RtExpires int64
+	AccessToken  string
+	RefreshToken string
+	AccessUUID   string
+	RefreshUUID  string
+	AtExpires    int64
+	RtExpires    int64
 }
 
 //AccessDetails ...

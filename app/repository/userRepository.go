@@ -14,8 +14,8 @@ type userRepository struct {
 type UserRepositoryInterface interface {
 	GetUsers() ([]model.User, error)
 	GetUserById(id int) (model.User, error)
-	GetUserByEmail(email string) (model.User, error)
-	CreateUser(model.User) error
+	GetUserByEmail(email string) (user model.User, err error)
+	CreateUser(model.UserSignUp) (user model.User, err error)
 }
 
 //NewUserRepository
@@ -97,17 +97,28 @@ func (r *userRepository) GetUsers() (users []model.User, err error) {
 	return
 }
 
-func (r *userRepository) CreateUser(user model.User) (err error) {
-	query := "INSERT INTO users (name, password , email) values  ($1, $2, $3)"
-	result, err := r.db.Exec(query, user.Name, user.Password, user.Email)
+func (r *userRepository) CreateUser(UserSignUp model.UserSignUp) (user model.User, err error) {
+
+	query := "INSERT INTO users (name, password , email) values  (?, ?, ?)"
+	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email)
 	if err != nil {
-		log.Println(err)
+		if err != sql.ErrNoRows {
+			log.Println(err)
+		}
 		return
 	}
 
-	if rowsAffected, err := result.RowsAffected(); err != nil {
-		log.Println(rowsAffected)
+	id, err := res.LastInsertId()
+	if err != nil {
+		return
 	}
 
-	return
+	user = model.User{
+		ID:       id,
+		Name:     UserSignUp.Name,
+		Password: UserSignUp.Password,
+		Email:    UserSignUp.Email,
+	}
+
+	return user, nil
 }

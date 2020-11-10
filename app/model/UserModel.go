@@ -1,21 +1,21 @@
 package model
 
 type User struct {
-	ID       uint   `json:"id"`
+	ID       int64  `json:"id"`
 	Name     string `json:"name"`
 	Password string `json:"password"`
 	Email    string `json:"email"`
 }
 
 type UserSignUp struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
+	Name     string `form:"name" json:"name" binding:"required,max=100"`
+	Email    string `form:"email" json:"email" binding:"required,email"`
+	Password string `form:"password" json:"password" binding:"required"`
 }
 
 type UserLogin struct {
-	Password string `json:"password"`
-	Email    string `json:"email"`
+	Email    string `form:"email" json:"email" binding:"required,email"`
+	Password string `form:"password" json:"password" binding:"required"`
 }
 
 func (User) TableName() string { return "users" }

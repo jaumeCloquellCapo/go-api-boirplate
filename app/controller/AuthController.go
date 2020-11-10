@@ -11,6 +11,7 @@ import (
 type AuthControllerInterface interface {
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
+	SignUp(c *gin.Context)
 }
 
 type authController struct {
@@ -28,28 +29,43 @@ func NewAuthController(authService service.AuthServiceInterface, userService ser
 func (h *authController) Login(c *gin.Context) {
 	var userLogin model.UserLogin
 	var err error
-	var user model.User
 
 	if err := c.ShouldBindJSON(&userLogin); err != nil {
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
-	if user, err = h.userService.GetUserByEmail(userLogin.Email); err != nil {
-		c.Writer.WriteHeader(http.StatusNotFound)
-		return
-	}
-
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
-	tokenDetail, err := h.authService.LoginService(user)
+	tokenDetail, err := h.authService.LoginService(userLogin)
 	if err != nil {
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	c.JSON(http.StatusOK, tokenDetail.Token)
+	c.JSON(http.StatusOK, tokenDetail)
 }
 
 func (h *authController) Logout(c *gin.Context) {
+
+}
+
+func (h *authController) SignUp(c *gin.Context) {
+
+	var UserSignUp model.UserSignUp
+	var err error
+
+	if err := c.ShouldBindJSON(&UserSignUp); err != nil {
+		c.Writer.WriteHeader(http.StatusNotAcceptable)
+		return
+	}
+
+	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
+	_, tokenDetail, err := h.authService.SignUp(UserSignUp)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	c.JSON(http.StatusOK, tokenDetail)
 
 }
