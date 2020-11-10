@@ -39,7 +39,6 @@ func (uc *userController) GetUserById(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, user)
-	return
 }
 
 func (uc *userController) GetUsers(c *gin.Context) {
@@ -50,5 +49,4 @@ func (uc *userController) GetUsers(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, user)
-	return
 }

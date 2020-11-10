@@ -18,6 +18,7 @@ const DbService = "db"
 const CacheService = "cache"
 
 const AuthMiddleware = "middleware.auth"
+const CorsMiddleware = "middleware.cors"
 
 const UserRepository = "repository.user"
 const UserService = "service.user"
@@ -65,6 +66,13 @@ func RegisterServices(builder *di.Builder) {
 		Name: AuthMiddleware,
 		Build: func(ctn di.Container) (interface{}, error) {
 			return middleware.NewAuthMiddleware(ctn.Get(CacheService).(*redis.Client)), nil
+		},
+	})
+
+	builder.Add(di.Def{
+		Name: CorsMiddleware,
+		Build: func(ctn di.Container) (interface{}, error) {
+			return middleware.NewCorsMiddleware(), nil
 		},
 	})
 

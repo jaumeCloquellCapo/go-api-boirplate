@@ -10,16 +10,17 @@ import (
 
 func Setup() *gin.Engine {
 
-	r := gin.New()
-	r.Use(gin.Recovery())
-
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
-	})
-
 	ac := dic.Container.Get(dic.AuthController).(controller.AuthControllerInterface)
 	uc := dic.Container.Get(dic.UserController).(controller.UserControllerInterface)
 	authMiddleware := dic.Container.Get(dic.AuthMiddleware).(middleware.AuthMiddlewareInterface)
+	corsMiddleware := dic.Container.Get(dic.CorsMiddleware).(middleware.CorsMiddlewareInterface)
+	r := gin.New()
+	//r.Use(limit.Limit(200)) // limit the number of current requests
+	r.Use(gin.Recovery())
+	r.Use(corsMiddleware.Handler())
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "ok")
+	})
 
 	r.POST("/login", ac.Login)
 	r.POST("/logout", ac.Logout)
