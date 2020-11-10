@@ -1,3 +1,162 @@
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+<> 2020-11-10T013026-3.200.json
+
+###
+
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+<> 2020-11-10T013026-2.200.json
+
+###
+
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+<> 2020-11-10T013026-1.200.json
+
+###
+
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+<> 2020-11-10T013026.200.json
+
+###
+
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+<> 2020-11-10T013025.200.json
+
+###
+
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization:
+
+<> 2020-11-10T013024.200.json
+
+###
+
+GET http://localhost:8080/auth/users
+Accept: */*
+Cache-Control: no-cache
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjU4MzM4Nzc5LTRmNGQtNDBhZC1iMzA5LTIzM2JhNjMxNDE5MCIsImV4cCI6MTYwNTAxMjIyMSwidXNlcl9pZCI6MX0.vYKW646vta7WwiP184zqgUQyU7tb8UvlBJ6UWLxk-WI
+
+<> 2020-11-10T013003.200.json
+
+###
+
+GET http://localhost:8080/users
+Accept: */*
+Cache-Control: no-cache
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjU4MzM4Nzc5LTRmNGQtNDBhZC1iMzA5LTIzM2JhNjMxNDE5MCIsImV4cCI6MTYwNTAxMjIyMSwidXNlcl9pZCI6MX0.vYKW646vta7WwiP184zqgUQyU7tb8UvlBJ6UWLxk-WI
+
+<> 2020-11-10T012942.404.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{   "email": "jaumecloquell@gmail.com",   "password": "123" }
+
+<> 2020-11-10T012841.200.json
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{   "email": "jaumecloquell@gmail.com",   "password": "123" }
+
+<> 2020-11-10T012549.200.json
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+###
+
+GET http://localhost:8080/users
+Accept: */*
+Cache-Control: no-cache
+Authorization: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+<> 2020-11-10T010314.200.json
+
+###
+
+GET http://localhost:808º0/users/1
+Accept: */*
+Cache-Control: no-cache
+Authorization: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+###
+
+GET http://localhost:8080/users/1
+Accept: */*
+Cache-Control: no-cache
+Authorization: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+<> 2020-11-10T125144.200.json
+
+###
+
+GET http://localhost:8000/users/1
+Accept: */*
+Cache-Control: no-cache
+Authorization: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+<> 2020-11-10T123601.200.json
+
+###
+
+GET http://localhost:8000/user/1
+Accept: */*
+Cache-Control: no-cache
+Authorization: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+<> 2020-11-10T123549.404.txt
+
+###
+
+GET http://localhost:8080/user/1
+Accept: */*
+Cache-Control: no-cache
+Authorization: 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI
+
+{   "email": "j@gmail.com",   "password": "123" }
+
+###
+
 GET http://localhost:8080/user/1
 Accept: */*
 Cache-Control: no-cache
@@ -275,173 +434,6 @@ POST http://localhost:8080/login
 Content-Type: application/json
 
 {   "email": "j@gmail.com",   "password": "123" }
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-<> 2020-11-05T041209.400.json
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{   "email": "jaumecloquell@gmail.com",   "password": "pwd" }
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{   "email": "jaumecloquell@gmail.com",   "password": "pwd" }
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{   "email": "jaumecloquell@gmail.com",   "password": "pwd" }
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-<> 2020-11-05T124255.200.json
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-<> 2020-11-05T124145.200.json
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
-
-###
-
-POST http://localhost:8080/login
-Content-Type: application/json
-
-{
-  "email": "jaumecloquell@gmail.com",
-  "password": "pwd"
-}
 
 ###
 

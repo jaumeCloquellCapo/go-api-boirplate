@@ -11,17 +11,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/dev.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cmd/server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dic/app.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/route/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T041209.400.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T124145.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-11-05T124255.200.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/AuthController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/UserController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/auth.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/authRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/authRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/userService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev.env" beforeDir="false" afterPath="$PROJECT_DIR$/dev.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/http.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/production.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/ServiceRegistry" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/provider/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/cache.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/provider/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/database.go" afterDir="false" />
     </list>
@@ -45,7 +57,7 @@
     <option name="indexEntireGoPath" value="false" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="dummy://restClient/response61.json" root0="SKIP_INSPECTION" />
+    <setting file="dummy://restClient/response33.json" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProjectId" id="1jjrbnywCP321daJWeWPBlOdcTt" />
   <component name="ProjectViewState">
@@ -79,6 +91,213 @@
   <component name="RestClientSettings">
     <option name="REQUEST_HISTORY">
       <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="auth/users" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="auth/users" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjU4MzM4Nzc5LTRmNGQtNDBhZC1iMzA5LTIzM2JhNjMxNDE5MCIsImV4cCI6MTYwNTAxMjIyMSwidXNlcl9pZCI6MX0.vYKW646vta7WwiP184zqgUQyU7tb8UvlBJ6UWLxk-WI" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="/users" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjU4MzM4Nzc5LTRmNGQtNDBhZC1iMzA5LTIzM2JhNjMxNDE5MCIsImV4cCI6MTYwNTAxMjIyMSwidXNlcl9pZCI6MX0.vYKW646vta7WwiP184zqgUQyU7tb8UvlBJ6UWLxk-WI" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="/login" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{   &quot;email&quot;: &quot;jaumecloquell@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="POST" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="/login" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Content-Type" />
+                <option name="value" value="application/json" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{   &quot;email&quot;: &quot;j@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="/users" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{   &quot;email&quot;: &quot;j@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8080" />
+          <option name="urlPath" value="/users/1" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{   &quot;email&quot;: &quot;j@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8000" />
+          <option name="urlPath" value="/users/1" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{   &quot;email&quot;: &quot;j@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
+        <RestClientRequest>
+          <option name="httpMethod" value="GET" />
+          <option name="urlBase" value="http://localhost:8000" />
+          <option name="urlPath" value="/user/1" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Authorization" />
+                <option name="value" value="1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NfdXVpZCI6IjIzM2YwN2VmLWVmNjItNDUwYS05Mjk5LTZiMGNmYjVlNzBlYiIsImV4cCI6MTYwNDU5MjczNCwidXNlcl9pZCI6MX0.1bmU6uxNrZfj6iMOlAee2rRYUD_H9ggWI1ZvIrTrvgI" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="haveTextToSend" value="true" />
+          <option name="textToSend" value="{   &quot;email&quot;: &quot;j@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
         <RestClientRequest>
           <option name="httpMethod" value="GET" />
           <option name="urlBase" value="http://localhost:8080" />
@@ -174,22 +393,6 @@
           <option name="filesToSend" value="" />
         </RestClientRequest>
         <RestClientRequest>
-          <option name="httpMethod" value="POST" />
-          <option name="urlBase" value="http://localhost:8080" />
-          <option name="urlPath" value="/login" />
-          <option name="headers">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="Content-Type" />
-                <option name="value" value="application/json" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="haveTextToSend" value="true" />
-          <option name="textToSend" value="{   &quot;email&quot;: &quot;j@gmail.com&quot;,   &quot;password&quot;: &quot;123&quot; }" />
-          <option name="filesToSend" value="" />
-        </RestClientRequest>
-        <RestClientRequest>
           <option name="httpMethod" value="GET" />
           <option name="urlBase" value="http://localhost:8080" />
           <option name="urlPath" value="/user/1" />
@@ -260,7 +463,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="HTTP Request.rest-api_1#2">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ApiRest" />
       <working_directory value="$PROJECT_DIR$" />
@@ -326,34 +529,42 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2688" y="250" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604332421313" />
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom" timestamp="1604594142211">
-      <screen x="0" y="27" width="1920" height="1009" />
+    <state x="2651" y="274" width="448" height="521" key="FileChooserDialogImpl" timestamp="1605011352478">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142211" />
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state width="1874" height="261" key="GridCell.Tab.0.center" timestamp="1604594142211">
-      <screen x="0" y="27" width="1920" height="1009" />
+    <state x="2651" y="274" width="448" height="521" key="FileChooserDialogImpl/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605011352478" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom" timestamp="1605008157409">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142211" />
-    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state width="1874" height="261" key="GridCell.Tab.0.left" timestamp="1604594142210">
-      <screen x="0" y="27" width="1920" height="1009" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
+    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605008157409" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center" timestamp="1605008157408">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142210" />
-    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state width="1874" height="261" key="GridCell.Tab.0.right" timestamp="1604594142211">
-      <screen x="0" y="27" width="1920" height="1009" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
+    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605008157408" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left" timestamp="1605008157408">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604594142211" />
-    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604577657247" />
-    <state x="651" y="279" width="618" height="522" key="find.popup" timestamp="1604593296236">
-      <screen x="0" y="27" width="1920" height="1009" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
+    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605008157408" />
+    <state width="1874" height="261" key="GridCell.Tab.0.right" timestamp="1605008157409">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
+    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605008157409" />
+    <state x="2571" y="270" width="618" height="522" key="find.popup" timestamp="1605010782096">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="651" y="279" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604593296236" />
-    <state x="2571" y="270" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604576245364" />
+    <state x="2571" y="270" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605010782096" />
     <state x="2712" y="290" width="325" height="489" key="refactoring.ChangeSignatureDialog" timestamp="1604337686397">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2712" y="290" width="325" height="489" key="refactoring.ChangeSignatureDialog/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604337686397" />
+    <state x="2605" y="445" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1605010849013">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2605" y="445" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605010849013" />
   </component>
 </project>

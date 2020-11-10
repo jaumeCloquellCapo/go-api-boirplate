@@ -30,7 +30,7 @@ func TokenValid(r *http.Request) error {
 
 //VerifyToken ...
 func VerifyToken(r *http.Request) (*jwt.Token, error) {
-	tokenString := ExtractToken(r)
+	tokenString := extractToken(r)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		//Make sure that the token method conform to "SigningMethodHMAC"
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -38,6 +38,7 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 		}
 		return []byte(os.Getenv("APP_KEY")), nil
 	})
+
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +46,7 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 }
 
 //ExtractToken ...
-func ExtractToken(r *http.Request) string {
+func extractToken(r *http.Request) string {
 	bearToken := r.Header.Get("Authorization")
 	//normally Authorization the_token_xxx
 	strArr := strings.Split(bearToken, " ")

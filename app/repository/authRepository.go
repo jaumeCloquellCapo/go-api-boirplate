@@ -12,21 +12,21 @@ import (
 )
 
 type authRepository struct {
-	db *redis.Client
+	redis *redis.Client
 }
 
-type AuthRepository interface {
+type AuthRepositoryInterface interface {
 	CreateToken(user model.User) (td model.TokenDetails, err error)
 	CreateAuth(user model.User, td model.TokenDetails) error
 }
 
-func NewAuthRepository(db *redis.Client) AuthRepository {
+func NewAuthRepository(db *redis.Client) AuthRepositoryInterface {
 	return &authRepository{
 		db,
 	}
 }
 
-func (a authRepository) CreateToken(user model.User) (td model.TokenDetails, err error) {
+func (ar authRepository) CreateToken(user model.User) (td model.TokenDetails, err error) {
 	td.AtExpires = time.Now().Add(time.Minute * 15).Unix()
 	td.UUID = uuid.NewV4().String()
 
@@ -42,15 +42,13 @@ func (a authRepository) CreateToken(user model.User) (td model.TokenDetails, err
 }
 
 //CreateAuth ...
-func (a authRepository) CreateAuth(user model.User, token model.TokenDetails) error {
+func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) error {
 	at := time.Unix(token.AtExpires, 0) //converting Unix to UTC(to Time object)
 	now := time.Now()
-	errAccess := a.db.Set(provider.REDIS_CTX, token.UUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()
+	errAccess := ar.redis.Set(provider.REDIS_CTX, token.UUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()
 	if errAccess != nil {
 		return errAccess
 	}
 
 	return nil
 }
-
-//////////

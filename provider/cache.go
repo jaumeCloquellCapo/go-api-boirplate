@@ -19,5 +19,5 @@ func InitializeCache() (rdb *redis.Client) {
 		Password: os.Getenv("REDIS_PASSWORD"),
 		DB:       db,
 	})
-	return
+	return rdb
 }

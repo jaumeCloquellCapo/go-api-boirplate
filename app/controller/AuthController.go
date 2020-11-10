@@ -8,16 +8,17 @@ import (
 )
 
 // AuthController : interface AuthController
-type AuthController interface {
+type AuthControllerInterface interface {
 	Login(c *gin.Context)
+	Logout(c *gin.Context)
 }
 
 type authController struct {
-	authService service.AuthService
-	userService service.UserService
+	authService service.AuthServiceInterface
+	userService service.UserServiceInterface
 }
 
-func NewAuthController(authService service.AuthService, userService service.UserService) AuthController {
+func NewAuthController(authService service.AuthServiceInterface, userService service.UserServiceInterface) AuthControllerInterface {
 	return &authController{
 		authService,
 		userService,
@@ -47,4 +48,8 @@ func (h *authController) Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, tokenDetail.Token)
+}
+
+func (h *authController) Logout(c *gin.Context) {
+
 }

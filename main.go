@@ -1,16 +1,13 @@
 package main
 
 import (
-	"ApiRest/app/controller"
-	"ApiRest/app/middleware"
-	"ApiRest/app/repository"
-	"ApiRest/app/service"
-	"ApiRest/provider"
-	"github.com/gin-contrib/cors"
+	"ApiRest/dic"
+	"ApiRest/route"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"github.com/twinj/uuid"
 	"log"
+	"os"
 )
 
 // RequestIDMiddleware : create unique uuid to attach to every request
@@ -27,27 +24,9 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading dev.env file")
 	}
+	//cmd.Execute()
+	dic.InitContainer()
 
-	db := provider.InitializeDB()
-	defer db.Close()
-
-	cache := provider.InitializeCache()
-	defer cache.Close()
-
-	userRepo := repository.NewUserRepository(db)
-	userService := service.NewUserService(userRepo)
-	userController := controller.NewUserController(userService)
-
-	authRepo := repository.NewAuthRepository(cache)
-	authService := service.NewAuthService(authRepo)
-	authController := controller.NewAuthController(authService, userService)
-
-	router := gin.Default()
-	router.Use(cors.Default())
-	//router.Use(RequestIDMiddleware())
-
-	router.POST("/login", authController.Login)
-	router.GET("/user/:id", middleware.TokenAuthMiddleware(), userController.GetUserById)
-
-	router.Run()
+	router := route.Setup()
+	router.Run(":" + os.Getenv("APP_PORT"))
 }

@@ -6,15 +6,15 @@ import (
 	"log"
 )
 
-type AuthService interface {
+type AuthServiceInterface interface {
 	LoginService(user model.User) (tokenDetails model.TokenDetails, err error)
 }
 
 type authService struct {
-	authRepository repository.AuthRepository
+	authRepository repository.AuthRepositoryInterface
 }
 
-func NewAuthService(authRepository repository.AuthRepository) AuthService {
+func NewAuthService(authRepository repository.AuthRepositoryInterface) AuthServiceInterface {
 	return &authService{
 		authRepository,
 	}
@@ -44,5 +44,3 @@ func (m *authService) LoginService(user model.User) (token model.TokenDetails, e
 
 	return
 }
-
-

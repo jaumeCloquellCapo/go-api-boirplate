@@ -11,14 +11,15 @@ type userRepository struct {
 }
 
 //UserRepository
-type UserRepository interface {
+type UserRepositoryInterface interface {
+	GetUsers() ([]model.User, error)
 	GetUserById(id int) (model.User, error)
 	GetUserByEmail(email string) (model.User, error)
 	CreateUser(model.User) error
 }
 
 //NewUserRepository
-func NewUserRepository(db *sql.DB) UserRepository {
+func NewUserRepository(db *sql.DB) UserRepositoryInterface {
 	return &userRepository{
 		db,
 	}
@@ -65,6 +66,35 @@ func (r *userRepository) GetUserByEmail(email string) (user model.User, err erro
 	}
 
 	return user, nil
+}
+
+func (r *userRepository) GetUsers() (users []model.User, err error) {
+
+	users = []model.User{}
+	var query = "SELECT id, email, name, password FROM users"
+	rows, err := r.db.Query(query)
+	defer rows.Close()
+
+	if err != nil {
+		if err != sql.ErrNoRows {
+			log.Println(err)
+		}
+		return users, err
+	}
+
+	for rows.Next() {
+		var user = model.User{}
+		err := rows.Scan(&user.ID, &user.Email, &user.Name, &user.Password)
+		if err != nil {
+			log.Fatal(err)
+		}
+		users = append(users, user)
+	}
+	if err := rows.Err(); err != nil {
+		log.Fatal(err)
+	}
+
+	return
 }
 
 func (r *userRepository) CreateUser(user model.User) (err error) {
