@@ -23,10 +23,11 @@ func Setup() *gin.Engine {
 	})
 
 	r.POST("/login", ac.Login)
-	r.POST("/logout", ac.Logout)
+
 	authorized := r.Group("/auth", authMiddleware.Handler())
 	{
 		authorized.POST("/register", ac.SignUp)
+		authorized.POST("/logout", ac.Logout)
 		authorized.GET("/users", uc.GetUsers)
 		authorized.GET("/users/:id", uc.GetUserById)
 	}
