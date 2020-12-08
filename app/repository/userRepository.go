@@ -4,6 +4,7 @@ import (
 	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
 	"database/sql"
+	"fmt"
 	"log"
 )
 
@@ -33,7 +34,7 @@ func (r *userRepository) GetUserById(id int) (user model.User, err error) {
 	row := r.db.QueryRow(query, id)
 	if err != nil {
 		if err != sql.ErrNoRows {
-			return model.User{}, error2.NewErrorNotFound("User not found")
+			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by ID %d", id))
 		}
 		log.Println("Error", err.Error())
 		return model.User{}, err
@@ -55,7 +56,7 @@ func (r *userRepository) GetUserByEmail(email string) (user model.User, err erro
 	row := r.db.QueryRow(query, email)
 	if err != nil {
 		if err != sql.ErrNoRows {
-			return model.User{}, error2.NewErrorNotFound("User not found")
+			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by email %s", email))
 		}
 
 		return model.User{}, err
