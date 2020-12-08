@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	errorNotFound "ApiRest/app/error"
 )
 
 // UserController : interface
@@ -34,8 +35,12 @@ func (uc *userController) GetUserById(c *gin.Context) {
 	}
 
 	user, err := uc.service.GetUserById(id)
-	if err != nil {
+	if err, ok := err.(errorNotFound.IErrorNotFound); ok && err.IsNotFound() {
 		c.Status(http.StatusNotFound)
+	}
+
+	if err != nil {
+		c.Status(http.StatusInternalServerError)
 		return
 	}
 	c.JSON(http.StatusOK, user)
@@ -44,8 +49,9 @@ func (uc *userController) GetUserById(c *gin.Context) {
 func (uc *userController) GetUsers(c *gin.Context) {
 
 	user, err := uc.service.GetUsers()
+
 	if err != nil {
-		c.Status(http.StatusNotFound)
+		c.Status(http.StatusInternalServerError)
 		return
 	}
 	c.JSON(http.StatusOK, user)

@@ -1,6 +1,7 @@
 package repository
 
 import (
+	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
 	"database/sql"
 	"log"
@@ -32,7 +33,7 @@ func (r *userRepository) GetUserById(id int) (user model.User, err error) {
 	row := r.db.QueryRow(query, id)
 	if err != nil {
 		if err != sql.ErrNoRows {
-			log.Println(err)
+			return model.User{}, error2.NewErrorNotFound("User not found")
 		}
 		log.Println("Error", err.Error())
 		return model.User{}, err
@@ -54,7 +55,7 @@ func (r *userRepository) GetUserByEmail(email string) (user model.User, err erro
 	row := r.db.QueryRow(query, email)
 	if err != nil {
 		if err != sql.ErrNoRows {
-			log.Println(err)
+			return model.User{}, error2.NewErrorNotFound("User not found")
 		}
 
 		return model.User{}, err
@@ -69,18 +70,10 @@ func (r *userRepository) GetUserByEmail(email string) (user model.User, err erro
 }
 
 func (r *userRepository) GetUsers() (users []model.User, err error) {
-
 	users = []model.User{}
 	var query = "SELECT id, email, name, password FROM users"
 	rows, err := r.db.Query(query)
 	defer rows.Close()
-
-	if err != nil {
-		if err != sql.ErrNoRows {
-			log.Println(err)
-		}
-		return users, err
-	}
 
 	for rows.Next() {
 		var user = model.User{}
