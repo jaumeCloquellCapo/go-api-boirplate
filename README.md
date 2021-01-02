@@ -4,7 +4,7 @@ When I want to start to build Go API project, i don't have a good solid base to 
 
 ## Objectives
 * [x] Scalable, must be able to run more than one instance.
-* [0] Dockerized, runnable on minikube.
+* Dockerized, runnable on minikube.
 * Unit tested, must be able to run "go test ./..." directly from clone.
 * [x] Integration tested, recommend docker-compose.
 * OpenAPI/Swagger (or similar for gRPC) documented.
