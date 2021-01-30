@@ -139,7 +139,6 @@ func (r *userRepository) Create(UserSignUp model.CreateUser) (user *model.User, 
 	return &model.User{
 		ID:         int(id),
 		Name:       UserSignUp.Name,
-		Password:   UserSignUp.Password,
 		Email:      UserSignUp.Email,
 		LastName:   UserSignUp.LastName,
 		Phone:      UserSignUp.Phone,

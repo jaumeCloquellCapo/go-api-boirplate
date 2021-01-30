@@ -45,7 +45,7 @@ func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetai
 
 	//Compare the password form and database if match
 	bytePassword := []byte(userLogin.Password)
-	byteHashedPassword := []byte(user.Password)
+	byteHashedPassword := []byte(*user.Password)
 
 	err = bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
 	if err != nil {
