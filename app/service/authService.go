@@ -10,8 +10,9 @@ import (
 
 type AuthServiceInterface interface {
 	Login(user model.Credentials) (tokenDetails model.TokenDetails, err error)
-	Logout(userId int) error
+	Logout(accessUUID string) error
 	SignUp(UserSignUp model.CreateUser) (user model.User, tokenDetails model.TokenDetails, err error)
+	GetAuth(AccessUUID string) (int64, error)
 }
 
 type authService struct {
@@ -25,9 +26,13 @@ func NewAuthService(authRepository repository.AuthRepositoryInterface, userServi
 		userService,
 	}
 }
-func (m *authService) Logout(userId int) error {
-
+func (m *authService) Logout(accessUUID string) error {
+	m.authRepository.DeleteAuth(accessUUID)
 	return nil
+}
+
+func (m *authService) GetAuth(accessUUID string) (int64, error){
+	return m.authRepository.GetAuth(accessUUID)
 }
 
 //CreateToken ...

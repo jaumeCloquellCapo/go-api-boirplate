@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"ApiRest/app/middleware"
 	"ApiRest/app/model"
 	"ApiRest/app/service"
 	"github.com/gin-gonic/gin"
@@ -48,9 +49,18 @@ func (h *authController) Login(c *gin.Context) {
 }
 
 func (h *authController) Logout(c *gin.Context) {
-	// extract token
-	// remove redis cache
-	// remove
+
+	tokenAuth, err := middleware.ExtractTokenMetadata(c.Request)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	err = h.authService.Logout(tokenAuth.AccessUUID)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	c.Writer.WriteHeader(http.StatusOK)
 }
@@ -58,7 +68,6 @@ func (h *authController) Logout(c *gin.Context) {
 func (h *authController) SignUp(c *gin.Context) {
 
 	var UserSignUp model.CreateUser
-	var err error
 
 	if err := c.ShouldBindJSON(&UserSignUp); err != nil {
 		c.Writer.WriteHeader(http.StatusNotAcceptable)

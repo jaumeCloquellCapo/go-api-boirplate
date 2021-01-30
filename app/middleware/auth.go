@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"ApiRest/app/model"
-	"ApiRest/app/repository"
+	"ApiRest/app/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/dgrijalva/jwt-go.v3"
@@ -14,16 +14,16 @@ import (
 
 type authMiddleware struct {
 	//cache *provider.DbCache
-	authRepository repository.AuthRepositoryInterface
+	authService service.AuthServiceInterface
 }
 
 type AuthMiddlewareInterface interface {
 	Handler() gin.HandlerFunc
 }
 
-func NewAuthMiddleware(authRepository repository.AuthRepositoryInterface) AuthMiddlewareInterface {
+func NewAuthMiddleware(authService service.AuthServiceInterface) AuthMiddlewareInterface {
 	return &authMiddleware{
-		authRepository,
+		authService,
 	}
 }
 
@@ -43,7 +43,7 @@ func (am authMiddleware) ValidateAuth(c *gin.Context) {
 		return
 	}
 
-	userID, err := am.authRepository.GetAuth(tokenAuth.AccessUUID)
+	userID, err := am.authService.GetAuth(tokenAuth.AccessUUID)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Please login first"})
 		return
