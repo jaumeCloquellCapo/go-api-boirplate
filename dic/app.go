@@ -64,7 +64,7 @@ func RegisterServices(builder *di.Builder) {
 	builder.Add(di.Def{
 		Name: AuthMiddleware,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return middleware.NewAuthMiddleware(ctn.Get(CacheService).(*provider.DbCache)), nil
+			return middleware.NewAuthMiddleware(ctn.Get(AuthRepository).(repository.AuthRepositoryInterface)), nil
 		},
 	})
 

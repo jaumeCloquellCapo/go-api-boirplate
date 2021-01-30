@@ -9,8 +9,9 @@ import (
 )
 
 type AuthServiceInterface interface {
-	LoginService(user model.UserLogin) (tokenDetails model.TokenDetails, err error)
-	SignUp(UserSignUp model.UserSignUp) (user model.User, tokenDetails model.TokenDetails, err error)
+	Login(user model.Credentials) (tokenDetails model.TokenDetails, err error)
+	Logout(userId int) error
+	SignUp(UserSignUp model.CreateUser) (user model.User, tokenDetails model.TokenDetails, err error)
 }
 
 type authService struct {
@@ -24,9 +25,13 @@ func NewAuthService(authRepository repository.AuthRepositoryInterface, userServi
 		userService,
 	}
 }
+func (m *authService) Logout(userId int) error {
+
+	return nil
+}
 
 //CreateToken ...
-func (m *authService) LoginService(userLogin model.UserLogin) (token model.TokenDetails, err error) {
+func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetails, err error) {
 
 	var user model.User
 
@@ -59,7 +64,7 @@ func (m *authService) LoginService(userLogin model.UserLogin) (token model.Token
 }
 
 //signUp ...
-func (m *authService) SignUp(UserSignUp model.UserSignUp) (user model.User, token model.TokenDetails, err error) {
+func (m *authService) SignUp(UserSignUp model.CreateUser) (user model.User, token model.TokenDetails, err error) {
 
 	bytePassword := []byte(UserSignUp.Password)
 

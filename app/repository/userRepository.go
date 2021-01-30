@@ -18,8 +18,9 @@ type UserRepositoryInterface interface {
 	GetUsers() ([]model.User, error)
 	GetUserById(id int) (model.User, error)
 	RemoveUserById(id int) error
+	UpdateUserById(id int, user model.UpdateUser) error
 	GetUserByEmail(email string) (user model.User, err error)
-	CreateUser(model.UserSignUp) (user model.User, err error)
+	CreateUser(model.CreateUser) (user model.User, err error)
 }
 
 //NewUserRepository
@@ -34,16 +35,12 @@ func (r *userRepository) GetUserById(id int) (user model.User, err error) {
 	user = model.User{}
 	var query = "SELECT id, email, name, password FROM users WHERE id = ?"
 	row := r.db.QueryRow(query, id)
-	if err != nil {
-		if err != sql.ErrNoRows {
-			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by ID %d", id))
-		}
-		log.Println("Error", err.Error())
-		return model.User{}, err
-	}
 
 	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
-		log.Println("Error", err.Error())
+		if err == sql.ErrNoRows {
+			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by ID %d", id))
+		}
+
 		return model.User{}, err
 	}
 
@@ -61,25 +58,37 @@ func (r *userRepository) RemoveUserById(id int) error {
 	return err
 }
 
+func (r *userRepository) UpdateUserById(id int, user model.UpdateUser) error {
+	result, err := r.db.Exec("UPDATE users SET name = ?, email = ?,  = ?, last_name = ?, country = ?, phone = ?, postal_code = ? where id = ?", user.Name, user.Email, user.LastName, user.Country, user.Phone, user.PostalCode, id)
+	if err != nil {
+		log.Fatal(err)
+	}
+	rows, err := result.RowsAffected()
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if rows != 1 {
+		return error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by id %s", id))
+	}
+
+	return err
+}
+
 //GetUserByEmail
 func (r *userRepository) GetUserByEmail(email string) (user model.User, err error) {
 
-	user = model.User{}
+	// user = model.User{}
 	var query = "SELECT id, email, name, password FROM users WHERE email = ?"
 	row := r.db.QueryRow(query, email)
-	if err != nil {
+
+	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
 		if err != sql.ErrNoRows {
 			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by email %s", email))
 		}
-
 		return model.User{}, err
 	}
-
-	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
-		log.Println("Error", err.Error())
-		return model.User{}, err
-	}
-
 	return user, nil
 }
 
@@ -104,7 +113,7 @@ func (r *userRepository) GetUsers() (users []model.User, err error) {
 	return
 }
 
-func (r *userRepository) CreateUser(UserSignUp model.UserSignUp) (user model.User, err error) {
+func (r *userRepository) CreateUser(UserSignUp model.CreateUser) (user model.User, err error) {
 
 	query := "INSERT INTO users (name, password , email) values  (?, ?, ?)"
 	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email)
@@ -116,6 +125,7 @@ func (r *userRepository) CreateUser(UserSignUp model.UserSignUp) (user model.Use
 	}
 
 	id, err := res.LastInsertId()
+
 	if err != nil {
 		return
 	}

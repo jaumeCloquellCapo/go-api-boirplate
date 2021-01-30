@@ -28,6 +28,7 @@ func Setup() *gin.Engine {
 
 	// public endpoints
 	r.POST("/login", ac.Login)
+	r.POST("/signup", ac.SignUp)
 	// private endpoints
 	authorized := r.Group("/auth", authMiddleware.Handler())
 	{
@@ -35,11 +36,10 @@ func Setup() *gin.Engine {
 		authorized.POST("/logout", ac.Logout)
 		users := authorized.Group("/users")
 		{
-			//users.GET("", uc.GetUsers)
 			users.GET("/:id", uc.GetUserById)
 			users.DELETE("/:id", uc.RemoveUserById)
-			//users.GET("", uc.GetUsers)
-			users.POST("/signup", ac.SignUp)
+			users.PUT("/:id", uc.UpdateUserById)
+
 		}
 	}
 

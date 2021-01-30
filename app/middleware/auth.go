@@ -2,11 +2,10 @@ package middleware
 
 import (
 	"ApiRest/app/model"
-	"ApiRest/provider"
+	"ApiRest/app/repository"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"gopkg.in/dgrijalva/jwt-go.v3"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -14,60 +13,48 @@ import (
 )
 
 type authMiddleware struct {
-	cache *provider.DbCache
+	//cache *provider.DbCache
+	authRepository repository.AuthRepositoryInterface
 }
 
 type AuthMiddlewareInterface interface {
 	Handler() gin.HandlerFunc
 }
 
-func NewAuthMiddleware(cache *provider.DbCache) AuthMiddlewareInterface {
+func NewAuthMiddleware(authRepository repository.AuthRepositoryInterface) AuthMiddlewareInterface {
 	return &authMiddleware{
-		cache,
+		authRepository,
 	}
 }
 
 func (am authMiddleware) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		am.TokenValid(c)
+		am.ValidateAuth(c)
 		c.Next()
 	}
 }
 
-func (am authMiddleware) TokenValid(c *gin.Context) {
+func (am authMiddleware) ValidateAuth(c *gin.Context) {
 
-	tokenAuth, err := am.ExtractTokenMetadata(c.Request)
+	tokenAuth, err := ExtractTokenMetadata(c.Request)
+
 	if err != nil {
-		log.Print(err.Error())
-		//Token either expired or not valid
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Please login first"})
 		return
 	}
 
-	userID, err := am.FetchAuth(tokenAuth)
+	userID, err := am.authRepository.GetAuth(tokenAuth.AccessUUID)
 	if err != nil {
-		//Token does not exists in Redis (User logged out or expired)
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Please login first"})
 		return
 	}
 
-	//To be called from GetUserID()
 	c.Set("userID", userID)
 }
 
-//FetchAuth ...
-func (am authMiddleware) FetchAuth(authD *model.AccessDetails) (int64, error) {
-	userid, err := am.cache.Get(provider.REDIS_CTX, authD.AccessUUID).Result()
-	if err != nil {
-		return 0, err
-	}
-	userID, _ := strconv.ParseInt(userid, 10, 64)
-	return userID, nil
-}
-
 //VerifyToken ...
-func (am authMiddleware) VerifyToken(r *http.Request) (*jwt.Token, error) {
-	tokenString := am.extractToken(r)
+func VerifyToken(r *http.Request) (*jwt.Token, error) {
+	tokenString := extractToken(r)
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		//Make sure that the token method conform to "SigningMethodHMAC"
@@ -77,12 +64,11 @@ func (am authMiddleware) VerifyToken(r *http.Request) (*jwt.Token, error) {
 		return []byte(os.Getenv("ACCESS_SECRET")), nil
 	})
 
-
 	return token, err
 }
 
 //ExtractToken ...
-func (am authMiddleware) extractToken(r *http.Request) string {
+func extractToken(r *http.Request) string {
 	bearToken := r.Header.Get("Authorization")
 	//normally Authorization the_token_xxx
 	strArr := strings.Split(bearToken, " ")
@@ -92,8 +78,8 @@ func (am authMiddleware) extractToken(r *http.Request) string {
 	return ""
 }
 
-func (am authMiddleware) ExtractTokenMetadata(r *http.Request) (AccessDetails *model.AccessDetails, err error) {
-	token, err := am.VerifyToken(r)
+func ExtractTokenMetadata(r *http.Request) (AccessDetails *model.AccessDetails, err error) {
+	token, err := VerifyToken(r)
 	if err != nil {
 		return nil, err
 	}

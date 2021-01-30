@@ -28,7 +28,8 @@ func NewAuthController(authService service.AuthServiceInterface, userService ser
 
 func (h *authController) Login(c *gin.Context) {
 
-	var userLogin model.UserLogin
+	var userLogin model.Credentials
+
 	var err error
 
 	if err := c.ShouldBindJSON(&userLogin); err != nil {
@@ -37,7 +38,7 @@ func (h *authController) Login(c *gin.Context) {
 	}
 
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
-	tokenDetail, err := h.authService.LoginService(userLogin)
+	tokenDetail, err := h.authService.Login(userLogin)
 	if err != nil {
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
@@ -47,12 +48,16 @@ func (h *authController) Login(c *gin.Context) {
 }
 
 func (h *authController) Logout(c *gin.Context) {
+	// extract token
+	// remove redis cache
+	// remove
 
+	c.Writer.WriteHeader(http.StatusOK)
 }
 
 func (h *authController) SignUp(c *gin.Context) {
 
-	var UserSignUp model.UserSignUp
+	var UserSignUp model.CreateUser
 	var err error
 
 	if err := c.ShouldBindJSON(&UserSignUp); err != nil {
@@ -67,6 +72,6 @@ func (h *authController) SignUp(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, tokenDetail)
+	c.JSON(http.StatusCreated, tokenDetail)
 
 }
