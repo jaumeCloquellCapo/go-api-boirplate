@@ -4,7 +4,6 @@ import (
 	"ApiRest/app/model"
 	"ApiRest/app/repository"
 	"ApiRest/helpers"
-	"golang.org/x/crypto/bcrypt"
 	"log"
 )
 
@@ -43,12 +42,14 @@ func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetai
 		return token, err
 	}
 
-	//Compare the password form and database if match
-	bytePassword := []byte(userLogin.Password)
-	byteHashedPassword := []byte(*user.Password)
+	ok := helpers.ComparePasswords(userLogin.Password, *user.Password)
 
-	err = bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
-	if err != nil {
+	//Compare the password form and database if match
+	//bytePassword := []byte(userLogin.Password)
+	//byteHashedPassword := []byte(*user.Password)
+
+	//err = bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)
+	if !ok {
 		return token, err
 	}
 

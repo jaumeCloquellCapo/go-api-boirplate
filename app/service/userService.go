@@ -3,6 +3,7 @@ package service
 import (
 	"ApiRest/app/model"
 	"ApiRest/app/repository"
+	"ApiRest/helpers"
 )
 
 type UserServiceInterface interface {
@@ -34,6 +35,12 @@ func (s *userService) RemoveById(id int) error {
 }
 
 func (s *userService) UpdateById(id int, user model.UpdateUser) error {
+	bytePassword := []byte(user.Password)
+	var err error
+	user.Password, err = helpers.HashAndSalt(bytePassword)
+	if err != nil {
+		return err
+	}
 	return s.userRepo.UpdateById(id, user)
 }
 
