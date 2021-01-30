@@ -27,6 +27,7 @@ func NewAuthController(authService service.AuthServiceInterface, userService ser
 }
 
 func (h *authController) Login(c *gin.Context) {
+
 	var userLogin model.UserLogin
 	var err error
 

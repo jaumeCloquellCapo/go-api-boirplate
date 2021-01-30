@@ -9,6 +9,7 @@ type IErrorNotFound interface {
 	error
 	IsNotFound() bool
 }
+
 func NewErrorNotFound(msg string) error {
 	return &ErrorNotFound{msg}
 }

@@ -10,14 +10,18 @@ import (
 
 var REDIS_CTX = context.Background()
 
+type DbCache struct {
+	*redis.Client
+}
+
 //InitializeCache
-func InitializeCache() (rdb *redis.Client) {
+func InitializeCache() *DbCache {
 	db, _ := strconv.Atoi(os.Getenv("REDIS_DATABASE"))
-	rdb = redis.NewClient(&redis.Options{
+	rdb := redis.NewClient(&redis.Options{
 		Network:  "tcp",
 		Addr:     fmt.Sprintf(os.Getenv("REDIS_HOST") + ":" + os.Getenv("REDIS_PORT")),
 		Password: os.Getenv("REDIS_PASSWORD"),
 		DB:       db,
 	})
-	return rdb
+	return &DbCache{rdb}
 }

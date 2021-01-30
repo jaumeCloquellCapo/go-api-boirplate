@@ -3,13 +3,14 @@ package repository
 import (
 	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
+	"ApiRest/provider"
 	"database/sql"
 	"fmt"
 	"log"
 )
 
 type userRepository struct {
-	db *sql.DB
+	db *provider.DbStore
 }
 
 //UserRepository
@@ -21,7 +22,7 @@ type UserRepositoryInterface interface {
 }
 
 //NewUserRepository
-func NewUserRepository(db *sql.DB) UserRepositoryInterface {
+func NewUserRepository(db *provider.DbStore) UserRepositoryInterface {
 	return &userRepository{
 		db,
 	}

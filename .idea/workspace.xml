@@ -11,8 +11,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cmd/migration.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/migrator.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/AuthController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/error/ErrorNotFound.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/error/ErrorNotFound.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/AuthModel.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/AuthModel.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/model/UserModel.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/UserModel.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/authRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/authRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev.env" beforeDir="false" afterPath="$PROJECT_DIR$/dev.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dic/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/dic/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/provider/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/api.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +52,9 @@
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="1" />
+  </component>
   <component name="ProjectId" id="1jjrbnywCP321daJWeWPBlOdcTt" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,25 +63,35 @@
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="HTTP Request" />
+    <property name="configurable..is.expanded" value="false" />
+    <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/provider" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/provider" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/app/interface" />
-      <recent name="$PROJECT_DIR$/database" />
-      <recent name="$PROJECT_DIR$/app/entity" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cmd" />
       <recent name="$PROJECT_DIR$/provider" />
       <recent name="$PROJECT_DIR$/app/repository" />
       <recent name="$PROJECT_DIR$/app/service" />
       <recent name="$PROJECT_DIR$/database" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/migrations" />
+      <recent name="$PROJECT_DIR$/provider" />
       <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app/interface" />
+      <recent name="$PROJECT_DIR$/database" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -548,6 +580,9 @@
       </list>
     </option>
   </component>
+  <component name="RunDashboard">
+    <option name="openRunningConfigInTab" value="true" />
+  </component>
   <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ApiRest" />
@@ -600,56 +635,5 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="555" y="193" width="800" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1604587271384">
-      <screen x="0" y="27" width="1920" height="1009" />
-    </state>
-    <state x="555" y="193" width="800" height="684" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604587271384" />
-    <state x="2583" y="333" width="584" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1604328928934">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2583" y="333" width="584" height="403" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604328928934" />
-    <state x="2688" y="250" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1604332421313">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2688" y="250" width="374" height="569" key="#com.intellij.ide.util.MemberChooser/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604332421313" />
-    <state x="2651" y="274" width="448" height="521" key="FileChooserDialogImpl" timestamp="1605011352478">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2651" y="274" width="448" height="521" key="FileChooserDialogImpl/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605011352478" />
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom" timestamp="1605018318585">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
-    <state width="1874" height="261" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605018318585" />
-    <state width="1874" height="261" key="GridCell.Tab.0.center" timestamp="1605018318585">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
-    <state width="1874" height="261" key="GridCell.Tab.0.center/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605018318585" />
-    <state width="1874" height="261" key="GridCell.Tab.0.left" timestamp="1605018318585">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
-    <state width="1874" height="261" key="GridCell.Tab.0.left/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605018318585" />
-    <state width="1874" height="261" key="GridCell.Tab.0.right" timestamp="1605018318585">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604687428826" />
-    <state width="1874" height="261" key="GridCell.Tab.0.right/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605018318585" />
-    <state x="2571" y="270" width="618" height="522" key="find.popup" timestamp="1605021287087">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="651" y="279" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@0.27.1920.1009" timestamp="1604593296236" />
-    <state x="2571" y="270" width="618" height="522" key="find.popup/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605021287087" />
-    <state x="2712" y="290" width="325" height="489" key="refactoring.ChangeSignatureDialog" timestamp="1604337686397">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2712" y="290" width="325" height="489" key="refactoring.ChangeSignatureDialog/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1604337686397" />
-    <state x="2605" y="445" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1605010849013">
-      <screen x="1920" y="0" width="1920" height="1080" />
-    </state>
-    <state x="2605" y="445" width="540" height="179" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/1920.0.1920.1080/0.27.1920.1009@1920.0.1920.1080" timestamp="1605010849013" />
   </component>
 </project>

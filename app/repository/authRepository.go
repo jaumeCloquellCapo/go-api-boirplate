@@ -3,7 +3,6 @@ package repository
 import (
 	"ApiRest/app/model"
 	"ApiRest/provider"
-	"github.com/go-redis/redis/v8"
 	"github.com/twinj/uuid"
 	"gopkg.in/dgrijalva/jwt-go.v3"
 	"os"
@@ -12,7 +11,7 @@ import (
 )
 
 type authRepository struct {
-	redis *redis.Client
+	redis *provider.DbCache
 }
 
 type AuthRepositoryInterface interface {
@@ -20,7 +19,7 @@ type AuthRepositoryInterface interface {
 	CreateAuth(user model.User, td model.TokenDetails) error
 }
 
-func NewAuthRepository(db *redis.Client) AuthRepositoryInterface {
+func NewAuthRepository(db *provider.DbCache) AuthRepositoryInterface {
 	return &authRepository{
 		db,
 	}

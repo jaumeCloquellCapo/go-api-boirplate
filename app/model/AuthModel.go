@@ -1,5 +1,14 @@
 package model
 
+import (
+	"gopkg.in/dgrijalva/jwt-go.v3"
+)
+
+type UserClaims struct {
+	UserId int64 `json:"user_id"`
+	jwt.StandardClaims
+}
+
 //TokenDetails ...
 type TokenDetails struct {
 	AccessToken  string

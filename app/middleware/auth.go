@@ -5,7 +5,6 @@ import (
 	"ApiRest/provider"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/go-redis/redis/v8"
 	"gopkg.in/dgrijalva/jwt-go.v3"
 	"log"
 	"net/http"
@@ -15,16 +14,16 @@ import (
 )
 
 type authMiddleware struct {
-	redis *redis.Client
+	cache *provider.DbCache
 }
 
 type AuthMiddlewareInterface interface {
 	Handler() gin.HandlerFunc
 }
 
-func NewAuthMiddleware(redis *redis.Client) AuthMiddlewareInterface {
+func NewAuthMiddleware(cache *provider.DbCache) AuthMiddlewareInterface {
 	return &authMiddleware{
-		redis,
+		cache,
 	}
 }
 
@@ -58,7 +57,7 @@ func (am authMiddleware) TokenValid(c *gin.Context) {
 
 //FetchAuth ...
 func (am authMiddleware) FetchAuth(authD *model.AccessDetails) (int64, error) {
-	userid, err := am.redis.Get(provider.REDIS_CTX, authD.AccessUUID).Result()
+	userid, err := am.cache.Get(provider.REDIS_CTX, authD.AccessUUID).Result()
 	if err != nil {
 		return 0, err
 	}
@@ -69,6 +68,7 @@ func (am authMiddleware) FetchAuth(authD *model.AccessDetails) (int64, error) {
 //VerifyToken ...
 func (am authMiddleware) VerifyToken(r *http.Request) (*jwt.Token, error) {
 	tokenString := am.extractToken(r)
+
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		//Make sure that the token method conform to "SigningMethodHMAC"
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
@@ -80,6 +80,9 @@ func (am authMiddleware) VerifyToken(r *http.Request) (*jwt.Token, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Print("Token extracted => ", token)
+
 	return token, nil
 }
 

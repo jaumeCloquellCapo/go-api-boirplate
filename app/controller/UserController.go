@@ -1,11 +1,11 @@
 package controller
 
 import (
+	errorNotFound "ApiRest/app/error"
 	"ApiRest/app/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
-	errorNotFound "ApiRest/app/error"
 )
 
 // UserController : interface
@@ -35,6 +35,7 @@ func (uc *userController) GetUserById(c *gin.Context) {
 	}
 
 	user, err := uc.service.GetUserById(id)
+
 	if err, ok := err.(errorNotFound.IErrorNotFound); ok && err.IsNotFound() {
 		c.Status(http.StatusNotFound)
 	}
