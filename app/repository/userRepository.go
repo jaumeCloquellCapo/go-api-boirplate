@@ -16,11 +16,11 @@ type userRepository struct {
 //UserRepository
 type UserRepositoryInterface interface {
 	GetUsers() ([]model.User, error)
-	GetUserById(id int) (model.User, error)
+	GetUserById(id int) (user *model.User, err error)
 	RemoveUserById(id int) error
 	UpdateUserById(id int, user model.UpdateUser) error
-	GetUserByEmail(email string) (user model.User, err error)
-	CreateUser(model.CreateUser) (user model.User, err error)
+	GetUserByEmail(email string) (user *model.User, err error)
+	CreateUser(model.CreateUser) (user *model.User, err error)
 }
 
 //NewUserRepository
@@ -31,24 +31,29 @@ func NewUserRepository(db *provider.DbStore) UserRepositoryInterface {
 }
 
 //FindById
-func (r *userRepository) GetUserById(id int) (user model.User, err error) {
-	user = model.User{}
+func (r *userRepository) GetUserById(id int) (user *model.User, err error) {
+	user = &model.User{}
+
 	var query = "SELECT id, email, name, password FROM users WHERE id = ?"
 	row := r.db.QueryRow(query, id)
 
 	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
 		if err == sql.ErrNoRows {
-			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by ID %d", id))
+			return nil, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by ID %d", id))
 		}
 
-		return model.User{}, err
+		return nil, err
 	}
 
 	return user, nil
 }
 
 func (r *userRepository) RemoveUserById(id int) error {
-	_, err := r.db.Exec("DELETE FROM users WHERE id = ?", id)
+
+	_, err := r.db.Exec(`DELETE FROM users WHERE id = $1;`, id)
+	if err != nil {
+		panic(err)
+	}
 
 	if err != nil {
 		fmt.Print(err.Error())
@@ -77,17 +82,18 @@ func (r *userRepository) UpdateUserById(id int, user model.UpdateUser) error {
 }
 
 //GetUserByEmail
-func (r *userRepository) GetUserByEmail(email string) (user model.User, err error) {
+func (r *userRepository) GetUserByEmail(email string) (user *model.User, err error) {
 
-	// user = model.User{}
+	user = &model.User{}
+
 	var query = "SELECT id, email, name, password FROM users WHERE email = ?"
 	row := r.db.QueryRow(query, email)
 
 	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
-		if err != sql.ErrNoRows {
-			return model.User{}, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by email %s", email))
+		if err == sql.ErrNoRows {
+			return nil, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by email %s", email))
 		}
-		return model.User{}, err
+		return nil, err
 	}
 	return user, nil
 }
@@ -113,12 +119,12 @@ func (r *userRepository) GetUsers() (users []model.User, err error) {
 	return
 }
 
-func (r *userRepository) CreateUser(UserSignUp model.CreateUser) (user model.User, err error) {
+func (r *userRepository) CreateUser(UserSignUp model.CreateUser) (user *model.User, err error) {
 
 	query := "INSERT INTO users (name, password , email) values  (?, ?, ?)"
 	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email)
 	if err != nil {
-		if err != sql.ErrNoRows {
+		if err == sql.ErrNoRows {
 			log.Println(err)
 		}
 		return
@@ -127,15 +133,13 @@ func (r *userRepository) CreateUser(UserSignUp model.CreateUser) (user model.Use
 	id, err := res.LastInsertId()
 
 	if err != nil {
-		return
+		return nil, err
 	}
 
-	user = model.User{
+	return &model.User{
 		ID:       id,
 		Name:     UserSignUp.Name,
 		Password: UserSignUp.Password,
 		Email:    UserSignUp.Email,
-	}
-
-	return user, nil
+	}, nil
 }

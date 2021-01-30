@@ -1,6 +1,7 @@
 package controller
 
 import (
+	errorNotFound "ApiRest/app/error"
 	"ApiRest/app/middleware"
 	"ApiRest/app/model"
 	"ApiRest/app/service"
@@ -40,7 +41,12 @@ func (h *authController) Login(c *gin.Context) {
 
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
 	tokenDetail, err := h.authService.Login(userLogin)
+
 	if err != nil {
+		if _, ok := err.(*errorNotFound.ErrorNotFound); ok {
+			c.Status(http.StatusNotFound)
+			return
+		}
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}

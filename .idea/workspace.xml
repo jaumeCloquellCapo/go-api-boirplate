@@ -13,9 +13,11 @@
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/AuthController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/authRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/authRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dic/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/dic/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/userService.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,6 +34,14 @@
   <component name="GOROOT" path="/usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -53,7 +63,7 @@
     <property name="configurable..is.expanded" value="false" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmd" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/service" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -64,10 +74,10 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/service" />
       <recent name="$PROJECT_DIR$/cmd" />
       <recent name="$PROJECT_DIR$/provider" />
       <recent name="$PROJECT_DIR$/app/repository" />
-      <recent name="$PROJECT_DIR$/app/service" />
       <recent name="$PROJECT_DIR$/database" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

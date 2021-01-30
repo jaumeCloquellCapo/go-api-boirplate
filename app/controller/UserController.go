@@ -67,11 +67,12 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
+
 		c.Status(http.StatusInternalServerError)
 		return
 	}
 
-	c.JSON(http.StatusOK, "")
+	c.Status(http.StatusOK)
 }
 
 func (uc *userController) UpdateUserById(c *gin.Context) {
@@ -101,7 +102,7 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "")
+	c.Status(http.StatusOK)
 }
 
 func (uc *userController) GetUsers(c *gin.Context) {

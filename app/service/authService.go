@@ -11,7 +11,7 @@ import (
 type AuthServiceInterface interface {
 	Login(user model.Credentials) (tokenDetails model.TokenDetails, err error)
 	Logout(accessUUID string) error
-	SignUp(UserSignUp model.CreateUser) (user model.User, tokenDetails model.TokenDetails, err error)
+	SignUp(UserSignUp model.CreateUser) (user *model.User, tokenDetails model.TokenDetails, err error)
 	GetAuth(AccessUUID string) (int64, error)
 }
 
@@ -27,21 +27,20 @@ func NewAuthService(authRepository repository.AuthRepositoryInterface, userServi
 	}
 }
 func (m *authService) Logout(accessUUID string) error {
-	m.authRepository.DeleteAuth(accessUUID)
-	return nil
+	return m.authRepository.DeleteAuth(accessUUID)
 }
 
-func (m *authService) GetAuth(accessUUID string) (int64, error){
+func (m *authService) GetAuth(accessUUID string) (int64, error) {
 	return m.authRepository.GetAuth(accessUUID)
 }
 
 //CreateToken ...
 func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetails, err error) {
 
-	var user model.User
+	var user *model.User
 
 	if user, err = m.userRepository.GetUserByEmail(userLogin.Email); err != nil {
-		return
+		return token, err
 	}
 
 	//Compare the password form and database if match
@@ -53,13 +52,13 @@ func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetai
 		return token, err
 	}
 
-	token, err = m.authRepository.CreateToken(user)
+	token, err = m.authRepository.CreateToken(*user)
 	if err != nil {
 		log.Println(err.Error())
 		return
 	}
 
-	err = m.authRepository.CreateAuth(user, token)
+	err = m.authRepository.CreateAuth(*user, token)
 	if err != nil {
 		log.Println(err.Error())
 		return
@@ -69,7 +68,7 @@ func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetai
 }
 
 //signUp ...
-func (m *authService) SignUp(UserSignUp model.CreateUser) (user model.User, token model.TokenDetails, err error) {
+func (m *authService) SignUp(UserSignUp model.CreateUser) (user *model.User, token model.TokenDetails, err error) {
 
 	bytePassword := []byte(UserSignUp.Password)
 
@@ -85,13 +84,13 @@ func (m *authService) SignUp(UserSignUp model.CreateUser) (user model.User, toke
 		return
 	}
 
-	token, err = m.authRepository.CreateToken(user)
+	token, err = m.authRepository.CreateToken(*user)
 	if err != nil {
 		log.Println(err.Error())
 		return
 	}
 
-	err = m.authRepository.CreateAuth(user, token)
+	err = m.authRepository.CreateAuth(*user, token)
 	if err != nil {
 		log.Println(err.Error())
 		return

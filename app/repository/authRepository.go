@@ -1,8 +1,10 @@
 package repository
 
 import (
+	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
 	"ApiRest/provider"
+	"github.com/go-redis/redis/v8"
 	"github.com/twinj/uuid"
 	"gopkg.in/dgrijalva/jwt-go.v3"
 	"os"
@@ -18,7 +20,7 @@ type AuthRepositoryInterface interface {
 	CreateToken(user model.User) (td model.TokenDetails, err error)
 	CreateAuth(user model.User, td model.TokenDetails) error
 	GetAuth(AccessUUID string) (int64, error)
-	DeleteAuth(AccessUUID string) (int64, error)
+	DeleteAuth(AccessUUID string) error
 }
 
 func NewAuthRepository(db *provider.DbCache) AuthRepositoryInterface {
@@ -99,13 +101,16 @@ func (ar authRepository) GetAuth(AccessUUID string) (int64, error) {
 }
 
 //DeleteAuth ...
-func (ar authRepository) DeleteAuth(AccessUUID string) (int64, error) {
+func (ar authRepository) DeleteAuth(AccessUUID string) error {
 
-	deleted, err := ar.redis.Del(provider.REDIS_CTX, AccessUUID).Result()
+	_, err := ar.redis.Del(provider.REDIS_CTX, AccessUUID).Result()
 
 	if err != nil {
-		return 0, err
+		if err == redis.Nil {
+			return error2.NewErrorNotFound("Redis not found")
+		}
+		return err
 	}
 
-	return deleted, nil
+	return nil
 }
