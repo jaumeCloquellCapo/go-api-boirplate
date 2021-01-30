@@ -19,16 +19,20 @@ type authService struct {
 	userRepository repository.UserRepositoryInterface
 }
 
+//NewAuthService ...
 func NewAuthService(authRepository repository.AuthRepositoryInterface, userService repository.UserRepositoryInterface) AuthServiceInterface {
 	return &authService{
 		authRepository,
 		userService,
 	}
 }
+
+//Logout
 func (m *authService) Logout(accessUUID string) error {
 	return m.authRepository.DeleteAuth(accessUUID)
 }
 
+//GetAuth
 func (m *authService) GetAuth(accessUUID string) (int64, error) {
 	return m.authRepository.GetAuth(accessUUID)
 }

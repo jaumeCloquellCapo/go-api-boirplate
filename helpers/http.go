@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// HashAndSalt ...
 func HashAndSalt(pwd []byte) (string, error) {
 
 	// Use GenerateFromPassword to hash & salt pwd
@@ -21,6 +22,7 @@ func HashAndSalt(pwd []byte) (string, error) {
 	return string(hash), nil
 }
 
+// ComparePasswords ...
 func ComparePasswords(password1 string, password2 string) bool {
 	// Since we'll be getting the hashed password from the DB it
 	// will be a string so we'll need to convert it to a byte slice

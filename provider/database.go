@@ -8,10 +8,12 @@ import (
 	"os"
 )
 
+// DbStore ...
 type DbStore struct {
 	*sql.DB
 }
 
+// InitializeDB ...
 func InitializeDB() *DbStore {
 	//dataSourceName := fmt.Sprintf(core.Database.Username + ":" + core.Database.Password + "@/" + core.Database.Database)
 	cnf := fmt.Sprintf("%s:%s@tcp(%s)/%s", os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_DATABASE"))

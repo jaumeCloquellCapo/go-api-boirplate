@@ -7,21 +7,24 @@ import (
 	"ApiRest/app/service"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"log"
 	"net/http"
 )
 
-// AuthController : interface AuthController
+// AuthControllerInterface ...
 type AuthControllerInterface interface {
 	Login(c *gin.Context)
 	Logout(c *gin.Context)
 	SignUp(c *gin.Context)
 }
 
+// authController
 type authController struct {
 	authService service.AuthServiceInterface
 	userService service.UserServiceInterface
 }
 
+// NewAuthController ...
 func NewAuthController(authService service.AuthServiceInterface, userService service.UserServiceInterface) AuthControllerInterface {
 	return &authController{
 		authService,
@@ -29,6 +32,7 @@ func NewAuthController(authService service.AuthServiceInterface, userService ser
 	}
 }
 
+// Login ...
 func (h *authController) Login(c *gin.Context) {
 
 	var userLogin model.Credentials
@@ -48,6 +52,7 @@ func (h *authController) Login(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
+		log.Print(err.Error())
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -59,12 +64,14 @@ func (h *authController) Logout(c *gin.Context) {
 
 	tokenAuth, err := middleware.ExtractTokenMetadata(c.Request)
 	if err != nil {
+		log.Print(err.Error())
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	err = h.authService.Logout(tokenAuth.AccessUUID)
 	if err != nil {
+		log.Print(err.Error())
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -91,6 +98,7 @@ func (h *authController) SignUp(c *gin.Context) {
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
 	_, tokenDetail, err := h.authService.SignUp(UserSignUp)
 	if err != nil {
+		log.Print(err.Error())
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
 	}

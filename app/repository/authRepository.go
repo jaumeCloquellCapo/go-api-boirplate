@@ -16,6 +16,7 @@ type authRepository struct {
 	redis *provider.DbCache
 }
 
+//AuthRepositoryInterface ...
 type AuthRepositoryInterface interface {
 	CreateToken(user model.User) (td model.TokenDetails, err error)
 	CreateAuth(user model.User, td model.TokenDetails) error
@@ -23,6 +24,7 @@ type AuthRepositoryInterface interface {
 	DeleteAuth(AccessUUID string) error
 }
 
+//NewAuthRepository ...
 func NewAuthRepository(db *provider.DbCache) AuthRepositoryInterface {
 	return &authRepository{
 		db,
@@ -73,12 +75,12 @@ func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) e
 	rt := time.Unix(token.RtExpires, 0)
 	now := time.Now()
 
-	errAccess := ar.redis.Set(provider.REDIS_CTX, token.AccessUUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()
+	errAccess := ar.redis.Set(provider.RedisCtx, token.AccessUUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()
 	if errAccess != nil {
 		return errAccess
 	}
 
-	errRefresh := ar.redis.Set(provider.REDIS_CTX, token.RefreshUUID, strconv.Itoa(int(user.ID)), rt.Sub(now)).Err()
+	errRefresh := ar.redis.Set(provider.RedisCtx, token.RefreshUUID, strconv.Itoa(int(user.ID)), rt.Sub(now)).Err()
 	if errRefresh != nil {
 		return errRefresh
 	}
@@ -89,7 +91,7 @@ func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) e
 //GetAuth ...
 func (ar authRepository) GetAuth(AccessUUID string) (int64, error) {
 
-	userid, err := ar.redis.Get(provider.REDIS_CTX, AccessUUID).Result()
+	userid, err := ar.redis.Get(provider.RedisCtx, AccessUUID).Result()
 
 	if err != nil {
 		return 0, err
@@ -103,7 +105,7 @@ func (ar authRepository) GetAuth(AccessUUID string) (int64, error) {
 //DeleteAuth ...
 func (ar authRepository) DeleteAuth(AccessUUID string) error {
 
-	_, err := ar.redis.Del(provider.REDIS_CTX, AccessUUID).Result()
+	_, err := ar.redis.Del(provider.RedisCtx, AccessUUID).Result()
 
 	if err != nil {
 		if err == redis.Nil {

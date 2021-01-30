@@ -1,15 +1,18 @@
 package model
 
+//User ...
 type User struct {
-	ID         int    `json:"id"`
-	Name       string `json:"name"`
-	LastName   string `json:"last_name"`
+	ID         int     `json:"id"`
+	Name       string  `json:"name"`
+	LastName   string  `json:"last_name"`
 	Password   *string `json:"password"`
-	Email      string `json:"email"`
-	Country    string `json:"country"`
-	Phone      string `json:"phone"`
-	PostalCode string `json:"postal_code"`
+	Email      string  `json:"email"`
+	Country    string  `json:"country"`
+	Phone      string  `json:"phone"`
+	PostalCode string  `json:"postal_code"`
 }
+
+//UpdateUser ...
 type UpdateUser struct {
 	Name       string `json:"name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
@@ -20,6 +23,7 @@ type UpdateUser struct {
 	PostalCode string `json:"postal_code" validate:"required"`
 }
 
+//CreateUser ...
 type CreateUser struct {
 	Name       string `json:"name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
@@ -30,9 +34,8 @@ type CreateUser struct {
 	Password   string `json:"password" validate:"required"`
 }
 
+//Credentials ...
 type Credentials struct {
 	Email    string `json:"email" validate:"required"`
 	Password string `json:"password" validate:"required"`
 }
-
-func (User) TableName() string { return "users" }

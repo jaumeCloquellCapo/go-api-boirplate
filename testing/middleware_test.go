@@ -36,7 +36,7 @@ func TestMiddlewareCorrectToken(t *testing.T) {
 
 	req, err := http.NewRequest("GET", fmt.Sprint("/auth/users/", id), nil)
 
-	req.Header.Set("Authorization", "Bearer " + td.AccessToken)
+	req.Header.Set("Authorization", "Bearer "+td.AccessToken)
 
 	if err != nil {
 		t.Fatal(err)
@@ -47,8 +47,6 @@ func TestMiddlewareCorrectToken(t *testing.T) {
 	assert.Equal(t, http.StatusOK, rr.Code)
 
 }
-
-
 
 func TestMiddlewareIncorrectToken(t *testing.T) {
 	rr := httptest.NewRecorder()

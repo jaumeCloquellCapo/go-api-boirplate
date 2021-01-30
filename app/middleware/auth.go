@@ -17,16 +17,19 @@ type authMiddleware struct {
 	authService service.AuthServiceInterface
 }
 
+//AuthMiddlewareInterface ...
 type AuthMiddlewareInterface interface {
 	Handler() gin.HandlerFunc
 }
 
+//NewAuthMiddleware ...
 func NewAuthMiddleware(authService service.AuthServiceInterface) AuthMiddlewareInterface {
 	return &authMiddleware{
 		authService,
 	}
 }
 
+//Handler ...
 func (am authMiddleware) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		am.ValidateAuth(c)
@@ -34,6 +37,7 @@ func (am authMiddleware) Handler() gin.HandlerFunc {
 	}
 }
 
+//ValidateAuth ...
 func (am authMiddleware) ValidateAuth(c *gin.Context) {
 
 	tokenAuth, err := ExtractTokenMetadata(c.Request)

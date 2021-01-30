@@ -6,6 +6,7 @@ import (
 	"ApiRest/helpers"
 )
 
+//UserServiceInterface ...
 type UserServiceInterface interface {
 	FindById(id int) (user *model.User, err error)
 	RemoveById(id int) error
@@ -18,22 +19,24 @@ type userService struct {
 	userRepo repository.UserRepositoryInterface
 }
 
-//NewUserService
+// NewUserService ...
 func NewUserService(userRepo repository.UserRepositoryInterface) *userService {
 	return &userService{
 		userRepo,
 	}
 }
 
-//GetById
+//FindById ...
 func (s *userService) FindById(id int) (user *model.User, err error) {
 	return s.userRepo.FindById(id)
 }
 
+//RemoveById ...
 func (s *userService) RemoveById(id int) error {
 	return s.userRepo.RemoveById(id)
 }
 
+//UpdateById ...
 func (s *userService) UpdateById(id int, user model.UpdateUser) error {
 	bytePassword := []byte(user.Password)
 	var err error
@@ -44,12 +47,12 @@ func (s *userService) UpdateById(id int, user model.UpdateUser) error {
 	return s.userRepo.UpdateById(id, user)
 }
 
-//FindAllUsers
+//FindAll ...
 func (s *userService) FindAll() ([]model.User, error) {
 	return s.userRepo.FindAll()
 }
 
-//GetUserByEmail
+//FindByEmail ...
 func (s *userService) FindByEmail(email string) (user *model.User, err error) {
 	return s.userRepo.FindByEmail(email)
 }

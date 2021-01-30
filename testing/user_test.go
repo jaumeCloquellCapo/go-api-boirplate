@@ -51,7 +51,7 @@ func TestUpdateUser(t *testing.T) {
 
 	req, err := http.NewRequest("PUT", fmt.Sprint("/auth/users/", id), bytes.NewBuffer(body))
 
-	req.Header.Set("Authorization", "Bearer " + td.AccessToken)
+	req.Header.Set("Authorization", "Bearer "+td.AccessToken)
 
 	if err != nil {
 		t.Fatal(err)

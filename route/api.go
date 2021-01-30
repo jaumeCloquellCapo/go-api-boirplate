@@ -9,6 +9,7 @@ import (
 	"net/http"
 )
 
+//Setup ...
 func Setup(container di.Container) *gin.Engine {
 
 	// Controllers

@@ -5,11 +5,12 @@ import (
 	"ApiRest/app/model"
 	"ApiRest/app/service"
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 	"strconv"
 )
 
-// UserController : interface
+// UserControllerInterface ...
 type UserControllerInterface interface {
 	FindUserById(c *gin.Context)
 	RemoveUserById(c *gin.Context)
@@ -21,13 +22,14 @@ type userController struct {
 	service service.UserServiceInterface
 }
 
+// NewUserController ...
 func NewUserController(service service.UserServiceInterface) UserControllerInterface {
 	return &userController{
 		service,
 	}
 }
 
-//GetById
+//FindUserById ...
 func (uc *userController) FindUserById(c *gin.Context) {
 
 	id, err := strconv.Atoi(c.Param("id"))
@@ -44,6 +46,7 @@ func (uc *userController) FindUserById(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
+		log.Print(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
@@ -51,6 +54,7 @@ func (uc *userController) FindUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+//RemoveUserById ...
 func (uc *userController) RemoveUserById(c *gin.Context) {
 
 	id, err := strconv.Atoi(c.Param("id"))
@@ -67,7 +71,7 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
-
+		log.Print(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
@@ -75,6 +79,7 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+//UpdateUserById ...
 func (uc *userController) UpdateUserById(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
@@ -96,6 +101,7 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
+		log.Print(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
@@ -103,11 +109,13 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
+//FindAllUsers ...
 func (uc *userController) FindAllUsers(c *gin.Context) {
 
 	user, err := uc.service.FindAll()
 
 	if err != nil {
+		log.Print(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}

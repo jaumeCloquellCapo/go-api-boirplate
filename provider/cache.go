@@ -8,13 +8,15 @@ import (
 	"strconv"
 )
 
-var REDIS_CTX = context.Background()
+//RedisCtx ...
+var RedisCtx = context.Background()
 
+// DbCache ...
 type DbCache struct {
 	*redis.Client
 }
 
-//InitializeCache
+//InitializeCache ...
 func InitializeCache() *DbCache {
 	db, _ := strconv.Atoi(os.Getenv("REDIS_DATABASE"))
 	rdb := redis.NewClient(&redis.Options{

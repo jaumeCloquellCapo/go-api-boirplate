@@ -12,6 +12,7 @@ var (
 	dir   = flags.String("dir", "./migrations/", "directory with migration files")
 )
 
+// HandlerMigrations ...
 func HandlerMigrations(args []string, db *provider.DbStore) {
 
 	if err := goose.SetDialect("mysql"); err != nil {

@@ -6,14 +6,17 @@ import (
 
 type corsMiddleware struct{}
 
+//CorsMiddlewareInterface ...
 type CorsMiddlewareInterface interface {
 	Handler() gin.HandlerFunc
 }
 
+//NewCorsMiddleware ...
 func NewCorsMiddleware() CorsMiddlewareInterface {
 	return &corsMiddleware{}
 }
 
+//Handler ...
 func (cm corsMiddleware) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "http://localhost")

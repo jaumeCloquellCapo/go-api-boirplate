@@ -13,7 +13,7 @@ type userRepository struct {
 	db *provider.DbStore
 }
 
-//UserRepository
+//UserRepositoryInterface ...
 type UserRepositoryInterface interface {
 	FindAll() ([]model.User, error)
 	FindById(id int) (user *model.User, err error)
@@ -23,14 +23,14 @@ type UserRepositoryInterface interface {
 	Create(model.CreateUser) (user *model.User, err error)
 }
 
-//NewUserRepository
+//NewUserRepository ...
 func NewUserRepository(db *provider.DbStore) UserRepositoryInterface {
 	return &userRepository{
 		db,
 	}
 }
 
-//FindById
+//FindById ...
 func (r *userRepository) FindById(id int) (user *model.User, err error) {
 	user = &model.User{}
 
@@ -51,34 +51,26 @@ func (r *userRepository) FindById(id int) (user *model.User, err error) {
 func (r *userRepository) RemoveById(id int) error {
 
 	_, err := r.db.Exec(`DELETE FROM users WHERE id = $1;`, id)
-	if err != nil {
-		panic(err)
-	}
-
-	if err != nil {
-		fmt.Print(err.Error())
-
-	}
-
 	return err
 }
 
+//UpdateById ...
 func (r *userRepository) UpdateById(id int, user model.UpdateUser) error {
 	result, err := r.db.Exec("UPDATE users SET name = ?, email = ?, last_name = ?, phone = ?, postal_code = ? where id = ?", user.Name, user.Email, user.LastName, user.Phone, user.PostalCode, id)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	rows, err := result.RowsAffected()
 
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	if rows != 1 {
-		return error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by id %v", id))
+		return error2.NewErrorNotFound(fmt.Sprintf("UpdateById: User not found by id %v", id))
 	}
 
-	return err
+	return nil
 }
 
 //FindByEmail
@@ -91,7 +83,7 @@ func (r *userRepository) FindByEmail(email string) (user *model.User, err error)
 
 	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
 		if err == sql.ErrNoRows {
-			return nil, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by email %s", email))
+			return nil, error2.NewErrorNotFound(fmt.Sprintf("FindByEmail: User not found by email %s", email))
 		}
 		return nil, err
 	}
