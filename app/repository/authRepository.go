@@ -17,6 +17,8 @@ type authRepository struct {
 type AuthRepositoryInterface interface {
 	CreateToken(user model.User) (td model.TokenDetails, err error)
 	CreateAuth(user model.User, td model.TokenDetails) error
+	GetAuth(AccessUUID string) (int64, error)
+	DeleteAuth(AccessUUID string) (int64, error)
 }
 
 func NewAuthRepository(db *provider.DbCache) AuthRepositoryInterface {
@@ -50,16 +52,21 @@ func (ar authRepository) CreateToken(user model.User) (td model.TokenDetails, er
 	rtClaims["refresh_uuid"] = td.RefreshUUID
 	rtClaims["user_id"] = user.ID
 	rtClaims["exp"] = td.RtExpires
+
 	rt := jwt.NewWithClaims(jwt.SigningMethodHS256, rtClaims)
+
 	td.RefreshToken, err = rt.SignedString([]byte(os.Getenv("REFRESH_SECRET")))
+
 	if err != nil {
 		return model.TokenDetails{}, err
 	}
+
 	return td, nil
 }
 
 //CreateAuth ...
 func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) error {
+
 	at := time.Unix(token.AtExpires, 0) //converting Unix to UTC(to Time object)
 	rt := time.Unix(token.RtExpires, 0)
 	now := time.Now()
@@ -77,21 +84,28 @@ func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) e
 	return nil
 }
 
-//FetchAuth ...
-func (ar authRepository) FetchAuth(authD *model.AccessDetails) (int64, error) {
-	userid, err := ar.redis.Get(provider.REDIS_CTX, authD.AccessUUID).Result()
+//GetAuth ...
+func (ar authRepository) GetAuth(AccessUUID string) (int64, error) {
+
+	userid, err := ar.redis.Get(provider.REDIS_CTX, AccessUUID).Result()
+
 	if err != nil {
 		return 0, err
 	}
+
 	userID, _ := strconv.ParseInt(userid, 10, 64)
+
 	return userID, nil
 }
 
 //DeleteAuth ...
-func (ar authRepository) DeleteAuth(givenUUID string) (int64, error) {
-	deleted, err := ar.redis.Del(provider.REDIS_CTX, givenUUID).Result()
+func (ar authRepository) DeleteAuth(AccessUUID string) (int64, error) {
+
+	deleted, err := ar.redis.Del(provider.REDIS_CTX, AccessUUID).Result()
+
 	if err != nil {
 		return 0, err
 	}
+
 	return deleted, nil
 }

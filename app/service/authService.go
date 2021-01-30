@@ -48,11 +48,12 @@ func (m *authService) LoginService(userLogin model.UserLogin) (token model.Token
 		log.Println(err.Error())
 		return
 	}
-	/*err = m.authRepository.CreateAuth(user, token)
+
+	err = m.authRepository.CreateAuth(user, token)
 	if err != nil {
 		log.Println(err.Error())
 		return
-	}*/
+	}
 
 	return
 }
@@ -80,10 +81,10 @@ func (m *authService) SignUp(UserSignUp model.UserSignUp) (user model.User, toke
 		return
 	}
 
-	//err = m.authRepository.CreateAuth(user, token)
-	//if err != nil {
-	//	log.Println(err.Error())
-	//	return
-	//}
+	err = m.authRepository.CreateAuth(user, token)
+	if err != nil {
+		log.Println(err.Error())
+		return
+	}
 	return
 }

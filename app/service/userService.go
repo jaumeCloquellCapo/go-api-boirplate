@@ -8,6 +8,7 @@ import (
 
 type UserServiceInterface interface {
 	GetUserById(id int) (model.User, error)
+	RemoveUserById(id int) error
 	GetUsers() ([]model.User, error)
 	GetUserByEmail(email string) (model.User, error)
 }
@@ -31,6 +32,15 @@ func (s *userService) GetUserById(id int) (model.User, error) {
 	}
 
 	return user, err
+}
+
+func (s *userService) RemoveUserById(id int) error {
+	err := s.userRepo.RemoveUserById(id)
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	return err
 }
 
 //GetUsers

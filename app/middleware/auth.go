@@ -77,13 +77,8 @@ func (am authMiddleware) VerifyToken(r *http.Request) (*jwt.Token, error) {
 		return []byte(os.Getenv("ACCESS_SECRET")), nil
 	})
 
-	if err != nil {
-		return nil, err
-	}
 
-	fmt.Print("Token extracted => ", token)
-
-	return token, nil
+	return token, err
 }
 
 //ExtractToken ...
@@ -102,16 +97,23 @@ func (am authMiddleware) ExtractTokenMetadata(r *http.Request) (AccessDetails *m
 	if err != nil {
 		return nil, err
 	}
+
 	claims, ok := token.Claims.(jwt.MapClaims)
+
 	if ok && token.Valid {
+
 		accessUUID, ok := claims["access_uuid"].(string)
+
 		if !ok {
 			return nil, err
 		}
+
 		userID, err := strconv.ParseInt(fmt.Sprintf("%.f", claims["user_id"]), 10, 64)
+
 		if err != nil {
 			return nil, err
 		}
+
 		return &model.AccessDetails{
 			AccessUUID: accessUUID,
 			UserID:     userID,

@@ -17,6 +17,7 @@ type userRepository struct {
 type UserRepositoryInterface interface {
 	GetUsers() ([]model.User, error)
 	GetUserById(id int) (model.User, error)
+	RemoveUserById(id int) error
 	GetUserByEmail(email string) (user model.User, err error)
 	CreateUser(model.UserSignUp) (user model.User, err error)
 }
@@ -47,6 +48,17 @@ func (r *userRepository) GetUserById(id int) (user model.User, err error) {
 	}
 
 	return user, nil
+}
+
+func (r *userRepository) RemoveUserById(id int) error {
+	_, err := r.db.Exec("DELETE FROM users WHERE id = ?", id)
+
+	if err != nil {
+		fmt.Print(err.Error())
+
+	}
+
+	return err
 }
 
 //GetUserByEmail

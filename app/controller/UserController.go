@@ -11,6 +11,7 @@ import (
 // UserController : interface
 type UserControllerInterface interface {
 	GetUserById(c *gin.Context)
+	RemoveUserById(c *gin.Context)
 	GetUsers(c *gin.Context)
 }
 
@@ -46,6 +47,28 @@ func (uc *userController) GetUserById(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, user)
 }
+func (uc *userController) RemoveUserById(c *gin.Context) {
+
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		c.Status(http.StatusBadRequest)
+		return
+	}
+
+	err = uc.service.RemoveUserById(id)
+
+	if err, ok := err.(errorNotFound.IErrorNotFound); ok && err.IsNotFound() {
+		c.Status(http.StatusNotFound)
+	}
+
+	if err != nil {
+		c.Status(http.StatusInternalServerError)
+		return
+	}
+	c.JSON(http.StatusOK, "")
+}
+
 
 func (uc *userController) GetUsers(c *gin.Context) {
 
