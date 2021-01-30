@@ -87,7 +87,7 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 	var user model.UpdateUser
 
 	if err := c.ShouldBindJSON(&user); err != nil {
-		c.Writer.WriteHeader(http.StatusNotAcceptable)
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
 

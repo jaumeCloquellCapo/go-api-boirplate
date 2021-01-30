@@ -6,6 +6,7 @@ import (
 	"ApiRest/app/model"
 	"ApiRest/app/service"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"net/http"
 )
 
@@ -35,7 +36,7 @@ func (h *authController) Login(c *gin.Context) {
 	var err error
 
 	if err := c.ShouldBindJSON(&userLogin); err != nil {
-		c.Writer.WriteHeader(http.StatusBadRequest)
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
 
@@ -76,6 +77,13 @@ func (h *authController) SignUp(c *gin.Context) {
 	var UserSignUp model.CreateUser
 
 	if err := c.ShouldBindJSON(&UserSignUp); err != nil {
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		return
+	}
+
+	validate := validator.New()
+	err := validate.Struct(UserSignUp)
+	if err != nil {
 		c.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}

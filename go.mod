@@ -23,4 +23,5 @@ require (
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	golang.org/x/crypto v0.0.0-20201221181555-eec23a3978ad
 	gopkg.in/dgrijalva/jwt-go.v3 v3.2.0
+	gopkg.in/go-playground/validator.v9 v9.31.0 // indirect
 )
