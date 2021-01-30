@@ -76,7 +76,7 @@ func (h *authController) SignUp(c *gin.Context) {
 	var UserSignUp model.CreateUser
 
 	if err := c.ShouldBindJSON(&UserSignUp); err != nil {
-		c.Writer.WriteHeader(http.StatusNotAcceptable)
+		c.Writer.WriteHeader(http.StatusBadRequest)
 		return
 	}
 

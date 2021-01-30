@@ -75,7 +75,7 @@ func (r *userRepository) UpdateById(id int, user model.UpdateUser) error {
 	}
 
 	if rows != 1 {
-		return error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by id %s", id))
+		return error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by id %v", id))
 	}
 
 	return err

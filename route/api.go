@@ -5,18 +5,19 @@ import (
 	"ApiRest/app/middleware"
 	"ApiRest/dic"
 	"github.com/gin-gonic/gin"
+	"github.com/sarulabs/dingo/generation/di"
 	"net/http"
 )
 
-func Setup() *gin.Engine {
+func Setup(container di.Container) *gin.Engine {
 
 	// Controllers
-	ac := dic.Container.Get(dic.AuthController).(controller.AuthControllerInterface)
-	uc := dic.Container.Get(dic.UserController).(controller.UserControllerInterface)
+	ac := container.Get(dic.AuthController).(controller.AuthControllerInterface)
+	uc := container.Get(dic.UserController).(controller.UserControllerInterface)
 
 	// Middleware
-	authMiddleware := dic.Container.Get(dic.AuthMiddleware).(middleware.AuthMiddlewareInterface)
-	corsMiddleware := dic.Container.Get(dic.CorsMiddleware).(middleware.CorsMiddlewareInterface)
+	authMiddleware := container.Get(dic.AuthMiddleware).(middleware.AuthMiddlewareInterface)
+	corsMiddleware := container.Get(dic.CorsMiddleware).(middleware.CorsMiddlewareInterface)
 
 	r := gin.New()
 	//r.Use(limit.Limit(200)) // limit the number of current requests

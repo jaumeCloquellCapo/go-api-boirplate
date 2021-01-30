@@ -11,8 +11,8 @@ import (
 	"github.com/sarulabs/dingo/generation/di"
 )
 
-var Builder *di.Builder
-var Container di.Container
+//var Builder *di.Builder
+//var Container di.Container
 
 const DbService = "db"
 const CacheService = "cache"
@@ -35,8 +35,7 @@ func InitContainer() di.Container {
 		fmt.Errorf(err.Error())
 	}
 	RegisterServices(builder)
-	Container = builder.Build()
-	return Container
+	return builder.Build()
 }
 
 func RegisterServices(builder *di.Builder) {

@@ -11,11 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/testing/Auth_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/UserController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/AuthController.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/userService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dic/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/dic/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UserService.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,11 +84,11 @@
       <recent name="$PROJECT_DIR$/database" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/testing" />
       <recent name="$PROJECT_DIR$/migrations" />
       <recent name="$PROJECT_DIR$/provider" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/app/interface" />
-      <recent name="$PROJECT_DIR$/database" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -575,7 +580,7 @@
   <component name="RunDashboard">
     <option name="openRunningConfigInTab" value="true" />
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go">
+  <component name="RunManager" selected="Go Test.TestCreateUser in ApiRest/app/controller">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="ApiRest" />
       <working_directory value="$PROJECT_DIR$" />
@@ -583,6 +588,17 @@
       <filePath value="$PROJECT_DIR$/main.go" />
       <package value="ApiRest" />
       <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestCreateUser in ApiRest/app/controller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="ApiRest" />
+      <working_directory value="$PROJECT_DIR$/app/controller" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="ApiRest/app/controller" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestCreateUser\E$" />
       <method v="2" />
     </configuration>
     <configuration name="rest-api_1#2" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" path="$APPLICATION_CONFIG_DIR$/scratches/rest-api_1.http" index="2" runType="Run single request">
@@ -593,6 +609,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestCreateUser in ApiRest/app/controller" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="HTTP Request.rest-api_1#2" />
         <item itemvalue="HTTP Request.scratch#1" />
