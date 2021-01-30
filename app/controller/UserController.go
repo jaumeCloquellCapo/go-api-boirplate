@@ -76,7 +76,6 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 }
 
 func (uc *userController) UpdateUserById(c *gin.Context) {
-
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
@@ -90,7 +89,6 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
-
 	err = uc.service.UpdateById(id, user)
 
 	if err != nil {

@@ -34,10 +34,10 @@ func NewUserRepository(db *provider.DbStore) UserRepositoryInterface {
 func (r *userRepository) FindById(id int) (user *model.User, err error) {
 	user = &model.User{}
 
-	var query = "SELECT id, email, name, password FROM users WHERE id = ?"
+	var query = "SELECT id, email, name, postal_code, phone, last_name FROM users WHERE id = ?"
 	row := r.db.QueryRow(query, id)
 
-	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.Password); err != nil {
+	if err := row.Scan(&user.ID, &user.Email, &user.Name, &user.PostalCode, &user.Phone, &user.LastName); err != nil {
 		if err == sql.ErrNoRows {
 			return nil, error2.NewErrorNotFound(fmt.Sprintf("Error: User not found by ID %d", id))
 		}
@@ -64,7 +64,7 @@ func (r *userRepository) RemoveById(id int) error {
 }
 
 func (r *userRepository) UpdateById(id int, user model.UpdateUser) error {
-	result, err := r.db.Exec("UPDATE users SET name = ?, email = ?,  = ?, last_name = ?, country = ?, phone = ?, postal_code = ? where id = ?", user.Name, user.Email, user.LastName, user.Country, user.Phone, user.PostalCode, id)
+	result, err := r.db.Exec("UPDATE users SET name = ?, email = ?, last_name = ?, phone = ?, postal_code = ? where id = ?", user.Name, user.Email, user.LastName, user.Phone, user.PostalCode, id)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -121,8 +121,8 @@ func (r *userRepository) FindAll() (users []model.User, err error) {
 
 func (r *userRepository) Create(UserSignUp model.CreateUser) (user *model.User, err error) {
 
-	query := "INSERT INTO users (name, password , email) values  (?, ?, ?)"
-	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email)
+	query := "INSERT INTO users (name, password, email, last_name, phone, postal_code) values  (?, ?, ?, ?, ?, ?)"
+	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email, UserSignUp.LastName, UserSignUp.Phone, UserSignUp.PostalCode)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			log.Println(err)
@@ -137,9 +137,13 @@ func (r *userRepository) Create(UserSignUp model.CreateUser) (user *model.User, 
 	}
 
 	return &model.User{
-		ID:       id,
-		Name:     UserSignUp.Name,
-		Password: UserSignUp.Password,
-		Email:    UserSignUp.Email,
+		ID:         int(id),
+		Name:       UserSignUp.Name,
+		Password:   UserSignUp.Password,
+		Email:      UserSignUp.Email,
+		LastName:   UserSignUp.LastName,
+		Phone:      UserSignUp.Phone,
+		Country:    UserSignUp.Country,
+		PostalCode: UserSignUp.PostalCode,
 	}, nil
 }
