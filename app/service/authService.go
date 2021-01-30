@@ -39,7 +39,7 @@ func (m *authService) Login(userLogin model.Credentials) (token model.TokenDetai
 
 	var user *model.User
 
-	if user, err = m.userRepository.GetUserByEmail(userLogin.Email); err != nil {
+	if user, err = m.userRepository.FindByEmail(userLogin.Email); err != nil {
 		return token, err
 	}
 
@@ -78,7 +78,7 @@ func (m *authService) SignUp(UserSignUp model.CreateUser) (user *model.User, tok
 		return
 	}
 
-	user, err = m.userRepository.CreateUser(UserSignUp)
+	user, err = m.userRepository.Create(UserSignUp)
 	if err != nil {
 		log.Println(err.Error())
 		return

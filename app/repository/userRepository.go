@@ -15,12 +15,12 @@ type userRepository struct {
 
 //UserRepository
 type UserRepositoryInterface interface {
-	GetUsers() ([]model.User, error)
-	GetUserById(id int) (user *model.User, err error)
-	RemoveUserById(id int) error
-	UpdateUserById(id int, user model.UpdateUser) error
-	GetUserByEmail(email string) (user *model.User, err error)
-	CreateUser(model.CreateUser) (user *model.User, err error)
+	FindAll() ([]model.User, error)
+	FindById(id int) (user *model.User, err error)
+	RemoveById(id int) error
+	UpdateById(id int, user model.UpdateUser) error
+	FindByEmail(email string) (user *model.User, err error)
+	Create(model.CreateUser) (user *model.User, err error)
 }
 
 //NewUserRepository
@@ -31,7 +31,7 @@ func NewUserRepository(db *provider.DbStore) UserRepositoryInterface {
 }
 
 //FindById
-func (r *userRepository) GetUserById(id int) (user *model.User, err error) {
+func (r *userRepository) FindById(id int) (user *model.User, err error) {
 	user = &model.User{}
 
 	var query = "SELECT id, email, name, password FROM users WHERE id = ?"
@@ -48,7 +48,7 @@ func (r *userRepository) GetUserById(id int) (user *model.User, err error) {
 	return user, nil
 }
 
-func (r *userRepository) RemoveUserById(id int) error {
+func (r *userRepository) RemoveById(id int) error {
 
 	_, err := r.db.Exec(`DELETE FROM users WHERE id = $1;`, id)
 	if err != nil {
@@ -63,7 +63,7 @@ func (r *userRepository) RemoveUserById(id int) error {
 	return err
 }
 
-func (r *userRepository) UpdateUserById(id int, user model.UpdateUser) error {
+func (r *userRepository) UpdateById(id int, user model.UpdateUser) error {
 	result, err := r.db.Exec("UPDATE users SET name = ?, email = ?,  = ?, last_name = ?, country = ?, phone = ?, postal_code = ? where id = ?", user.Name, user.Email, user.LastName, user.Country, user.Phone, user.PostalCode, id)
 	if err != nil {
 		log.Fatal(err)
@@ -81,8 +81,8 @@ func (r *userRepository) UpdateUserById(id int, user model.UpdateUser) error {
 	return err
 }
 
-//GetUserByEmail
-func (r *userRepository) GetUserByEmail(email string) (user *model.User, err error) {
+//FindByEmail
+func (r *userRepository) FindByEmail(email string) (user *model.User, err error) {
 
 	user = &model.User{}
 
@@ -98,7 +98,7 @@ func (r *userRepository) GetUserByEmail(email string) (user *model.User, err err
 	return user, nil
 }
 
-func (r *userRepository) GetUsers() (users []model.User, err error) {
+func (r *userRepository) FindAll() (users []model.User, err error) {
 	users = []model.User{}
 	var query = "SELECT id, email, name, password FROM users"
 	rows, err := r.db.Query(query)
@@ -119,7 +119,7 @@ func (r *userRepository) GetUsers() (users []model.User, err error) {
 	return
 }
 
-func (r *userRepository) CreateUser(UserSignUp model.CreateUser) (user *model.User, err error) {
+func (r *userRepository) Create(UserSignUp model.CreateUser) (user *model.User, err error) {
 
 	query := "INSERT INTO users (name, password , email) values  (?, ?, ?)"
 	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email)

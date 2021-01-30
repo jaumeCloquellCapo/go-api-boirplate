@@ -6,11 +6,11 @@ import (
 )
 
 type UserServiceInterface interface {
-	GetUserById(id int) (user *model.User, err error)
-	RemoveUserById(id int) error
-	UpdateUserById(id int, user model.UpdateUser) error
-	GetUsers() ([]model.User, error)
-	GetUserByEmail(email string) (user *model.User, err error)
+	FindById(id int) (user *model.User, err error)
+	RemoveById(id int) error
+	UpdateById(id int, user model.UpdateUser) error
+	FindAll() ([]model.User, error)
+	FindByEmail(email string) (user *model.User, err error)
 }
 
 type userService struct {
@@ -25,24 +25,24 @@ func NewUserService(userRepo repository.UserRepositoryInterface) *userService {
 }
 
 //GetById
-func (s *userService) GetUserById(id int) (user *model.User, err error) {
-	return s.userRepo.GetUserById(id)
+func (s *userService) FindById(id int) (user *model.User, err error) {
+	return s.userRepo.FindById(id)
 }
 
-func (s *userService) RemoveUserById(id int) error {
-	return s.userRepo.RemoveUserById(id)
+func (s *userService) RemoveById(id int) error {
+	return s.userRepo.RemoveById(id)
 }
 
-func (s *userService) UpdateUserById(id int, user model.UpdateUser) error {
-	return s.userRepo.UpdateUserById(id, user)
+func (s *userService) UpdateById(id int, user model.UpdateUser) error {
+	return s.userRepo.UpdateById(id, user)
 }
 
-//GetUsers
-func (s *userService) GetUsers() ([]model.User, error) {
-	return s.userRepo.GetUsers()
+//FindAllUsers
+func (s *userService) FindAll() ([]model.User, error) {
+	return s.userRepo.FindAll()
 }
 
 //GetUserByEmail
-func (s *userService) GetUserByEmail(email string) (user *model.User, err error) {
-	return s.userRepo.GetUserByEmail(email)
+func (s *userService) FindByEmail(email string) (user *model.User, err error) {
+	return s.userRepo.FindByEmail(email)
 }

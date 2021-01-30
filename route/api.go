@@ -36,7 +36,7 @@ func Setup() *gin.Engine {
 		authorized.POST("/logout", ac.Logout)
 		users := authorized.Group("/users")
 		{
-			users.GET("/:id", uc.GetUserById)
+			users.GET("/:id", uc.FindUserById)
 			users.DELETE("/:id", uc.RemoveUserById)
 			users.PUT("/:id", uc.UpdateUserById)
 
