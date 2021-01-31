@@ -52,7 +52,7 @@ func (am authMiddleware) ValidateAuth(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Please login first"})
 		return
 	}
-
+	// Write user_id and user_model to the context
 	c.Set("userID", userID)
 }
 
@@ -71,7 +71,7 @@ func VerifyToken(r *http.Request) (*jwt.Token, error) {
 	return token, err
 }
 
-//ExtractToken ...
+//ExtractToken extract token from Authorization header
 func extractToken(r *http.Request) string {
 	bearToken := r.Header.Get("Authorization")
 	//normally Authorization the_token_xxx
@@ -82,6 +82,7 @@ func extractToken(r *http.Request) string {
 	return ""
 }
 
+//ExtractTokenMetadata ...
 func ExtractTokenMetadata(r *http.Request) (AccessDetails *model.AccessDetails, err error) {
 	token, err := VerifyToken(r)
 	if err != nil {

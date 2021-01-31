@@ -47,6 +47,7 @@ func (ar authRepository) CreateToken(user model.User) (td model.TokenDetails, er
 	atClaims["exp"] = td.AtExpires
 
 	at := jwt.NewWithClaims(jwt.SigningMethodHS256, atClaims)
+	// A Util function to generate jwt_token which can be used in the request header
 	td.AccessToken, err = at.SignedString([]byte(os.Getenv("ACCESS_SECRET")))
 	if err != nil {
 		return model.TokenDetails{}, err
