@@ -13,7 +13,7 @@ import (
 )
 
 type authMiddleware struct {
-	//cache *provider.DbCache
+	//cache *database.DbCache
 	authService service.AuthServiceInterface
 }
 

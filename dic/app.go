@@ -5,7 +5,7 @@ import (
 	"ApiRest/app/middleware"
 	"ApiRest/app/repository"
 	"ApiRest/app/service"
-	"ApiRest/provider"
+	"ApiRest/database"
 	"github.com/go-redis/redis/v8"
 	"github.com/sarulabs/dingo/generation/di"
 	"log"
@@ -42,17 +42,17 @@ func RegisterServices(builder *di.Builder) {
 	builder.Add(di.Def{
 		Name: DbService,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return provider.InitializeDB(), nil
+			return database.InitializeDB(), nil
 		},
 		Close: func(obj interface{}) error {
-			obj.(*provider.DbStore).Close()
+			obj.(*database.DbStore).Close()
 			return nil
 		},
 	})
 	builder.Add(di.Def{
 		Name: CacheService,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return provider.InitializeCache(), nil
+			return database.InitializeCache(), nil
 		},
 		Close: func(obj interface{}) error {
 			obj.(*redis.Client).Close()
@@ -77,13 +77,13 @@ func RegisterServices(builder *di.Builder) {
 	builder.Add(di.Def{
 		Name: UserRepository,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return repository.NewUserRepository(ctn.Get(DbService).(*provider.DbStore)), nil
+			return repository.NewUserRepository(ctn.Get(DbService).(*database.DbStore)), nil
 		},
 	})
 	builder.Add(di.Def{
 		Name: AuthRepository,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return repository.NewAuthRepository(ctn.Get(CacheService).(*provider.DbCache)), nil
+			return repository.NewAuthRepository(ctn.Get(CacheService).(*database.DbCache)), nil
 		},
 	})
 

@@ -16,7 +16,8 @@ var router *gin.Engine
 var container di.Container
 
 func TestMain(m *testing.M) {
-	gin.SetMode(gin.TestMode)
+	//gin.SetMode(gin.TestMode)
+
 	err := godotenv.Load("../dev.env")
 	gofakeit.Seed(0)
 
