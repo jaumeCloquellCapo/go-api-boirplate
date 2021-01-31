@@ -6,9 +6,9 @@ import (
 	"ApiRest/app/repository"
 	"ApiRest/app/service"
 	"ApiRest/provider"
-	"fmt"
 	"github.com/go-redis/redis/v8"
 	"github.com/sarulabs/dingo/generation/di"
+	"log"
 )
 
 //var Builder *di.Builder
@@ -32,7 +32,7 @@ const AuthController = "controller.auth"
 func InitContainer() di.Container {
 	builder, err := di.NewBuilder()
 	if err != nil {
-		fmt.Errorf(err.Error())
+		log.Fatal(err.Error())
 	}
 	RegisterServices(builder)
 	return builder.Build()

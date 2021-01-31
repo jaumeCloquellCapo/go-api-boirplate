@@ -1,5 +1,8 @@
 build:
-	go build -o bin/main main.go
+	@gogo build -o bin/main main.go
 
 run:
-	go run main.go
+	@go run -race main.go server
+
+test:							## Run all tests
+	@go test ./... -v
