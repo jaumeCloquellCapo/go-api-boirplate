@@ -3,10 +3,7 @@ package cmd
 import (
 	"ApiRest/dic"
 	"ApiRest/route"
-	"fmt"
-	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"
-	"log"
 	"os"
 )
 
@@ -16,7 +13,7 @@ func init() {
 		Short: "Run server",
 		Run: func(cmd *cobra.Command, args []string) {
 
-			environment, _ := cmd.Flags().GetString("env")
+			/*environment, _ := cmd.Flags().GetString("env")
 
 			switch environment {
 			case "dev":
@@ -31,7 +28,7 @@ func init() {
 				if err := godotenv.Load(fmt.Sprintf("%v.env", environment)); err != nil {
 					log.Fatalf("Error loading %v.env", environment)
 				}
-			}
+			}*/
 
 			container := dic.InitContainer()
 			router := route.Setup(container)

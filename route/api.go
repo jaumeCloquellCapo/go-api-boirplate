@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sarulabs/dingo/generation/di"
 	"net/http"
+	"os"
 )
 
 //Setup ...
@@ -20,7 +21,7 @@ func Setup(container di.Container) *gin.Engine {
 	authMiddleware := container.Get(dic.AuthMiddleware).(middleware.AuthMiddlewareInterface)
 	corsMiddleware := container.Get(dic.CorsMiddleware).(middleware.CorsMiddlewareInterface)
 
-	// gin.SetMode(os.Getenv("GIN_MODE"))
+	gin.SetMode(os.Getenv("GIN_MODE"))
 	r := gin.New()
 	//r.Use(limit.Limit(200)) // limit the number of current requests
 	r.Use(gin.Recovery())
