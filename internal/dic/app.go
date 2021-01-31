@@ -6,7 +6,6 @@ import (
 	"ApiRest/app/service"
 	"ApiRest/internal/middleware"
 	"ApiRest/internal/storage"
-	"github.com/go-redis/redis/v8"
 	"github.com/sarulabs/dingo/generation/di"
 	"log"
 )
@@ -55,7 +54,7 @@ func RegisterServices(builder *di.Builder) {
 			return storage.InitializeCache(), nil
 		},
 		Close: func(obj interface{}) error {
-			obj.(*redis.Client).Close()
+			obj.(*storage.DbCache).Close()
 			return nil
 		},
 	})

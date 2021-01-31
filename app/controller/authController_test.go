@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+
 func TestAuthControllerInit(t *testing.T) {
 	type args struct {
 		authService service.AuthServiceInterface
