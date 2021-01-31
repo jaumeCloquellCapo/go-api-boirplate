@@ -3,7 +3,7 @@ package repository
 import (
 	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
-	"ApiRest/database"
+	"ApiRest/internal/storage"
 	"database/sql"
 	"fmt"
 	"github.com/go-sql-driver/mysql"
@@ -11,7 +11,7 @@ import (
 )
 
 type userRepository struct {
-	db *database.DbStore
+	db *storage.DbStore
 }
 
 //UserRepositoryInterface ...
@@ -25,7 +25,7 @@ type UserRepositoryInterface interface {
 }
 
 //NewUserRepository ...
-func NewUserRepository(db *database.DbStore) UserRepositoryInterface {
+func NewUserRepository(db *storage.DbStore) UserRepositoryInterface {
 	return &userRepository{
 		db,
 	}

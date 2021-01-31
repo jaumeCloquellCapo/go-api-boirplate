@@ -1,8 +1,8 @@
 package testing
 
 import (
-	"ApiRest/dic"
-	"ApiRest/route"
+	"ApiRest/internal/dic"
+	"ApiRest/internal/route"
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"

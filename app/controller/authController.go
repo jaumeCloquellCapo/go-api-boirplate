@@ -2,9 +2,9 @@ package controller
 
 import (
 	errorNotFound "ApiRest/app/error"
-	"ApiRest/app/middleware"
 	"ApiRest/app/model"
 	"ApiRest/app/service"
+	"ApiRest/internal/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"log"
@@ -44,7 +44,7 @@ func (h *authController) Login(c *gin.Context) {
 		return
 	}
 
-	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
+	//since after the user logged out, we destroyed that record in the storage so that same jwt token can't be used twice. We need to create the token again
 	tokenDetail, err := h.authService.Login(userLogin)
 
 	if err != nil {
@@ -95,7 +95,7 @@ func (h *authController) SignUp(c *gin.Context) {
 		return
 	}
 
-	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
+	//since after the user logged out, we destroyed that record in the storage so that same jwt token can't be used twice. We need to create the token again
 	_, tokenDetail, err := h.authService.SignUp(UserSignUp)
 	if err != nil {
 		if _, ok := err.(*errorNotFound.AlreadyExist); ok {

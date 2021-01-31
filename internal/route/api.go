@@ -2,8 +2,8 @@ package route
 
 import (
 	"ApiRest/app/controller"
-	"ApiRest/app/middleware"
-	"ApiRest/dic"
+	"ApiRest/internal/dic"
+	"ApiRest/internal/middleware"
 	"github.com/gin-gonic/gin"
 	"github.com/sarulabs/dingo/generation/di"
 	"net/http"

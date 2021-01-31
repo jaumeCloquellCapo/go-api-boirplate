@@ -3,7 +3,7 @@ package service
 import (
 	"ApiRest/app/model"
 	"ApiRest/app/repository"
-	"ApiRest/helpers"
+	"ApiRest/internal/helpers"
 )
 
 //UserServiceInterface ...

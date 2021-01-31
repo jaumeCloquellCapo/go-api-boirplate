@@ -3,7 +3,7 @@ package testing
 import (
 	"ApiRest/app/model"
 	"ApiRest/app/service"
-	"ApiRest/dic"
+	"ApiRest/internal/dic"
 	"fmt"
 	"github.com/brianvoe/gofakeit/v6"
 	"github.com/stretchr/testify/assert"

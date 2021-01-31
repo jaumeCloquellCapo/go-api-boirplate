@@ -11,14 +11,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/error/errorAlreadyExist.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/repository/authRepository_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/repository/userRepository_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controller/authController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/authController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/userController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/userController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/error/errorNotFound.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/error/errorNotFound.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/middleware/cors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/middleware/cors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/authRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/authRepository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/20210131010210_create_user_table.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20210131010210_create_user_table.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/userService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/storage/database.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dic/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/dic/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/encryption.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/helpers/encryption.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helpers/encryption_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/helpers/encryption_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/route/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/route/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/auth_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/testing/auth_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/main_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/testing/main_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/middleware_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/testing/middleware_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testing/user_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/testing/user_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +77,7 @@
     <property name="configurable..is.expanded" value="false" />
     <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/error" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/repository" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -75,18 +88,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/repository" />
       <recent name="$PROJECT_DIR$/app/error" />
       <recent name="$PROJECT_DIR$/app/controller" />
       <recent name="$PROJECT_DIR$/helpers" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/testing" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal" />
       <recent name="$PROJECT_DIR$/testing" />
       <recent name="$PROJECT_DIR$/migrations" />
       <recent name="$PROJECT_DIR$/provider" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/app/interface" />
     </key>
   </component>
   <component name="RestClientSettings">

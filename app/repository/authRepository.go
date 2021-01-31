@@ -3,7 +3,7 @@ package repository
 import (
 	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
-	"ApiRest/database"
+	"ApiRest/internal/storage"
 	"github.com/go-redis/redis/v8"
 	"github.com/twinj/uuid"
 	"gopkg.in/dgrijalva/jwt-go.v3"
@@ -13,7 +13,7 @@ import (
 )
 
 type authRepository struct {
-	redis *database.DbCache
+	redis *storage.DbCache
 }
 
 //AuthRepositoryInterface ...
@@ -25,7 +25,7 @@ type AuthRepositoryInterface interface {
 }
 
 //NewAuthRepository ...
-func NewAuthRepository(db *database.DbCache) AuthRepositoryInterface {
+func NewAuthRepository(db *storage.DbCache) AuthRepositoryInterface {
 	return &authRepository{
 		db,
 	}
@@ -76,12 +76,12 @@ func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) e
 	rt := time.Unix(token.RtExpires, 0)
 	now := time.Now()
 
-	errAccess := ar.redis.Set(database.RedisCtx, token.AccessUUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()
+	errAccess := ar.redis.Set(storage.RedisCtx, token.AccessUUID, strconv.Itoa(int(user.ID)), at.Sub(now)).Err()
 	if errAccess != nil {
 		return errAccess
 	}
 
-	errRefresh := ar.redis.Set(database.RedisCtx, token.RefreshUUID, strconv.Itoa(int(user.ID)), rt.Sub(now)).Err()
+	errRefresh := ar.redis.Set(storage.RedisCtx, token.RefreshUUID, strconv.Itoa(int(user.ID)), rt.Sub(now)).Err()
 	if errRefresh != nil {
 		return errRefresh
 	}
@@ -92,7 +92,7 @@ func (ar authRepository) CreateAuth(user model.User, token model.TokenDetails) e
 //GetAuth ...
 func (ar authRepository) GetAuth(AccessUUID string) (int64, error) {
 
-	userid, err := ar.redis.Get(database.RedisCtx, AccessUUID).Result()
+	userid, err := ar.redis.Get(storage.RedisCtx, AccessUUID).Result()
 
 	if err != nil {
 		return 0, err
@@ -106,7 +106,7 @@ func (ar authRepository) GetAuth(AccessUUID string) (int64, error) {
 //DeleteAuth ...
 func (ar authRepository) DeleteAuth(AccessUUID string) error {
 
-	_, err := ar.redis.Del(database.RedisCtx, AccessUUID).Result()
+	_, err := ar.redis.Del(storage.RedisCtx, AccessUUID).Result()
 
 	if err != nil {
 		if err == redis.Nil {

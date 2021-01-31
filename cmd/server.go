@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"ApiRest/dic"
-	"ApiRest/route"
+	"ApiRest/internal/dic"
+	"ApiRest/internal/route"
 	"github.com/spf13/cobra"
 	"os"
 )

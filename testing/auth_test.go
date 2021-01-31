@@ -3,7 +3,7 @@ package testing
 import (
 	"ApiRest/app/model"
 	"ApiRest/app/service"
-	"ApiRest/dic"
+	"ApiRest/internal/dic"
 	"bytes"
 	"encoding/json"
 	"github.com/brianvoe/gofakeit/v6"
