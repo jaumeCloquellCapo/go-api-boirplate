@@ -16,10 +16,10 @@ var rootCmd = &cobra.Command{
 	},
 }
 
-var env string
+// Use config file from the flag.
+var cfgFile string
 
 func Execute() {
-	//rootCmd.Use = viper.GetString("APP_COMMAND")
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -28,24 +28,19 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&env, "env", "dev", "Environment name.")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "file", "dev.env", "Config file")
 }
 
 func initConfig() {
-	env, _ := rootCmd.Flags().GetString("env")
+	// Use config file from the flag.
 
-	switch env {
-	case "dev":
-		if err := godotenv.Load(fmt.Sprintf("%v.env", env)); err != nil {
-			log.Fatalf("Error loading %v.env", env)
+	if cfgFile != "" {
+		if err := godotenv.Load(cfgFile); err != nil {
+			log.Fatalf("Error loading %v", cfgFile)
 		}
-	case "pro":
-		if err := godotenv.Load(fmt.Sprintf("%v.env", env)); err != nil {
-			log.Fatalf("Error loading %v.env", env)
-		}
-	default:
-		if err := godotenv.Load(fmt.Sprintf("%v.env", env)); err != nil {
-			log.Fatalf("Error loading %v.env", env)
+	} else {
+		if err := godotenv.Load("dev.env"); err != nil {
+			log.Fatalf("Error loading %v", cfgFile)
 		}
 	}
 }

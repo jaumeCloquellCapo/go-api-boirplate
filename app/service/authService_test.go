@@ -6,7 +6,6 @@ import (
 	"testing"
 )
 
-
 func TestAuthRepositoryInit(t *testing.T) {
 	type args struct {
 		authRepository repository.AuthRepositoryInterface

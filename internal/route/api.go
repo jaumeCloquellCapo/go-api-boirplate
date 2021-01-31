@@ -4,10 +4,12 @@ import (
 	"ApiRest/app/controller"
 	"ApiRest/internal/dic"
 	"ApiRest/internal/middleware"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/sarulabs/dingo/generation/di"
 	"net/http"
 	"os"
+	"time"
 )
 
 //Setup ...
@@ -23,6 +25,21 @@ func Setup(container di.Container) *gin.Engine {
 
 	gin.SetMode(os.Getenv("GIN_MODE"))
 	r := gin.New()
+	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+
+		// your custom format
+		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s \"%s\" %s\"\n",
+			param.ClientIP,
+			param.TimeStamp.Format(time.RFC1123),
+			param.Method,
+			param.Path,
+			param.Request.Proto,
+			param.StatusCode,
+			param.Latency,
+			param.Request.UserAgent(),
+			param.ErrorMessage,
+		)
+	}))
 	//r.Use(limit.Limit(200)) // limit the number of current requests
 	r.Use(gin.Recovery())
 	r.Use(corsMiddleware.Handler())
