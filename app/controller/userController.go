@@ -42,7 +42,7 @@ func (uc *userController) FindUserById(c *gin.Context) {
 	user, err := uc.service.FindById(id)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.ErrorNotFound); ok {
+		if _, ok := err.(*errorNotFound.NotFound); ok {
 			c.Status(http.StatusNotFound)
 			return
 		}
@@ -67,7 +67,7 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 	err = uc.service.RemoveById(id)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.ErrorNotFound); ok {
+		if _, ok := err.(*errorNotFound.NotFound); ok {
 			c.Status(http.StatusNotFound)
 			return
 		}
@@ -97,7 +97,7 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 	err = uc.service.UpdateById(id, user)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.ErrorNotFound); ok {
+		if _, ok := err.(*errorNotFound.NotFound); ok {
 			c.Status(http.StatusNotFound)
 			return
 		}

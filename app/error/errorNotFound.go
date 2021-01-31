@@ -1,9 +1,9 @@
 package error
 
 // My own Error type that will help return my customized Error info
-type ErrorNotFound struct{ msg string }
+type NotFound struct{ msg string }
 
-func (e *ErrorNotFound) Error() string { return e.msg }
+func (e *NotFound) Error() string { return e.msg }
 
 //IErrorNotFound ...
 type IErrorNotFound interface {
@@ -12,5 +12,5 @@ type IErrorNotFound interface {
 
 // Warp the error info in a object
 func NewErrorNotFound(msg string) error {
-	return &ErrorNotFound{msg}
+	return &NotFound{msg}
 }

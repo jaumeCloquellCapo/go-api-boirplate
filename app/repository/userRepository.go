@@ -6,6 +6,7 @@ import (
 	"ApiRest/database"
 	"database/sql"
 	"fmt"
+	"github.com/go-sql-driver/mysql"
 	"log"
 )
 
@@ -116,8 +117,10 @@ func (r *userRepository) Create(UserSignUp model.CreateUser) (user *model.User, 
 	query := "INSERT INTO users (name, password, email, last_name, phone, postal_code, country) values  (?, ?, ?, ?, ?, ?, ?)"
 	res, err := r.db.Exec(query, UserSignUp.Name, UserSignUp.Password, UserSignUp.Email, UserSignUp.LastName, UserSignUp.Phone, UserSignUp.PostalCode, UserSignUp.Country)
 	if err != nil {
-		if err == sql.ErrNoRows {
-			log.Println(err)
+		if me, ok := err.(*mysql.MySQLError); ok {
+			if me.Number == 1062 {
+				return nil, error2.NewErrorAlreadyExist(fmt.Sprintf("User by email %s already exist", UserSignUp.Email))
+			}
 		}
 		return
 	}

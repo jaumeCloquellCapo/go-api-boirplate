@@ -31,5 +31,3 @@ func TestUserEncrypt(t *testing.T) {
 	assert.Equal(t, false, ok)
 
 }
-
-

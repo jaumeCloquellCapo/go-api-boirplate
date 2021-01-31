@@ -48,7 +48,7 @@ func (h *authController) Login(c *gin.Context) {
 	tokenDetail, err := h.authService.Login(userLogin)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.ErrorNotFound); ok {
+		if _, ok := err.(*errorNotFound.NotFound); ok {
 			c.Status(http.StatusNotFound)
 			return
 		}
@@ -98,6 +98,10 @@ func (h *authController) SignUp(c *gin.Context) {
 	//since after the user logged out, we destroyed that record in the database so that same jwt token can't be used twice. We need to create the token again
 	_, tokenDetail, err := h.authService.SignUp(UserSignUp)
 	if err != nil {
+		if _, ok := err.(*errorNotFound.AlreadyExist); ok {
+			c.Status(http.StatusConflict)
+			return
+		}
 		log.Print(err.Error())
 		c.Writer.WriteHeader(http.StatusInternalServerError)
 		return
