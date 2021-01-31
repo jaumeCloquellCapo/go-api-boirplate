@@ -35,3 +35,8 @@ Path | Method | Required JSON | Header | Description
 /auth/users/$id | GET | | Authorization: "Bearer refresh_token"  | 
 /auth/register | POST | | Authorization: "Bearer refresh_token" | Create new user
 /auth/logout | POST | | Authorizaiton: "Bearer refresh_token" | logout from this device
+
+
+
+goose mysql "db:db@/db?parseTime=true" up
+goose create add_some_column -dir="./migrations" sql

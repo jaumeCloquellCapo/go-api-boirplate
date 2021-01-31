@@ -12,23 +12,10 @@
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/AuthController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/AuthController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/UserController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/UserController.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/error/ErrorNotFound.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/error/ErrorNotFound.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/middleware/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/middleware/cors.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/middleware/cors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/UserModel.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/UserModel.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/repository/authRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/authRepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/repository/userRepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/repository/userRepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/authService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/service/userService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helpers/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/helpers/http.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/migrator.go" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/migrator.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/provider/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/cache.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/provider/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/provider/database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/route/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/route/api.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/migration.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/migrator.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
