@@ -15,7 +15,9 @@ func init() {
 		Use:   "server",
 		Short: "Run server",
 		Run: func(cmd *cobra.Command, args []string) {
+
 			environment, _ := cmd.Flags().GetString("env")
+
 			switch environment {
 			case "dev":
 				if err := godotenv.Load(fmt.Sprintf("%v.env", environment)); err != nil {

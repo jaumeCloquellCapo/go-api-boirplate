@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestComparePasswords(t *testing.T) {
+func TestUserEncrypt(t *testing.T) {
 
 	var defaultPass = "123"
 
