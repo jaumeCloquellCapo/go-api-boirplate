@@ -22,6 +22,28 @@ Independently of the architecture you choose, we have to glue the pieces from th
 
 ### Tests
 
+### Unit Tests
+
+
+When testing a component, we ideally want to isolate it completely to avoid having failures elsewhere to compromise our tests. This is especially harder when the component we want to test has dependencies on other components from different layers in our software. In the scenario we are using here, our service implementation depends on a component from the UserService or AuthService layers to access information about the users.
+To promote the desired isolation, it is common for developers to write fake simplified implementations of those dependencies to be used during the tests. Those fake implementations are called mocks.
+We can create a mock implementation of the UserService to be injected into the controller implementation for the test execution.
+
+    func (m *MockUserService) FindByEmail(email string) (user *model.User, err error) {
+        return &model.User{
+            ID:         0,
+            Name:       "0",
+            LastName:   "0",
+            Password:   nil,
+            Email:      "0",
+            Country:    "0",
+            Phone:      "0",
+            PostalCode: "0",
+        }, nil
+    }
+
+To enable the test execution, it is necessary that the mock provides a behavior compatible with all test cases we want to validate, otherwise we cannot achieve the desired test coverage.
+### Unit End-to-end
 The folder tests have some end-to-end test for validating the system under test and its components for integration and data integrity.
 
 ## Objectives
