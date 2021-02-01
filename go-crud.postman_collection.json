@@ -28,7 +28,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{host}}:{{port}}/auth/users/1",
+					"raw": "http://{{host}}:{{port}}/auth/users/10",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -37,7 +37,7 @@
 					"path": [
 						"auth",
 						"users",
-						"1"
+						"10"
 					]
 				}
 			},
@@ -135,7 +135,7 @@
 					"script": {
 						"exec": [
 							"var data = pm.response.json();",
-							"pm.environment.set(\"token\", data.AccessToken);"
+							"pm.environment.set(\"token\", data);"
 						],
 						"type": "text/javascript"
 					}
@@ -175,7 +175,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"jaume\",\n    \"email\": \"1jaumecloquessssll@gmail.com\",\n    \"password\": \"jaumeclssoquell@gmail.com\",\n    \"last_name\": \"jaume\",\n    \"postal_code\": \"jaumecloquessll@gmail.com\",\n    \"country\": \"jaumeclssoquell@gmail.com\",\n    \"phone\": \"jaumeclssoquell@gmail.com\"\n}",
+					"raw": "{\n    \"name\": \"jaume\",\n    \"email\": \"2jaumecloquessssll@gmail.com\",\n    \"password\": \"jaumeclssoquell@gmail.com\",\n    \"last_name\": \"jaume\",\n    \"postal_code\": \"jaumecloquessll@gmail.com\",\n    \"country\": \"jaumeclssoquell@gmail.com\",\n    \"phone\": \"jaumeclssoquell@gmail.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

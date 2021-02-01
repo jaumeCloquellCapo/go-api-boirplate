@@ -64,7 +64,7 @@ func (h *authController) Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, tokenDetail)
+	c.JSON(http.StatusOK, tokenDetail.AccessToken)
 }
 
 func (h *authController) Logout(c *gin.Context) {
@@ -114,6 +114,6 @@ func (h *authController) SignUp(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusCreated, tokenDetail)
+	c.JSON(http.StatusCreated, tokenDetail.AccessToken)
 
 }
