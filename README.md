@@ -12,9 +12,58 @@ The app is designed to use a layered architecture. The architecture is heavily i
 ## Implementation Notes
 
 ### Storage providers
+
 I picked Mysql and Redis because on the one hand, MySQL offers good performance and it is used to save relational data how for example the users table. On the other hand, Redis is used as an external cache to save the session info of the users. Although is only used as a session cache, it could be a data store to cache request o any type of information.
 
+In this example we will connect to a Mysql database, but the syntax (minus some small SQL semantics) is the same for a SQL or PostgreSQL database.
+
+
+    // DbStore ...
+    type DbStore struct {
+    *sql.DB
+    }
+
+    // Opening a storage and save the reference to `Database` struct.
+    func InitializeDB() *DbStore {
+        //dataSourceName := fmt.Sprintf(core.Database.Username + ":" + core.Database.Password + "@/" + core.Database.Database)
+        cnf := fmt.Sprintf("%s:%s@tcp(%s)/%s", os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_DATABASE"))
+    
+        var err error
+        var db *sql.DB
+    
+        if db, err = sql.Open("mysql", cnf); err != nil {
+            log.Fatal(err)
+        }
+    
+        retryCount := 30
+        for {
+            err := db.Ping()
+            if err != nil {
+                if retryCount == 0 {
+                    log.Fatalf("Not able to establish connection to database")
+                }
+    
+                log.Printf(fmt.Sprintf("Could not connect to database. Wait 2 seconds. %d retries left...", retryCount))
+                retryCount--
+                time.Sleep(2 * time.Second)
+            } else {
+                break
+            }
+        }
+    
+    
+        if errPing := db.Ping(); errPing != nil {
+            log.Fatal(errPing)
+        }
+        return &DbStore{
+            db,
+        }
+    }
+
+I added a simple for functions to retry the connection for 30 times.
+
 ### Dependency Injection
+
 As a software developer split our code into different layers is a requirement if we desire to make it clean and maintainable.
 Usually, the boundaries are placed at least between infrastructure and business logic. When we are dealing specially with complex business logic, it is desirable that infrastructure depends on our business logic, so that we don’t break our software when changing the infrastructure.
 The first decision when developing a new software project is to materialize this layer split by choosing an architecture. Most of the time I choose Clean Architecture, but you have another good option like Domain-Driven Design.
@@ -22,8 +71,9 @@ Independently of the architecture you choose, we have to glue the pieces from th
 
 ### Tests
 
-### Unit Tests
+Testing is an important part of any application. There are two approaches we can take to testing Go web applications. The first approach is a unit-test style approach. The other is more of an end-to-end approach. In this chapter we'll cover both approaches.
 
+### Unit Tests
 
 When testing a component, we ideally want to isolate it completely to avoid having failures elsewhere to compromise our tests. This is especially harder when the component we want to test has dependencies on other components from different layers in our software. In the scenario we are using here, our service implementation depends on a component from the UserService or AuthService layers to access information about the users.
 To promote the desired isolation, it is common for developers to write fake simplified implementations of those dependencies to be used during the tests. Those fake implementations are called mocks.
@@ -44,7 +94,9 @@ We can create a mock implementation of the UserService to be injected into the c
 
 To enable the test execution, it is necessary that the mock provides a behavior compatible with all test cases we want to validate, otherwise we cannot achieve the desired test coverage.
 ### Unit End-to-end
-The folder tests have some end-to-end test for validating the system under test and its components for integration and data integrity.
+End to end allows us to test applications through the whole request cycle. Where unit testing is meant to just test a particular function, end to end tests will run the middleware, router, and other that a request my pass through.
+
+The folder tests have all e2e tests 
 
 ## Objectives
 * [x] Scalable, must be able to run more than one instance.
