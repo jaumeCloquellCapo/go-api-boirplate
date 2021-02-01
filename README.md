@@ -50,7 +50,7 @@ stygis/
             ├── users                   # only sample domain, user package which handler for user business logic  
       ├── repository                    # this is the only file to declare interface methods from storage and repository. also where to put func init the package.
 ├── internal                            # Contains all application packages
-      ├── helpers                       # For declaring all constants variable based on it's entity, declaring with full name descripting it
+      ├── helpers                      
             ├── encryption              # you can have any encryption method here
       ├── route                         # where the routing for handlers are assigned based on method and url
       ├── dic                           # dependency injection container
@@ -66,20 +66,31 @@ stygis/
 
 ## Commands
 
-### Run server on local
-make dev_up && make migrate_dev && go run main.go
+### Development on local
 
-### Dockerized CRUD API [PRO]
+#### Manually fetch dependencies from go.mod?
+    go mod download
+#### Run server on local
+    make dev_up && make migrate_dev
+#### Run server on local
+    make run
 
-* make pro_up // make pro_down
+### Dockerized api
+
+#### Generate docker image
+    make pro_up
 
 If you received this follow error when docker-compose up is running, you only have to rerun the same command ( make pro_up )
 
-FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpxd1tbhth'
-[114003] Failed to execute script docker-compose
-make: *** [Makefile:21: pro_up] Error 255
+    FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpxd1tbhth'
+    [114003] Failed to execute script docker-compose
+    make: *** [Makefile:21: pro_up] Error 255
 
-After of this is necessary access to docker shell to run make migrate_pro
+#### Run migrate into docker shell
+
+After of this, is necessary access to docker shell to run 
+    
+    make migrate_pro
 
 
 ## Routes
