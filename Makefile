@@ -1,3 +1,4 @@
+
 build:
 	@go build -o bin/main main.go
 
@@ -7,15 +8,14 @@ run:
 test:							## Run all tests
 	@go test ./...
 
-migrate_pro:
+migrate_pro :
 	@goose -dir ./migrations mysql "db:db@tcp(db)/db?parseTime=true" up
 
 migrate_dev:
-	@goose -dir ./migrations mysql "db:db@/db?parseTime=true" up
+	@goose -dir ./migrations mysql "db:db@tcp(localhost)/db?parseTime=true" up
 
 dev_up:
 	@docker-compose -f docker-compose.dev.yml up
-
 
 dev_down:
 	@docker-compose -f docker-compose.dev.yml down
