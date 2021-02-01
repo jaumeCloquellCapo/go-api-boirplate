@@ -9,6 +9,47 @@ The app is designed to use a layered architecture. The architecture is heavily i
   <img src="https://cdn-images-1.medium.com/max/719/1*ZNT5apOxDzGrTKUJQAIcvg.png" width="350"/>
 </p>
 
+## Objectives
+* [x] Scalable, must be able to run more than one instance.
+* [x] Dockerized
+* [x] Unit tested, must be able to run "go test ./..." directly from clone.
+* [x] Integration tested, recommend docker-compose.
+* [x] dep vendored, but using the standard library often, instead of piling on dependencies.
+* [x] Authenticated via apikeys and/or user accounts.
+* Built and tested via CI: Travis, CircleCi, etc. Recommend Makefile for task documentation.
+* [x] Flag & ENV config, API keys, ports, dev mode, etc.
+* [x] Use of Context to limit request time.
+* [x] Leveled JSON logging, logrus or similar.
+* [x] MYSQL
+* [x] Redis/memcache for scalable caching.
+* [x] Passing go fmt, go lint, or better, go-metalinter in the CI.
+
+## Project structure
+
+```sh
+stygis/
+├── bin     
+├── app                                 # Domain packages are here, contains business logic and interfaces that belong to each domain
+      ├── controller                    # handler for rest API technology
+      ├── model 
+            ├── users                   # only sample domain, user package which handler for user business logic  
+      ├── repository                    # this is the only file to declare interface methods from storage and repository. also where to put func init the package.
+├── internal                            # Contains all application packages
+      ├── helpers                      
+            ├── encryption              # you can have any encryption method here
+      ├── route                         # where the routing for handlers are assigned based on method and url
+      ├── dic                           # dependency injection container
+      ├── middleware                    
+             ├── auth                   # middleware control of the access of unauthenticated users
+             ├── cors                   # middleware that can be used to enable CORS with various options
+      ├── storage                       # this is where you put the data storing code. whether persistence like postgresql etc. and caching like redis, etc. 
+            ├── cache                   # contains functions to open database redis connection
+            ├── persistence             # contains functions to open database mysql connections
+├── migrations                          # Contains sql files to migrate database
+├── tests                               # End-To-End test  
+├── mocks                               # Fake Service to test controllers handler functions
+```
+
 ## Implementation Notes
 
 ### Storage providers
@@ -98,46 +139,6 @@ End to end allows us to test applications through the whole request cycle. Where
 
 The folder tests have all e2e tests 
 
-## Objectives
-* [x] Scalable, must be able to run more than one instance.
-* [x] Dockerized
-* [x] Unit tested, must be able to run "go test ./..." directly from clone.
-* [x] Integration tested, recommend docker-compose.
-* [x] dep vendored, but using the standard library often, instead of piling on dependencies.
-* [x] Authenticated via apikeys and/or user accounts.
-* Built and tested via CI: Travis, CircleCi, etc. Recommend Makefile for task documentation.
-* [x] Flag & ENV config, API keys, ports, dev mode, etc.
-* [x] Use of Context to limit request time.
-* [x] Leveled JSON logging, logrus or similar.
-* [x] MYSQL
-* [x] Redis/memcache for scalable caching.
-* [x] Passing go fmt, go lint, or better, go-metalinter in the CI.
-
-## Project structure
-
-```sh
-stygis/
-├── bin     
-├── app                                 # Domain packages are here, contains business logic and interfaces that belong to each domain
-      ├── controller                    # handler for rest API technology
-      ├── model 
-            ├── users                   # only sample domain, user package which handler for user business logic  
-      ├── repository                    # this is the only file to declare interface methods from storage and repository. also where to put func init the package.
-├── internal                            # Contains all application packages
-      ├── helpers                      
-            ├── encryption              # you can have any encryption method here
-      ├── route                         # where the routing for handlers are assigned based on method and url
-      ├── dic                           # dependency injection container
-      ├── middleware                    
-             ├── auth                   # middleware control of the access of unauthenticated users
-             ├── cors                   # middleware that can be used to enable CORS with various options
-      ├── storage                       # this is where you put the data storing code. whether persistence like postgresql etc. and caching like redis, etc. 
-            ├── cache                   # contains functions to open database redis connection
-            ├── persistence             # contains functions to open database mysql connections
-├── migrations                          # Contains sql files to migrate database
-├── tests                               # End-To-End test  
-├── mocks                               # Fake Service to test controllers handler functions
-```
 
 ## Commands
 
