@@ -18,9 +18,11 @@ I picked Mysql and Redis because on the one hand, MySQL offers good performance 
 As a software developer split our code into different layers is a requirement if we desire to make it clean and maintainable.
 Usually, the boundaries are placed at least between infrastructure and business logic. When we are dealing specially with complex business logic, it is desirable that infrastructure depends on our business logic, so that we don’t break our software when changing the infrastructure.
 The first decision when developing a new software project is to materialize this layer split by choosing an architecture. Most of the time I choose Clean Architecture, but you have another good option like Domain-Driven Design.
-Independently from the architecture you choose, we have to glue the pieces from the different layers to come up with a new feature and this is where Dependency Injection shines.
+Independently of the architecture you choose, we have to glue the pieces from the different layers to come up with a new feature and this is where Dependency Injection shines.
 
 ### Tests
+
+The folder tests have some end-to-end test for validating the system under test and its components for integration and data integrity.
 
 ## Objectives
 * [x] Scalable, must be able to run more than one instance.
@@ -63,17 +65,22 @@ stygis/
 ```
 
 ## Commands
-Before to run any command is necessary to deploy the databases. To run up the session store and de SQL store we can run 
 
-docker-compose up
-### Run server
-make run
+### Run server on local
+make dev_up && make migrate_dev && go run main.go
 
-### Build Server
-make build
+### Dockerized CRUD API [PRO]
 
-### Migrate database
-make migrate
+* make pro_up // make pro_down
+
+If you received this follow error when docker-compose up is running, you only have to rerun the same command ( make pro_up )
+
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpxd1tbhth'
+[114003] Failed to execute script docker-compose
+make: *** [Makefile:21: pro_up] Error 255
+
+After of this is necessary access to docker shell to run make migrate_pro
+
 
 ## Routes
 
