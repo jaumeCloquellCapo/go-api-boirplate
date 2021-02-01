@@ -12,17 +12,15 @@ The app is designed to use a layered architecture. The architecture is heavily i
 ## Implementation Notes
 
 ### Storage providers
-I picked Mysql and Redis because for one hand, mysql offer a good performance and it is used to save relational data how for examples the users table. On the other hand, redis is used as a external cache to save session info of the users. Although is only used like a session cache, it could will be a data store to cache request o any type of information.
+I picked Mysql and Redis because on the one hand, MySQL offers good performance and it is used to save relational data how for example the users table. On the other hand, Redis is used as an external cache to save the session info of the users. Although is only used as a session cache, it could be a data store to cache request o any type of information.
 
 ### Dependency Injection
-As a software developer split our code in different layers is a requirement if we desire to make it clean and maintainable.
-Usually the boundaries are placed at least between infrastructure and business logic. When we are dealing specially with complex business logic, it is desirable that infrastructure depends on our business logic, so that we don’t break our software when changing the infrastructure.
-The first decision when developing a new software project, is to materialize this layer split choosing an architecture. Most of the times I choose Clean Architecture, but you have another good options like Domain Driven Design.
+As a software developer split our code into different layers is a requirement if we desire to make it clean and maintainable.
+Usually, the boundaries are placed at least between infrastructure and business logic. When we are dealing specially with complex business logic, it is desirable that infrastructure depends on our business logic, so that we don’t break our software when changing the infrastructure.
+The first decision when developing a new software project is to materialize this layer split by choosing an architecture. Most of the time I choose Clean Architecture, but you have another good option like Domain-Driven Design.
 Independently from the architecture you choose, we have to glue the pieces from the different layers to come up with a new feature and this is where Dependency Injection shines.
 
-
-In our project the dependencies are provided through a class constructor. This states that a class should not configure its dependencies statically but should be configured by some other class from outside.  It is the fifth principle of S.O.L.I.D — the five basic principles of object-oriented programming and design by Uncle Bob — which states that a class should depend on abstraction and not upon concretions (in simple terms, hard-coded).
-
+### Tests
 
 ## Objectives
 * [x] Scalable, must be able to run more than one instance.
@@ -49,7 +47,6 @@ stygis/
       ├── model 
             ├── users                   # only sample domain, user package which handler for user business logic  
       ├── repository                    # this is the only file to declare interface methods from storage and repository. also where to put func init the package.
-├── cmd                                 # Packages that provide support for a specific program that is being built, this contains cmd for REST
 ├── internal                            # Contains all application packages
       ├── helpers                       # For declaring all constants variable based on it's entity, declaring with full name descripting it
             ├── encryption              # you can have any encryption method here
@@ -62,10 +59,13 @@ stygis/
             ├── cache                   # contains functions to open database redis connection
             ├── persistence             # contains functions to open database mysql connections
 ├── migrations                          # Contains sql files to migrate database
+├── tests                               # End-To-End test  
 ```
 
 ## Commands
+Before to run any command is necessary to deploy the databases. To run up the session store and de SQL store we can run 
 
+docker-compose up
 ### Run server
 make run
 
@@ -73,7 +73,7 @@ make run
 make build
 
 ### Migrate database
-make build
+make migrate
 
 ## Routes
 

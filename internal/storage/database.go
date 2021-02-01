@@ -6,6 +6,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"os"
+	"time"
 )
 
 // DbStore ...
@@ -24,6 +25,24 @@ func InitializeDB() *DbStore {
 	if db, err = sql.Open("mysql", cnf); err != nil {
 		log.Fatal(err)
 	}
+
+	retryCount := 30
+	for {
+		err := db.Ping()
+		if err != nil {
+			if retryCount == 0 {
+				log.Fatalf("Not able to establish connection to database")
+			}
+
+			log.Printf(fmt.Sprintf("Could not connect to database. Wait 2 seconds. %d retries left...", retryCount))
+			retryCount--
+			time.Sleep(2 * time.Second)
+		} else {
+			break
+		}
+	}
+
+
 	if errPing := db.Ping(); errPing != nil {
 		log.Fatal(errPing)
 	}
