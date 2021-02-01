@@ -29,7 +29,7 @@ func NewAuthMiddleware(authService service.AuthServiceInterface) AuthMiddlewareI
 	}
 }
 
-//Handler ...
+// Middleware functions take an gin.HandlerFunc and return a new one that can run code before and/or after calling the original handler — or it can decide not to call the original handler at all.
 func (am authMiddleware) Handler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		am.ValidateAuth(c)

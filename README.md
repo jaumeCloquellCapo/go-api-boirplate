@@ -62,6 +62,7 @@ stygis/
             ├── persistence             # contains functions to open database mysql connections
 ├── migrations                          # Contains sql files to migrate database
 ├── tests                               # End-To-End test  
+├── mocks                               # Fake Service to test controllers handler functions
 ```
 
 ## Commands

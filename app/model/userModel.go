@@ -17,7 +17,7 @@ type UpdateUser struct {
 	Name       string `json:"name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
 	Password   string `json:"password" validate:"required"`
-	Email      string `json:"email" validate:"required"`
+	Email      string `json:"email" validate:"required,email"`
 	Country    string `json:"country" validate:"required"`
 	Phone      string `json:"phone" validate:"required"`
 	PostalCode string `json:"postal_code" validate:"required"`
@@ -27,7 +27,7 @@ type UpdateUser struct {
 type CreateUser struct {
 	Name       string `json:"name" validate:"required"`
 	LastName   string `json:"last_name" validate:"required"`
-	Email      string `json:"email" validate:"required"`
+	Email      string `json:"email" validate:"required,email"`
 	Country    string `json:"country" validate:"required"`
 	Phone      string `json:"phone" validate:"required"`
 	PostalCode string `json:"postal_code" validate:"required"`
@@ -36,6 +36,6 @@ type CreateUser struct {
 
 //Credentials ...
 type Credentials struct {
-	Email    string `json:"email" validate:"required"`
+	Email    string `json:"email" validate:"required,email"`
 	Password string `json:"password" validate:"required"`
 }

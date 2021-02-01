@@ -5,6 +5,7 @@ import (
 	"ApiRest/app/model"
 	"ApiRest/app/service"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	"log"
 	"net/http"
 	"strconv"
@@ -94,6 +95,14 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
+
+	validate := validator.New()
+	err = validate.Struct(user)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	err = uc.service.UpdateById(id, user)
 
 	if err != nil {

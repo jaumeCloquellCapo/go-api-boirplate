@@ -44,6 +44,13 @@ func (h *authController) Login(c *gin.Context) {
 		return
 	}
 
+	validate := validator.New()
+	err = validate.Struct(userLogin)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	//since after the user logged out, we destroyed that record in the storage so that same jwt token can't be used twice. We need to create the token again
 	tokenDetail, err := h.authService.Login(userLogin)
 
