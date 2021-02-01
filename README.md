@@ -1,6 +1,6 @@
 # Go API CRUD
 
-Go API CRUD app architecture showcase using Gin, PostgreSQL and redis. 
+Go API CRUD app architecture showcase using Gin, Mysql and redis. 
 
 # Architecture Overview #
 The app is designed to use a layered architecture. The architecture is heavily influenced by the Clean Architecture and Hexagonal Architecture. [Clean Architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) is an architecture where `the business rules can be tested without the UI, database, web server, or any external element`.
