@@ -12,7 +12,8 @@
   <component name="ChangeListManager">
     <list default="true" id="499926f4-b26c-474b-b3fd-7ca98ac5689a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controller/authController.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/controller/authController.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mock/authService.go" beforeDir="false" afterPath="$PROJECT_DIR$/mock/authService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mock/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/mock/userService.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
