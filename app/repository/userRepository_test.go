@@ -129,7 +129,7 @@ func TestUserRepository_Create(t *testing.T) {
 		PostalCode: "es",
 	}
 
-	ep := mock.ExpectPrepare("INSERT INTO users (name, cif, last_name, postal_code, country) VALUES ($1, $2, $3, $4, $5) RETURNING id").WillBeClosed()
+	ep := mock.ExpectPrepare("INSERT INTO users (name, cif, postal_code, country) VALUES ($1, $2, $3, $4) RETURNING id").WillBeClosed()
 	ep.ExpectQuery().WithArgs(mockUser.Name, mockUser.Cif, mockUser.PostalCode, mockUser.Country).WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(userID))
 
 	foundUser, err := userPGRepository.Create(mockUser)

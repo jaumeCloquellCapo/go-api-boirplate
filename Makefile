@@ -8,10 +8,7 @@ run:
 test:							## Run all tests
 	@go test ./...
 
-migrate_pro :
-	@goose -dir ./migrations mysql "db:db@tcp(db)/db?parseTime=true" up
-
-migrate_dev:
+migrate:
 	@goose -dir ./migrations postgres "postgresql://db:db@localhost?sslmode=disable" up
 
 dev_up:

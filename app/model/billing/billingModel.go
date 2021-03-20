@@ -44,7 +44,7 @@ type CustomerParams struct {
 // CreateCustomer define the request params to add a new payment method
 type CreateCustomer struct {
 	Identify Identify `json:"identify"`
-	CustomerParams
+	CustomerParams `json:"customerParams"`
 }
 // Payment define the payment interface struct
 type Payment struct {

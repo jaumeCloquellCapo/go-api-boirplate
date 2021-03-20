@@ -52,6 +52,7 @@ func (uc *billingController) AddCustomer(c *gin.Context) {
 	var rq billing.CreateCustomer
 
 	if err := c.ShouldBindJSON(&rq); err != nil {
+		uc.logger.Error(err.Error())
 		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
 		return
 	}
