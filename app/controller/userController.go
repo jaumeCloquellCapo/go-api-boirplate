@@ -43,7 +43,7 @@ func (uc *userController) Find(c *gin.Context) {
 		return
 	}
 
-	user, err := uc.service.FindById(id)
+	user, err := uc.service.FindByID(id)
 	if err != nil {
 		uc.logger.Error(err.Error())
 		c.Status(errorNotFound.ParseError(err))
@@ -62,7 +62,7 @@ func (uc *userController) Destroy(c *gin.Context) {
 		return
 	}
 
-	err = uc.service.RemoveById(id)
+	err = uc.service.RemoveByID(id)
 
 	if err != nil {
 		uc.logger.Error(err.Error())
@@ -96,7 +96,7 @@ func (uc *userController) Update(c *gin.Context) {
 		return
 	}
 
-	err = uc.service.UpdateById(id, user)
+	err = uc.service.UpdateByID(id, user)
 
 	if err != nil {
 		uc.logger.Error(err.Error())

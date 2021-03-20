@@ -30,9 +30,9 @@ The app is designed to use a layered architecture. The architecture is heavily i
 stygis/
 ├── bin     
 ├── app                                 # Domain packages are here, contains business logic and interfaces that belong to each domain
-      ├── controller                    # handler for rest API technology
+      ├── controller                    # paypal for rest API technology
       ├── model 
-            ├── users                   # only sample domain, user package which handler for user business logic  
+            ├── users                   # only sample domain, user package which paypal for user business logic  
       ├── repository                    # this is the only file to declare interface methods from storage and repository. also where to put func init the package.
 ├── internal                            # Contains all application packages
       ├── helpers                      
@@ -47,7 +47,7 @@ stygis/
             ├── persistence             # contains functions to open database mysql connections
 ├── migrations                          # Contains sql files to migrate database
 ├── tests                               # End-To-End test  
-├── mocks                               # Fake Service to test controllers handler functions
+├── mocks                               # Fake Service to test controllers paypal functions
 ```
 
 ## Implementation Notes

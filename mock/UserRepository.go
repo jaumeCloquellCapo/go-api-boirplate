@@ -10,18 +10,18 @@ import (
 	"reflect"
 )
 
-// MockUserPGRepository is a mock of UserPGRepository interface
+// MockBillingPGRepository is a mock of UserPGRepository interface
 type MockUserPGRepository struct {
 	ctrl     *gomock.Controller
 	recorder *MockUserPGRepositoryMockRecorder
 }
 
-// MockUserPGRepositoryMockRecorder is the mock recorder for MockUserPGRepository
+// MockBillingPGRepositoryMockRecorder is the mock recorder for MockBillingPGRepository
 type MockUserPGRepositoryMockRecorder struct {
 	mock *MockUserPGRepository
 }
 
-// NewMockUserPGRepository creates a new mock instance
+// NewMockBillingPGRepository creates a new mock instance
 func NewMockUserPGRepository(ctrl *gomock.Controller) *MockUserPGRepository {
 	mock := &MockUserPGRepository{ctrl: ctrl}
 	mock.recorder = &MockUserPGRepositoryMockRecorder{mock}
@@ -49,9 +49,9 @@ func (mr *MockUserPGRepositoryMockRecorder) Create(user interface{}) *gomock.Cal
 }
 
 // FindById mocks base method
-func (m *MockUserPGRepository) FindById(id int) (user *model.User, err error) {
+func (m *MockUserPGRepository) FindByID(id int) (user *model.User, err error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindById", id)
+	ret := m.ctrl.Call(m, "FindByID", id)
 	ret0, _ := ret[0].(*model.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
@@ -60,29 +60,29 @@ func (m *MockUserPGRepository) FindById(id int) (user *model.User, err error) {
 // FindById indicates an expected call of FindById
 func (mr *MockUserPGRepositoryMockRecorder) FindById(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockUserPGRepository)(nil).FindById), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockUserPGRepository)(nil).FindByID), id)
 }
 
-func (m *MockUserPGRepository) RemoveById(id int) error {
+func (m *MockUserPGRepository) RemoveByID(id int) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RemoveById", id)
+	ret := m.ctrl.Call(m, "RemoveByID", id)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 func (mr *MockUserPGRepositoryMockRecorder) RemoveById(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindAll", reflect.TypeOf((*MockUserPGRepository)(nil).RemoveById), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindAll", reflect.TypeOf((*MockUserPGRepository)(nil).RemoveByID), id)
 }
 
-func (m *MockUserPGRepository) UpdateById(id int, user model.UpdateUser) error {
+func (m *MockUserPGRepository) UpdateByID(id int, user model.UpdateUser) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateById", id)
+	ret := m.ctrl.Call(m, "UpdateByID", id)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 func (mr *MockUserPGRepositoryMockRecorder) UpdateById(id interface{}, user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateById", reflect.TypeOf((*MockUserPGRepository)(nil).UpdateById), id, user)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateByID", reflect.TypeOf((*MockUserPGRepository)(nil).UpdateByID), id, user)
 }

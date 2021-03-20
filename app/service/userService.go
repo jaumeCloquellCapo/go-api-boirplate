@@ -7,13 +7,13 @@ import (
 
 //UserServiceInterface define the user service interface methods
 type UserServiceInterface interface {
-	FindById(id int) (user *model.User, err error)
-	RemoveById(id int) error
-	UpdateById(id int, user model.UpdateUser) error
+	FindByID(id int) (user *model.User, err error)
+	RemoveByID(id int) error
+	UpdateByID(id int, user model.UpdateUser) error
 	Store(user model.CreateUser) (*model.User, error)
 }
 
-// userService handles communication with the user repository
+// billingService handles communication with the user repository
 type userService struct {
 	userRepo repository.UserRepositoryInterface
 }
@@ -25,22 +25,22 @@ func NewUserService(userRepo repository.UserRepositoryInterface) *userService {
 	}
 }
 
-// FindById implements the method to find a user model by primary key
-func (s *userService) FindById(id int) (user *model.User, err error) {
-	return s.userRepo.FindById(id)
+// FindByID implements the method to find a user model by primary key
+func (s *userService) FindByID(id int) (user *model.User, err error) {
+	return s.userRepo.FindByID(id)
 }
 
-// FindById implements the method to remove a user model by primary key
-func (s *userService) RemoveById(id int) error {
-	return s.userRepo.RemoveById(id)
+// FindByID implements the method to remove a user model by primary key
+func (s *userService) RemoveByID(id int) error {
+	return s.userRepo.RemoveByID(id)
 }
 
-// FindById implements the method to update a user model by primary key
-func (s *userService) UpdateById(id int, user model.UpdateUser) error {
-	return s.userRepo.UpdateById(id, user)
+// FindByID implements the method to update a user model by primary key
+func (s *userService) UpdateByID(id int, user model.UpdateUser) error {
+	return s.userRepo.UpdateByID(id, user)
 }
 
-// FindById implements the method to store a new a user model
+// FindByID implements the method to store a new a user model
 func (s *userService) Store(user model.CreateUser) (*model.User, error) {
 	return s.userRepo.Create(user)
 }

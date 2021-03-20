@@ -21,7 +21,7 @@ type DbStore struct {
 	*sqlx.DB
 }
 
-// Opening a storage and save the reference to `Database` struct.
+// InitializeDB Opening a storage and save the reference to `Database` struct.
 func InitializeDB() *DbStore {
 	dataSourceName := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable TimeZone=Europe/Paris password=%s",
 		os.Getenv("DB_HOST"),

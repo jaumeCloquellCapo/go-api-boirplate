@@ -34,9 +34,9 @@ func (m *MockServiceUseCase) EXPECT() *MockUserUseCaseMockRecorder {
 }
 
 // Register mocks base method
-func (m *MockServiceUseCase) FindById(id int) (user *model.User, err error) {
+func (m *MockServiceUseCase) FindByID(id int) (user *model.User, err error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindById", id)
+	ret := m.ctrl.Call(m, "FindByID", id)
 	ret0, _ := ret[0].(*model.User)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
@@ -45,13 +45,13 @@ func (m *MockServiceUseCase) FindById(id int) (user *model.User, err error) {
 // Register indicates an expected call of Register
 func (mr *MockUserUseCaseMockRecorder) FindById(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockServiceUseCase)(nil).FindById), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByID", reflect.TypeOf((*MockServiceUseCase)(nil).FindByID), id)
 }
 
 // Register mocks base method
-func (m *MockServiceUseCase) RemoveById(id int) error {
+func (m *MockServiceUseCase) RemoveByID(id int) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RemoveById", id)
+	ret := m.ctrl.Call(m, "RemoveByID", id)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
@@ -59,13 +59,13 @@ func (m *MockServiceUseCase) RemoveById(id int) error {
 // Register indicates an expected call of Register
 func (mr *MockUserUseCaseMockRecorder) RemoveById(id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveById", reflect.TypeOf((*MockServiceUseCase)(nil).RemoveById), id)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveByID", reflect.TypeOf((*MockServiceUseCase)(nil).RemoveByID), id)
 }
 
 // Register mocks base method
-func (m *MockServiceUseCase) UpdateById(id int, user model.UpdateUser) error {
+func (m *MockServiceUseCase) UpdateByID(id int, user model.UpdateUser) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateById", id, user)
+	ret := m.ctrl.Call(m, "UpdateByID", id, user)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
@@ -73,7 +73,7 @@ func (m *MockServiceUseCase) UpdateById(id int, user model.UpdateUser) error {
 // Register indicates an expected call of Register
 func (mr *MockUserUseCaseMockRecorder) UpdateById(id, user interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateById", reflect.TypeOf((*MockServiceUseCase)(nil).UpdateById), id, user)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateByID", reflect.TypeOf((*MockServiceUseCase)(nil).UpdateByID), id, user)
 }
 
 // Register mocks base method

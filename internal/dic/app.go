@@ -8,22 +8,22 @@ import (
 	"github.com/sarulabs/dingo/generation/di"
 	"log"
 )
-
+// DbService constant
 const DbService = "db"
+// CacheService constant
 const CacheService = "cache"
-
-const AuthMiddleware = "middleware.auth"
+// CorsMiddleware constant
 const CorsMiddleware = "middleware.cors"
-
+//UserRepository constant
 const UserRepository = "repository.user"
+//UserService constant
 const UserService = "service.user"
-const UserController = "controller.user"
+//BillingRepository constant
+const BillingRepository = "repository.paypal"
+//BillingService constant
+const BillingService = "service.paypal"
 
-const AuthRepository = "repository.auth"
-const AuthService = "service.auth"
-const AuthController = "controller.auth"
-
-// dependency injection container
+// InitContainer dependency injection container
 func InitContainer() di.Container {
 	builder, err := di.NewBuilder()
 	if err != nil {
@@ -33,6 +33,7 @@ func InitContainer() di.Container {
 	return builder.Build()
 }
 
+// RegisterServices Initialize all the dependency
 func RegisterServices(builder *di.Builder) {
 	builder.Add(di.Def{
 		Name: DbService,
@@ -76,10 +77,24 @@ func RegisterServices(builder *di.Builder) {
 		},
 	})
 
+	builder.Add(di.Def{
+		Name: BillingRepository,
+		Build: func(ctn di.Container) (interface{}, error) {
+			return repository.NewBillingRepository(ctn.Get(DbService).(*storage.DbStore)), nil
+		},
+	})
+
+	builder.Add(di.Def{
+		Name: BillingService,
+		Build: func(ctn di.Container) (interface{}, error) {
+			return service.NewBillingService(ctn.Get(BillingRepository).(repository.BillingRepositoryInterface)), nil
+		},
+	})
+
 	/*builder.Add(di.Def{
 		Name: UserController,
 		Build: func(ctn di.Container) (interface{}, error) {
-			return controller.NewUserController(ctn.Get(UserService).(service.UserServiceInterface)), nil
+			return controller.NewUserController(ctn.Get(UserService).(service.BillingServiceInterface)), nil
 		},
 	}) */
 

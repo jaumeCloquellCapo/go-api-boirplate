@@ -29,10 +29,8 @@ func TestMicroservice_Find(t *testing.T) {
 
 	reqValue := &model.CreateUser{
 		Name:       "FirstName",
-		LastName:   "LastName",
-		Email:      "email@gmail.com",
+		Cif:        "email@gmail.com",
 		Country:    "es",
-		Phone:      "es",
 		PostalCode: "es",
 	}
 
@@ -40,10 +38,8 @@ func TestMicroservice_Find(t *testing.T) {
 		userRes := &model.User{
 			ID:         1,
 			Name:       reqValue.Name,
-			LastName:   reqValue.LastName,
-			Email:      reqValue.Email,
+			Cif:        reqValue.Cif,
 			Country:    reqValue.Country,
-			Phone:      reqValue.Phone,
 			PostalCode: reqValue.PostalCode,
 		}
 

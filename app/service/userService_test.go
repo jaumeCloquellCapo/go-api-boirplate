@@ -48,10 +48,8 @@ func TestUserService_Store(t *testing.T) {
 
 	reqValue := model.CreateUser{
 		Name:       "a",
-		LastName:   "a",
-		Email:      "a@a.com",
+		Cif:        "a@a.com",
 		Country:    "a",
-		Phone:      "a",
 		PostalCode: "a",
 	}
 
@@ -60,10 +58,8 @@ func TestUserService_Store(t *testing.T) {
 
 		user := model.CreateUser{
 			Name:       reqValue.Name,
-			LastName:   reqValue.LastName,
-			Email:      reqValue.Email,
+			Cif:        reqValue.Cif,
 			Country:    reqValue.Country,
-			Phone:      reqValue.Phone,
 			PostalCode: reqValue.PostalCode,
 		}
 
@@ -71,10 +67,8 @@ func TestUserService_Store(t *testing.T) {
 		userRes := &model.User{
 			ID:         userID,
 			Name:       user.Name,
-			LastName:   user.LastName,
-			Email:      user.Email,
+			Cif:        user.Cif,
 			Country:    user.Country,
-			Phone:      user.Phone,
 			PostalCode: user.PostalCode,
 		}
 		var err error

@@ -52,14 +52,24 @@ func Setup(container di.Container, logger logger.Logger) *gin.Engine {
 
 	//uc := container.Get(dic.UserController).(controller.UserControllerInterface)
 	uc := controller.NewUserController(container.Get(dic.UserService).(service.UserServiceInterface), logger)
+
+	billc := controller.NewBillingController(container.Get(dic.BillingService).(service.BillingServiceInterface), container.Get(dic.UserService).(service.UserServiceInterface), logger)
+
 	v1 := r.Group("/api")
 	{
 		users := v1.Group("/users")
 		{
 			users.POST("", uc.Store)
-			users.GET("/:id", uc.Find)
-			users.DELETE("/:id", uc.Destroy)
-			users.PUT("/:id", uc.Update)
+			user := users.Group(":id")
+			{
+				user.GET("", uc.Find)
+				user.DELETE("", uc.Destroy)
+				user.PUT("", uc.Update)
+				userBilling := user.Group("/billing")
+				{
+					userBilling.POST("", billc.AddCustomer)
+				}
+			}
 
 		}
 	}

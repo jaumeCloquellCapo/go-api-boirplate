@@ -48,31 +48,27 @@ func TestUserRepository_FindByID(t *testing.T) {
 
 	userPGRepository := NewUserRepository(&storage.DbStore{DB: sqlxDB})
 
-	columns := []string{"id", "email", "name", "postal_code", "phone", "last_name", "country"}
+	columns := []string{"id", "email", "cif", "postal_code", "country"}
 	userID := int(1)
 	mockUser := &model.User{
 		ID:         userID,
 		Name:       "FirstName",
-		LastName:   "LastName",
-		Email:      "email@gmail.com",
+		Cif:        "email@gmail.com",
 		Country:    "es",
-		Phone:      "es",
 		PostalCode: "es",
 	}
 
 	rows := sqlmock.NewRows(columns).AddRow(
 		userID,
-		mockUser.Email,
+		mockUser.Cif,
 		mockUser.Name,
 		mockUser.PostalCode,
-		mockUser.Phone,
-		mockUser.LastName,
 		mockUser.Country,
 	)
 
-	mock.ExpectQuery("SELECT id, email, name, postal_code, phone, last_name, country FROM users WHERE id = $1").WithArgs(userID).WillReturnRows(rows)
+	mock.ExpectQuery("SELECT id, cif, name, postal_code, country FROM users WHERE id = $1").WithArgs(userID).WillReturnRows(rows)
 
-	foundUser, err := userPGRepository.FindById(mockUser.ID)
+	foundUser, err := userPGRepository.FindByID(mockUser.ID)
 
 	require.NoError(t, err)
 	require.NotNil(t, foundUser)
@@ -89,31 +85,27 @@ func TestUserRepository_FindByID_IncorrectID(t *testing.T) {
 
 	userPGRepository := NewUserRepository(&storage.DbStore{DB: sqlxDB})
 
-	columns := []string{"id", "email", "name", "postal_code", "phone", "last_name", "country"}
+	columns := []string{"id", "cif", "name", "postal_code", "country"}
 	userID := int(1)
 	mockUser := &model.User{
 		ID:         userID,
 		Name:       "FirstName",
-		LastName:   "LastName",
-		Email:      "email@gmail.com",
+		Cif:        "email@gmail.com",
 		Country:    "es",
-		Phone:      "es",
 		PostalCode: "es",
 	}
 
 	rows := sqlmock.NewRows(columns).AddRow(
 		userID,
-		mockUser.Email,
+		mockUser.Cif,
 		mockUser.Name,
 		mockUser.PostalCode,
-		mockUser.Phone,
-		mockUser.LastName,
 		mockUser.Country,
 	)
 
-	mock.ExpectQuery("SELECT id, email, name, postal_code, phone, last_name, country FROM users WHERE id = $1").WithArgs(2).WillReturnRows(rows)
+	mock.ExpectQuery("SELECT id, cif, name, postal_code, country FROM users WHERE id = $1").WithArgs(2).WillReturnRows(rows)
 
-	foundUser, err := userPGRepository.FindById(mockUser.ID)
+	foundUser, err := userPGRepository.FindByID(mockUser.ID)
 
 	require.Error(t, err)
 	require.Nil(t, foundUser)
@@ -132,15 +124,13 @@ func TestUserRepository_Create(t *testing.T) {
 	userID := int(1)
 	mockUser := model.CreateUser{
 		Name:       "FirstName",
-		LastName:   "LastName",
-		Email:      "email@gmail.com",
+		Cif:        "LastName",
 		Country:    "es",
-		Phone:      "es",
 		PostalCode: "es",
 	}
 
-	ep := mock.ExpectPrepare("INSERT INTO users (name, email, last_name, phone, postal_code, country) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id").WillBeClosed()
-	ep.ExpectQuery().WithArgs(mockUser.Name, mockUser.Email, mockUser.LastName, mockUser.Phone, mockUser.PostalCode, mockUser.Country).WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(userID))
+	ep := mock.ExpectPrepare("INSERT INTO users (name, cif, last_name, postal_code, country) VALUES ($1, $2, $3, $4, $5) RETURNING id").WillBeClosed()
+	ep.ExpectQuery().WithArgs(mockUser.Name, mockUser.Cif, mockUser.PostalCode, mockUser.Country).WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(userID))
 
 	foundUser, err := userPGRepository.Create(mockUser)
 	require.NoError(t, err)

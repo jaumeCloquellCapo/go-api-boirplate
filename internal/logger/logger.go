@@ -29,7 +29,7 @@ type apiLogger struct {
 	sugarLogger *zap.SugaredLogger
 }
 
-// App Logger constructor
+// NewAPILogger Logger constructor
 func NewAPILogger() *apiLogger {
 	return &apiLogger{}
 }
