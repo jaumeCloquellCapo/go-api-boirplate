@@ -124,7 +124,7 @@ func (uc *userController) Store(c *gin.Context) {
 		return
 	}
 
-	_, err = uc.service.Store(rq)
+	user, err := uc.service.Store(rq)
 
 	if err != nil {
 		uc.logger.Error(err.Error())
@@ -132,5 +132,5 @@ func (uc *userController) Store(c *gin.Context) {
 		return
 	}
 
-	c.Status(http.StatusOK)
+	c.JSON(http.StatusOK, *user)
 }

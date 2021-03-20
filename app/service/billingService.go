@@ -18,14 +18,14 @@ type billingService struct {
 	paymentRepo repository.BillingRepositoryInterface
 }
 
-// NewBillingService implements the billing service interface.
+// NewUserService implements the user service interface.
 func NewBillingService(paymentRepo repository.BillingRepositoryInterface) *billingService {
 	return &billingService{
 		paymentRepo,
 	}
 }
 
-// AddBilling implements the method to store a new a billing model
+// FindByID implements the method to store a new a user model
 func (s *billingService) AddBilling(user model.User, payment billing.Payment) error {
 
 	key, err := payment.PaymentMethod.CreateCustomer(payment.CustomerParams)
@@ -37,7 +37,7 @@ func (s *billingService) AddBilling(user model.User, payment billing.Payment) er
 }
 
 
-// GetPaymentAdapter implements the method to get teh adapter by a payment identify
+// FindByID implements the method to store a new a user model
 func (s *billingService) GetPaymentAdapter(customer billing.CreateCustomer) (*billing.Payment, error) {
 	p, err := billing.GetPaymentAdapter(customer.Identify)
 

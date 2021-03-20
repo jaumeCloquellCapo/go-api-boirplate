@@ -73,8 +73,8 @@ func (r *userRepository) UpdateByID(id int, user model.UpdateUser) error {
 
 // Create implements the method to persist a new user
 func (r *userRepository) Create(UserSignUp model.CreateUser) (user *model.User, err error) {
-	createUserQuery := `INSERT INTO users (name, cif, last_name, postal_code, country) 
-		VALUES ($1, $2, $3, $4, $5)
+	createUserQuery := `INSERT INTO users (name, cif, postal_code, country) 
+		VALUES ($1, $2, $3, $4)
 		RETURNING id`
 
 	stmt, err := r.db.Prepare(createUserQuery)

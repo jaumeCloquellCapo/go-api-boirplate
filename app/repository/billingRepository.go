@@ -24,7 +24,7 @@ func NewBillingRepository(db *storage.DbStore) BillingRepositoryInterface {
 
 // CreateBillingService Create implements the method to persist a Payment user
 func (r *billingRepository) CreateBillingService(identify billing.Identify, PaymentUserKey string, userID int) error {
-	createUserQuery := `INSERT INTO paypal (identify, key, user_id) 
+	createUserQuery := `INSERT INTO billing (identify, key, user_id) 
 		VALUES ($1, $2, $3)
 		RETURNING id`
 

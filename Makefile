@@ -12,7 +12,7 @@ migrate_pro :
 	@goose -dir ./migrations mysql "db:db@tcp(db)/db?parseTime=true" up
 
 migrate_dev:
-	@goose -dir ./migrations mysql "db:db@tcp(localhost)/db?parseTime=true" up
+	@goose -dir ./migrations postgres "postgresql://db:db@localhost?sslmode=disable" up
 
 dev_up:
 	@docker-compose -f docker-compose.dev.yml up
