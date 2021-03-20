@@ -45,12 +45,8 @@ func (uc *userController) Find(c *gin.Context) {
 
 	user, err := uc.service.FindById(id)
 	if err != nil {
-		if _, ok := err.(*errorNotFound.NotFound); ok {
-			c.Status(http.StatusNotFound)
-			return
-		}
 		uc.logger.Error(err.Error())
-		c.Status(http.StatusInternalServerError)
+		c.Status(errorNotFound.ParseError(err))
 		return
 	}
 	c.JSON(http.StatusOK, user)
@@ -69,12 +65,8 @@ func (uc *userController) Destroy(c *gin.Context) {
 	err = uc.service.RemoveById(id)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.NotFound); ok {
-			c.Status(http.StatusNotFound)
-			return
-		}
 		uc.logger.Error(err.Error())
-		c.Status(http.StatusInternalServerError)
+		c.Status(errorNotFound.ParseError(err))
 		return
 	}
 
@@ -107,12 +99,8 @@ func (uc *userController) Update(c *gin.Context) {
 	err = uc.service.UpdateById(id, user)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.NotFound); ok {
-			c.Status(http.StatusNotFound)
-			return
-		}
 		uc.logger.Error(err.Error())
-		c.Status(http.StatusInternalServerError)
+		c.Status(errorNotFound.ParseError(err))
 		return
 	}
 
@@ -139,12 +127,8 @@ func (uc *userController) Store(c *gin.Context) {
 	_, err = uc.service.Store(rq)
 
 	if err != nil {
-		if _, ok := err.(*errorNotFound.NotFound); ok {
-			c.Status(http.StatusNotFound)
-			return
-		}
 		uc.logger.Error(err.Error())
-		c.Status(http.StatusInternalServerError)
+		c.Status(errorNotFound.ParseError(err))
 		return
 	}
 

@@ -56,6 +56,7 @@ func Setup(container di.Container, logger logger.Logger) *gin.Engine {
 	{
 		users := v1.Group("/users")
 		{
+			users.POST("", uc.Store)
 			users.GET("/:id", uc.Find)
 			users.DELETE("/:id", uc.Destroy)
 			users.PUT("/:id", uc.Update)

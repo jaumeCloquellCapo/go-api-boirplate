@@ -1,7 +1,7 @@
 package controller
 
 import (
-	errorNotFound "ApiRest/app/error"
+	error2 "ApiRest/app/error"
 	"ApiRest/app/model"
 	"ApiRest/app/service"
 	"ApiRest/internal/logger"
@@ -14,7 +14,6 @@ import (
 	"reflect"
 	"testing"
 )
-
 
 func TestMicroservice_Find(t *testing.T) {
 	gin.SetMode(gin.TestMode)
@@ -63,8 +62,7 @@ func TestMicroservice_Find(t *testing.T) {
 	})
 
 	t.Run("Incorrect", func(t *testing.T) {
-		var err errorNotFound.NotFound
-		userUC.EXPECT().FindById(2).Return(nil, &err)
+		userUC.EXPECT().FindById(2).Return(nil, error2.ErrNotFound)
 
 		router := gin.Default()
 		router.GET("/api/users/:id", userController.Find)

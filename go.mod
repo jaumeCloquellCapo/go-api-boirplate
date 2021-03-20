@@ -16,7 +16,7 @@ require (
 	github.com/jmoiron/sqlx v1.3.1
 	github.com/joho/godotenv v1.3.0
 	github.com/mattn/go-sqlite3 v1.14.6 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pkg/errors v0.9.1
 	github.com/sarulabs/dingo v2.0.0+incompatible
 	github.com/stretchr/testify v1.7.0
 	github.com/ziutek/mymysql v1.5.4 // indirect

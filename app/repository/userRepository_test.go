@@ -119,7 +119,6 @@ func TestUserRepository_FindByID_IncorrectID(t *testing.T) {
 	require.Nil(t, foundUser)
 }
 
-
 func TestUserRepository_Create(t *testing.T) {
 	db, mock, err := sqlmock.New(sqlmock.QueryMatcherOption(sqlmock.QueryMatcherEqual))
 	require.NoError(t, err)
@@ -144,7 +143,6 @@ func TestUserRepository_Create(t *testing.T) {
 	ep.ExpectQuery().WithArgs(mockUser.Name, mockUser.Email, mockUser.LastName, mockUser.Phone, mockUser.PostalCode, mockUser.Country).WillReturnRows(sqlmock.NewRows([]string{"id"}).AddRow(userID))
 
 	foundUser, err := userPGRepository.Create(mockUser)
-
 	require.NoError(t, err)
 	require.NotNil(t, foundUser)
 	require.Equal(t, foundUser.ID, userID)
