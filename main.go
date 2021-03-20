@@ -10,6 +10,7 @@ import (
 )
 
 var config string
+
 func main() {
 
 	flag.StringVar(&config, "env", "dev.env", "help message for flagname")

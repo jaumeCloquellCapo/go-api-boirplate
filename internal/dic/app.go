@@ -10,9 +10,6 @@ import (
 	"log"
 )
 
-//var Builder *di.Builder
-//var Container di.Container
-
 const DbService = "db"
 const CacheService = "cache"
 
