@@ -3,56 +3,44 @@ package service
 import (
 	"ApiRest/app/model"
 	"ApiRest/app/repository"
-	"ApiRest/internal/helpers"
 )
 
-//UserServiceInterface ...
+//UserServiceInterface define the user service interface methods
 type UserServiceInterface interface {
 	FindById(id int) (user *model.User, err error)
 	RemoveById(id int) error
 	UpdateById(id int, user model.UpdateUser) error
-	FindAll() ([]model.User, error)
-	FindByEmail(email string) (user *model.User, err error)
+	Store(user model.CreateUser) (*model.User, error)
 }
 
+// userService handles communication with the user repository
 type userService struct {
 	userRepo repository.UserRepositoryInterface
 }
 
-// NewUserService ...
+// NewUserService implements the user service interface.
 func NewUserService(userRepo repository.UserRepositoryInterface) *userService {
 	return &userService{
 		userRepo,
 	}
 }
 
-//FindById ...
+// FindById implements the method to find a user model by primary key
 func (s *userService) FindById(id int) (user *model.User, err error) {
 	return s.userRepo.FindById(id)
 }
 
-//RemoveById ...
+// FindById implements the method to remove a user model by primary key
 func (s *userService) RemoveById(id int) error {
 	return s.userRepo.RemoveById(id)
 }
 
-//UpdateById ...
+// FindById implements the method to update a user model by primary key
 func (s *userService) UpdateById(id int, user model.UpdateUser) error {
-	bytePassword := []byte(user.Password)
-	var err error
-	user.Password, err = helpers.HashAndSalt(bytePassword)
-	if err != nil {
-		return err
-	}
 	return s.userRepo.UpdateById(id, user)
 }
 
-//FindAll ...
-func (s *userService) FindAll() ([]model.User, error) {
-	return s.userRepo.FindAll()
-}
-
-//FindByEmail ...
-func (s *userService) FindByEmail(email string) (user *model.User, err error) {
-	return s.userRepo.FindByEmail(email)
+// FindById implements the method to store a new a user model
+func (s *userService) Store(user model.CreateUser) (*model.User, error) {
+	return s.userRepo.Create(user)
 }

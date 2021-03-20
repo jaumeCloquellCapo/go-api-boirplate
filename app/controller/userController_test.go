@@ -1,13 +1,13 @@
 package controller
 
 import (
+	errorNotFound "ApiRest/app/error"
 	"ApiRest/app/model"
 	"ApiRest/app/service"
+	"ApiRest/internal/logger"
 	"ApiRest/mock"
-	"bytes"
-	"encoding/json"
-	"github.com/brianvoe/gofakeit/v6"
 	"github.com/gin-gonic/gin"
+	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"net/http/httptest"
@@ -15,90 +15,86 @@ import (
 	"testing"
 )
 
-func TestUserController_UpdateUserById(t *testing.T) {
-	us := &mock.MockUserService{}
 
-	ctl := NewUserController(us)
-	router := gin.Default()
-	router.POST("/:id", ctl.UpdateUserById)
-	ts := httptest.NewServer(router)
-	defer ts.Close()
+func TestMicroservice_Find(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
 
-	credentials := model.UpdateUser{
-		Name:       gofakeit.Name(),
-		LastName:   gofakeit.LastName(),
-		Email:      gofakeit.Email(),
-		Country:    gofakeit.Country(),
-		Phone:    	gofakeit.Phone(),
-		PostalCode: "07440",
-		Password:   gofakeit.HackerPhrase(),
+	userUC := mock.NewMockUserServiceCase(ctrl)
+
+	apiLogger := logger.NewAPILogger()
+	apiLogger.InitLogger()
+
+	userController := NewUserController(userUC, apiLogger)
+
+	reqValue := &model.CreateUser{
+		Name:       "FirstName",
+		LastName:   "LastName",
+		Email:      "email@gmail.com",
+		Country:    "es",
+		Phone:      "es",
+		PostalCode: "es",
 	}
 
-	body, _ := json.Marshal(credentials)
+	t.Run("Correct", func(t *testing.T) {
+		userRes := &model.User{
+			ID:         1,
+			Name:       reqValue.Name,
+			LastName:   reqValue.LastName,
+			Email:      reqValue.Email,
+			Country:    reqValue.Country,
+			Phone:      reqValue.Phone,
+			PostalCode: reqValue.PostalCode,
+		}
 
-	w := httptest.NewRecorder()
-	req := httptest.NewRequest("POST", "/1", bytes.NewBuffer(body))
+		userUC.EXPECT().FindById(1).Return(userRes, nil)
 
-	router.ServeHTTP(w, req)
-	assert.Equal(t, http.StatusOK, w.Code)
+		router := gin.Default()
+		router.GET("/api/users/:id", userController.Find)
+		ts := httptest.NewServer(router)
+		defer ts.Close()
+		w := httptest.NewRecorder()
+		req := httptest.NewRequest("GET", "/api/users/1", nil)
+
+		router.ServeHTTP(w, req)
+
+		assert.Equal(t, http.StatusOK, w.Code)
+	})
+
+	t.Run("Incorrect", func(t *testing.T) {
+		var err errorNotFound.NotFound
+		userUC.EXPECT().FindById(2).Return(nil, &err)
+
+		router := gin.Default()
+		router.GET("/api/users/:id", userController.Find)
+		ts := httptest.NewServer(router)
+		defer ts.Close()
+		w := httptest.NewRecorder()
+		req := httptest.NewRequest("GET", "/api/users/2", nil)
+
+		router.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusNotFound, w.Code)
+	})
+
+	t.Run("Incorrect_2", func(t *testing.T) {
+
+		router := gin.Default()
+		router.GET("/api/users/:id", userController.Find)
+		ts := httptest.NewServer(router)
+		defer ts.Close()
+		w := httptest.NewRecorder()
+		req := httptest.NewRequest("GET", "/api/users/pa", nil)
+
+		router.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusBadRequest, w.Code)
+	})
 }
-
-func TestUserController_UpdateUserById1(t *testing.T) {
-	us := &mock.MockUserService{}
-
-	ctl := NewUserController(us)
-	router := gin.Default()
-	router.POST("/:id", ctl.UpdateUserById)
-	ts := httptest.NewServer(router)
-	defer ts.Close()
-
-	credentials := model.UpdateUser{
-		Name:       gofakeit.Name(),
-		LastName:   gofakeit.LastName(),
-		Email:      gofakeit.Email(),
-	}
-
-	body, _ := json.Marshal(credentials)
-
-	w := httptest.NewRecorder()
-	req := httptest.NewRequest("POST", "/1", bytes.NewBuffer(body))
-
-	router.ServeHTTP(w, req)
-	assert.Equal(t, http.StatusBadRequest, w.Code)
-}
-
-func TestUserController_UpdateUserById2(t *testing.T) {
-	us := &mock.MockUserService{}
-
-	ctl := NewUserController(us)
-	router := gin.Default()
-	router.POST("/:id", ctl.UpdateUserById)
-	ts := httptest.NewServer(router)
-	defer ts.Close()
-
-	credentials := model.UpdateUser{
-		Name:       gofakeit.Name(),
-		LastName:   gofakeit.LastName(),
-		Email:      "a",
-		Country:    gofakeit.Country(),
-		Phone:    	gofakeit.Phone(),
-		PostalCode: "07440",
-		Password:   gofakeit.HackerPhrase(),
-	}
-
-	body, _ := json.Marshal(credentials)
-
-	w := httptest.NewRecorder()
-	req := httptest.NewRequest("POST", "/1", bytes.NewBuffer(body))
-
-	router.ServeHTTP(w, req)
-	assert.Equal(t, http.StatusBadRequest, w.Code)
-}
-
 
 func TestNewUserController(t *testing.T) {
 	type args struct {
 		service service.UserServiceInterface
+		logger  logger.Logger
 	}
 	tests := []struct {
 		name string
@@ -109,15 +105,17 @@ func TestNewUserController(t *testing.T) {
 			name: "success",
 			args: args{
 				service: nil,
+				logger:  nil,
 			},
 			want: &userController{
 				service: nil,
+				logger:  nil,
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewUserController(tt.args.service); !reflect.DeepEqual(got, tt.want) {
+			if got := NewUserController(tt.args.service, tt.args.logger); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("User controller = %v, want %v", got, tt.want)
 			}
 		})

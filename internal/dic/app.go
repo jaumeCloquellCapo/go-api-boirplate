@@ -1,7 +1,6 @@
 package dic
 
 import (
-	"ApiRest/app/controller"
 	"ApiRest/app/repository"
 	"ApiRest/app/service"
 	"ApiRest/internal/middleware"
@@ -57,13 +56,6 @@ func RegisterServices(builder *di.Builder) {
 	})
 
 	builder.Add(di.Def{
-		Name: AuthMiddleware,
-		Build: func(ctn di.Container) (interface{}, error) {
-			return middleware.NewAuthMiddleware(ctn.Get(AuthService).(service.AuthServiceInterface)), nil
-		},
-	})
-
-	builder.Add(di.Def{
 		Name: CorsMiddleware,
 		Build: func(ctn di.Container) (interface{}, error) {
 			return middleware.NewCorsMiddleware(), nil
@@ -76,12 +68,6 @@ func RegisterServices(builder *di.Builder) {
 			return repository.NewUserRepository(ctn.Get(DbService).(*storage.DbStore)), nil
 		},
 	})
-	builder.Add(di.Def{
-		Name: AuthRepository,
-		Build: func(ctn di.Container) (interface{}, error) {
-			return repository.NewAuthRepository(ctn.Get(CacheService).(*storage.DbCache)), nil
-		},
-	})
 
 	builder.Add(di.Def{
 		Name: UserService,
@@ -90,24 +76,11 @@ func RegisterServices(builder *di.Builder) {
 		},
 	})
 
-	builder.Add(di.Def{
-		Name: AuthService,
-		Build: func(ctn di.Container) (interface{}, error) {
-			return service.NewAuthService(ctn.Get(AuthRepository).(repository.AuthRepositoryInterface), ctn.Get(UserRepository).(repository.UserRepositoryInterface)), nil
-		},
-	})
-
-	builder.Add(di.Def{
+	/*builder.Add(di.Def{
 		Name: UserController,
 		Build: func(ctn di.Container) (interface{}, error) {
 			return controller.NewUserController(ctn.Get(UserService).(service.UserServiceInterface)), nil
 		},
-	})
+	}) */
 
-	builder.Add(di.Def{
-		Name: AuthController,
-		Build: func(ctn di.Container) (interface{}, error) {
-			return controller.NewAuthController(ctn.Get(AuthService).(service.AuthServiceInterface), ctn.Get(UserService).(service.UserServiceInterface)), nil
-		},
-	})
 }

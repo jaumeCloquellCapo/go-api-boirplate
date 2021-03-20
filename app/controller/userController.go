@@ -4,34 +4,37 @@ import (
 	errorNotFound "ApiRest/app/error"
 	"ApiRest/app/model"
 	"ApiRest/app/service"
+	"ApiRest/internal/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"log"
 	"net/http"
 	"strconv"
 )
 
-// UserControllerInterface ...
+//UserControllerInterface define the user controller interface methods
 type UserControllerInterface interface {
-	FindUserById(c *gin.Context)
-	RemoveUserById(c *gin.Context)
-	UpdateUserById(c *gin.Context)
-	FindAllUsers(c *gin.Context)
+	Find(c *gin.Context)
+	Destroy(c *gin.Context)
+	Update(c *gin.Context)
+	Store(c *gin.Context)
 }
 
+// userController handles communication with the user service
 type userController struct {
 	service service.UserServiceInterface
+	logger  logger.Logger
 }
 
-// NewUserController ...
-func NewUserController(service service.UserServiceInterface) UserControllerInterface {
+// NewUserController implements the user controller interface.
+func NewUserController(service service.UserServiceInterface, logger logger.Logger) UserControllerInterface {
 	return &userController{
 		service,
+		logger,
 	}
 }
 
-//FindUserById ...
-func (uc *userController) FindUserById(c *gin.Context) {
+// Find implements the method to handle the service to find a user by the primary key
+func (uc *userController) Find(c *gin.Context) {
 
 	id, err := strconv.Atoi(c.Param("id"))
 
@@ -41,22 +44,20 @@ func (uc *userController) FindUserById(c *gin.Context) {
 	}
 
 	user, err := uc.service.FindById(id)
-
 	if err != nil {
 		if _, ok := err.(*errorNotFound.NotFound); ok {
 			c.Status(http.StatusNotFound)
 			return
 		}
-		log.Print(err.Error())
+		uc.logger.Error(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-
 	c.JSON(http.StatusOK, user)
 }
 
-//RemoveUserById ...
-func (uc *userController) RemoveUserById(c *gin.Context) {
+// Destroy implements the method to validate the params to store a  new user and handle the service
+func (uc *userController) Destroy(c *gin.Context) {
 
 	id, err := strconv.Atoi(c.Param("id"))
 
@@ -72,7 +73,7 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
-		log.Print(err.Error())
+		uc.logger.Error(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
@@ -80,8 +81,8 @@ func (uc *userController) RemoveUserById(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
-//UpdateUserById ...
-func (uc *userController) UpdateUserById(c *gin.Context) {
+// Update implements the method to validate teh params to update a user and handle the service
+func (uc *userController) Update(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
@@ -110,7 +111,7 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 			c.Status(http.StatusNotFound)
 			return
 		}
-		log.Print(err.Error())
+		uc.logger.Error(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
@@ -118,15 +119,34 @@ func (uc *userController) UpdateUserById(c *gin.Context) {
 	c.Status(http.StatusOK)
 }
 
-//FindAllUsers ...
-func (uc *userController) FindAllUsers(c *gin.Context) {
+// Store implements the method to validate the params to store a  new user and handle the service
+func (uc *userController) Store(c *gin.Context) {
 
-	user, err := uc.service.FindAll()
+	var rq model.CreateUser
+
+	if err := c.ShouldBindJSON(&rq); err != nil {
+		c.Writer.WriteHeader(http.StatusUnprocessableEntity)
+		return
+	}
+
+	validate := validator.New()
+	err := validate.Struct(rq)
+	if err != nil {
+		c.Writer.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	_, err = uc.service.Store(rq)
 
 	if err != nil {
-		log.Print(err.Error())
+		if _, ok := err.(*errorNotFound.NotFound); ok {
+			c.Status(http.StatusNotFound)
+			return
+		}
+		uc.logger.Error(err.Error())
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(http.StatusOK, user)
+
+	c.Status(http.StatusOK)
 }

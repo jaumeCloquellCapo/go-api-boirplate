@@ -3,15 +3,14 @@ version: '3.1'
 services:
 
   db:
-    image: mysql
-    restart: always
+    image: postgres:13-alpine
     environment:
-      MYSQL_DATABASE: db
-      MYSQL_ROOT_PASSWORD: db
-      MYSQL_USER: db
-      MYSQL_PASSWORD: db
+      POSTGRES_DB: db
+      POSTGRES_ROOT_PASSWORD: db
+      POSTGRES_USER: db
+      POSTGRES_PASSWORD: db
     ports:
-      - 3306:3306
+      - "5432:5432"
 
   redis:
     image: "redis:alpine"

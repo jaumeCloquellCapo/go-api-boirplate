@@ -2,7 +2,9 @@ package route
 
 import (
 	"ApiRest/app/controller"
+	"ApiRest/app/service"
 	"ApiRest/internal/dic"
+	"ApiRest/internal/logger"
 	"ApiRest/internal/middleware"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -12,19 +14,14 @@ import (
 	"time"
 )
 
-//Setup ...
-func Setup(container di.Container) *gin.Engine {
-
-	// Controllers
-	ac := container.Get(dic.AuthController).(controller.AuthControllerInterface)
-	uc := container.Get(dic.UserController).(controller.UserControllerInterface)
-
-	// Middleware
-	authMiddleware := container.Get(dic.AuthMiddleware).(middleware.AuthMiddlewareInterface)
-	corsMiddleware := container.Get(dic.CorsMiddleware).(middleware.CorsMiddlewareInterface)
+// Setup returns initialized routes.
+func Setup(container di.Container, logger logger.Logger) *gin.Engine {
+	// ac := container.Get(dic.AuthController).(controller.AuthControllerInterface)
 
 	gin.SetMode(os.Getenv("GIN_MODE"))
+
 	r := gin.New()
+
 	r.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
 
 		// your custom format
@@ -40,26 +37,28 @@ func Setup(container di.Container) *gin.Engine {
 			param.ErrorMessage,
 		)
 	}))
-	//r.Use(limit.Limit(200)) // limit the number of current requests
+
 	r.Use(gin.Recovery())
+
+	// Middleware initialization
+	corsMiddleware := container.Get(dic.CorsMiddleware).(middleware.CorsMiddlewareInterface)
 	r.Use(corsMiddleware.Handler())
+
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "ok")
 	})
 
-	// public endpoints
-	r.POST("/login", ac.Login)
-	r.POST("/signup", ac.SignUp)
-	// private endpoints
-	authorized := r.Group("/auth", authMiddleware.Handler())
+	// v1 Routes
+
+	//uc := container.Get(dic.UserController).(controller.UserControllerInterface)
+	uc := controller.NewUserController(container.Get(dic.UserService).(service.UserServiceInterface), logger)
+	v1 := r.Group("/api")
 	{
-		//authorized.POST("/signup", ac.SignUp)
-		authorized.POST("/logout", ac.Logout)
-		users := authorized.Group("/users")
+		users := v1.Group("/users")
 		{
-			users.GET("/:id", uc.FindUserById)
-			users.DELETE("/:id", uc.RemoveUserById)
-			users.PUT("/:id", uc.UpdateUserById)
+			users.GET("/:id", uc.Find)
+			users.DELETE("/:id", uc.Destroy)
+			users.PUT("/:id", uc.Update)
 
 		}
 	}
